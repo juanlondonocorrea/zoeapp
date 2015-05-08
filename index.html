@@ -2,84 +2,60 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Aplic. Web de jQuery Mobile</title>
+<title>ZOE</title>
 <link href="jquery-mobile/jquery.mobile.icons-1.4.5.min.css" rel="stylesheet" type="text/css"/>
 <link href="jquery-mobile/jquery.mobile.theme-1.4.5.min.css" rel="stylesheet" type="text/css"/>
 <link href="jquery-mobile/jquery.mobile.structure-1.4.5.min.css" rel="stylesheet" type="text/css"/>
 <script src="jquery-mobile/jquery-2.1.4.js" type="text/javascript"></script>
 <script src="jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+<script src="jquery-mobile/zoe.js" type="text/javascript"></script>
 </head> 
 <body> 
 
 <div data-role="page" id="page">
-	<div data-role="header">
-		<a href="#menu" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-grid"></a>
-        <h1>ZOE</h1>
-		<a href="#" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear"></a>	</div>
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
 	<div data-role="content">	
 	</div>
-	<div data-role="footer">
-		<h4>Pie de página</h4>
-	</div>
-    <div data-role="panel" data-display="overlay" data-position="left" id="menu">
-	    <ul data-role="listview">
-         	<li><a href="#customer">Customer</a></li>
-            <li><a href="#invoices">Invoices</a></li>
-            <li><a href="#credit">Credit</a></li>
-            <li><a href="#reports">Reports</a></li>
-            <li><a href="db.html">db</a></li>
-       	</ul>
-            
-    </div>
 </div>
 
 
-<div data-role="page" id="customer">
-	<div data-role="header">
-		<h1>Customer</h1>
-	</div>
+<div data-role="page" id="customer" data-title="Customer">
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
 	<div data-role="content">	
-		Contenido		
-	</div>
-	<div data-role="footer">
-		<h4>Pie de página</h4>
+		Esta es customer		
 	</div>
 </div>
 
-<div data-role="page" id="invoices">
-	<div data-role="header">
-		<h1>Invoices</h1>
-	</div>
+<div data-role="page" id="invoices" data-title="Invoices">
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
 	<div data-role="content">	
-		Contenido		
-	</div>
-	<div data-role="footer">
-		<h4>Pie de página</h4>
+		Esta es invoices		
 	</div>
 </div>
 
-<div data-role="page" id="credit">
-	<div data-role="header">
-		<h1>Credit</h1>
-	</div>
+<div data-role="page" id="credit" data-title="Credit">
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
 	<div data-role="content">	
-		Contenido		
-	</div>
-	<div data-role="footer">
-		<h4>Pie de página</h4>
+		Esta es credit		
 	</div>
 </div>
 
-<div data-role="page" id="reports">
-	<div data-role="header">
-		<h1>Reports</h1>
+<div data-role="page" id="reports" data-title="Reports">
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+		Esta es Reports		
 	</div>
-	<div data-role="content">	
-		Contenido		
-	</div>
-	<div data-role="footer">
-		<h4>Pie de página</h4>
-	</div>
+  </div>
+
 
 </body>
 </html>
