@@ -21,7 +21,7 @@
 
             document.addEventListener("deviceready", onDeviceReady, false);
              
-            var db;
+            var db2;
              
             function onDeviceReady() {
 				checkDatabase();
@@ -29,23 +29,35 @@
             }
 			
 			function checkDatabase(){
-                db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
-                db.transaction(createDB, errorCB, successCB);
+                db2 = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+                db2.transaction(createDB, errorCB, successCB);
 			}
          
-            function createDB(tx) {
-				sqlCreate = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )'
-                tx.executeSql(sqlCreate);
-				console.log("sqlCreate: "+sqlCreate);
+			function createDB(tx) {
+				sqlCreate = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
+			tx.executeSql(sqlCreate,[],nullHandler,errorHandler);
+			console.log("sqlCreate: "+sqlCreate);
 			}
+
+// created/openned
+/* db2.transaction(function(tx){
+    tx.executeSql(sqlCreate,[],nullHandler,errorHandler);
+ },errorHandler,successCallBack);
+*/
          
             function errorCB(err) {
                 console.log("Error processing SQL: "+err.code);
             }
-         
+			
+			function errorHandler(transaction, error) {
+            console.log('Error: ' + error.message + ' code: ' + error.code);
+			}
+            
+			function nullHandler(){};
+		 
             function successCB() {
                console.log("YEAH!!!!");
-            }
+			}
          
             function insertSalesRep(tx) {
                 var _id_salesrep = '1'; // $("[name='code']").val();
@@ -81,9 +93,8 @@
             }
  
             function submitForm() {
-                db.transaction(insertDB, errorCB);
+				db2.transaction(insertSalesRep, errorCB);
                 $.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
                 return false;
             }
- 
- 
+			
