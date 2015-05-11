@@ -13,7 +13,7 @@
 				try{
 					localpageinit();
 				}catch(err){
-					alert(err.message);
+					console.log(err.message);
 				}
 			}
 		});
@@ -36,15 +36,15 @@
             function createDB(tx) {
 				sqlCreate = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )'
                 tx.executeSql(sqlCreate);
-				alert("sqlCreate: "+sqlCreate);
+				console.log("sqlCreate: "+sqlCreate);
 			}
          
             function errorCB(err) {
-                alert("Error processing SQL: "+err.code);
+                console.log("Error processing SQL: "+err.code);
             }
          
             function successCB() {
-               alert("YEAH!!!!");
+               console.log("YEAH!!!!");
             }
          
             function insertSalesRep(tx) {
@@ -57,7 +57,7 @@
                 var _description = $("[name='description']").val();
                 var sql = 'INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)';
                 tx.executeSql(sql, [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
- 				alert("sql: "+sql);
+ 				console.log("sql: "+sql);
             }
          
             function sucessQueryDB(tx) {     

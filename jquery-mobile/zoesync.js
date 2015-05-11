@@ -1,8 +1,8 @@
 // JavaScript Document
 
-function consumeWS(mensaje){
-    var divToBeWorkedOn = "#res";
-    var webServiceURL = 'http://localhost:54320/SyncService';
+function consumeWS(mensaje, format){
+	console.log("consumeWS1");
+    var webServiceURL = 'http://192.168.1.101:54320/SyncService';
 
     var parameters = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.quickbooks.harana.com/"> \
    <soapenv:Header/> \
@@ -11,11 +11,13 @@ function consumeWS(mensaje){
          <uploadOperations> \
 <![CDATA[ ' + mensaje +']]> \
          </uploadOperations> \
-         <responseFormat>JSON</responseFormat> \
+         <responseFormat>' + format + '</responseFormat> \
       </ws:synch> \
    </soapenv:Body> \
 </soapenv:Envelope>';
 
+	console.log("consumeWS2 parameters=" + parameters);
+	
     $.ajax({
         type: "Post",
         url: webServiceURL,
@@ -23,10 +25,13 @@ function consumeWS(mensaje){
         contentType: "text/xml; charset=\"utf-8\"",
         dataType: "xml",
         success: function(msg) {    
-            alert("funciono "+msg);
+		console.log("consumeWS4 bien");
+            console.log("funciono "+msg);
         },
         error: function(e){
-            alert("error");              
+            console.log("error " + e.name);              
         }
     });
+		console.log("consumeWS3");
+
 }
