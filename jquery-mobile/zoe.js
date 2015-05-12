@@ -34,9 +34,11 @@
 			}
          
 			function createDB(tx) {
-				sqlCreate = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
+			var	sqlCreate = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
 			tx.executeSql(sqlCreate,[],nullHandler,errorHandler);
 			console.log("sqlCreate: "+sqlCreate);
+			db2.transaction(insertSalesRep, errorCB);
+			$.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
 			}
 
 // created/openned
@@ -61,17 +63,25 @@
             
          
             function insertSalesRep(tx) {
-                var _id_salesrep = '1'; // $("[name='code']").val();
-                var _Name        = 'Peralta';// $("[name='name']").val();
-                var _Password    = '123456';// $("[name='password']").val();
-                var _isActive    = '1'; // $("[name='active']").val();
-                var _SyincTime   = '1111'; // $("[name='syncronize time']").val();
-				
-                var _description = $("[name='description']").val();
-                var sql = 'INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)';
-                tx.executeSql(sql, [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
- 				console.log("sql: "+sql);
+                console.log("INSERT: ");
+				var _id_salesrep = 2; // $("[name='code']").val();
+                var _Name        = 'Lisa';// $("[name='name']").val();
+                var _Password    = 'abcdefg';// $("[name='password']").val();
+                var _isActive    = 0; // $("[name='active']").val();
+                var _SyincTime   = 2222; // $("[name='syncronize time']").val();
+				console.log("_id_salesrep: "+_id_salesrep);
+				console.log("_Name: "+_Name);
+				console.log("_Password: "+_Password);
+				console.log("_isActive: "+_isActive);
+				console.log("_SyincTime: "+_SyincTime);
+
+                tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)', [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
+				//tx.executeSql('insert into People(id, name, age) values (?,?,?)', [1, "Marujita", 105]);
+				//tx.executeSql('SELECT * FROM salesrep', [], renderList, errorCB);
+ 				console.log();
             }
+			
+
          
             function sucessQueryDB(tx) {     
                 tx.executeSql('SELECT * FROM salesrep', [], renderList, errorCB);
@@ -86,9 +96,9 @@
                     htmlstring += '<li>' + results.rows.item(i).title + '</li>';
                      
                 }
-                 
-                $('#resultList').html(htmlstring);
-                $('#resultList').listview('refresh');
+                console.log(htmlstring); 
+               // $('#resultList').html(htmlstring);
+                //$('#resultList').listview('refresh');
                  
                  
             }
