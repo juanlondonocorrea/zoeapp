@@ -75,7 +75,9 @@
 				console.log("_isActive: "+_isActive);
 				console.log("_SyincTime: "+_SyincTime);
 
-                tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)', [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
+                tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (11,aa,a1a1,1,11)', [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
+				
+				//tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)', [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
 				//tx.executeSql('insert into People(id, name, age) values (?,?,?)', [1, "Marujita", 105]);
 				//tx.executeSql('SELECT * FROM salesrep', [], renderList, errorCB);
  				console.log();
