@@ -1,22 +1,28 @@
 	//load header, footer and menu
 		$(document).bind("pageinit", function(event) {
-			alert("hola");
+			logZoe("hola");
 			$('.app-header').load("header.html", function() {
 				$(this).trigger('create');
 			});
+			logZoe("hola2");
 			$('.app-footer').load("footer.html", function() {
 				$(this).trigger('create');
 			});
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
+			logZoe("hola3");
 			if (typeof(localpageinit) == "function"){
+			logZoe("hola4");
 				try{
-					localpageinit();
+				logZoe("hola5");
+				localpageinit();
 				}catch(err){
 					logZoe(err.message);
 				}
 			}
+						logZoe("hola6");
+
 		});
 
 
