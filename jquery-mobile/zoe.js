@@ -24,10 +24,10 @@
 						logZoe("hola6");
 
 		});
+		
+		$(document).on("mobileinit",onDeviceReady);
 
 
-            document.addEventListener("deviceready", onDeviceReady, false);
-             
             var db2;
 			
 			function logZoe(message){
