@@ -1,5 +1,6 @@
 	//load header, footer and menu
 		$(document).bind("pageinit", function(event) {
+			alert("hola");
 			$('.app-header').load("header.html", function() {
 				$(this).trigger('create');
 			});
