@@ -69,7 +69,6 @@
             function successCB() {
                log("YEAH!!!!");
 			}
-            
          
             function insertSalesRep(tx) {
 				var _id_salesrep = 2; // $("[name='code']").val();
@@ -118,7 +117,6 @@
             }
  
             function submitForm() {
-                //db.transaction(insertDB, errorCB);
 				db2.transaction(insertSalesRep, errorCB);
                 $.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
                 return false;
