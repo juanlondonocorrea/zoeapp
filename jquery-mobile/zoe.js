@@ -22,10 +22,11 @@
 				}
 			}
 						logZoe("hola6");
+						checkDatabase();
 
 		});
 		
-		$(document).on("mobileinit",onMobileinit);
+
 
 
             var db2;
@@ -42,7 +43,8 @@
             }
 			
 			function checkDatabase(){
-                db2 = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+				logZoe("checkDatabase");
+				db2 = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
                 db2.transaction(createDB, errorCB, successCB);
 			}
          
