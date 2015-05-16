@@ -26,7 +26,7 @@
 			
 			function log(message){
 				//console.log(message);
-				//alert(message);
+				alert(message);
 			}
              
             function onDeviceReady() {
