@@ -1,42 +1,64 @@
 	//load header, footer and menu
 		$(document).bind("pageinit", function(event) {
+			logZoe("hola");
 			$('.app-header').load("header.html", function() {
 				$(this).trigger('create');
 			});
+			logZoe("hola2");
 			$('.app-footer').load("footer.html", function() {
 				$(this).trigger('create');
 			});
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
+			logZoe("hola3");
 			if (typeof(localpageinit) == "function"){
+			logZoe("hola4");
 				try{
-					localpageinit();
+				logZoe("hola5");
+				localpageinit();
 				}catch(err){
-					console.log(err.message);
+					logZoe(err.message);
 				}
 			}
+						logZoe("hola6");
+						checkDatabase();
+
 		});
+		
 
 
-            document.addEventListener("deviceready", onDeviceReady, false);
-             
+
             var db2;
+			
+			function logZoe(message){
+				//console.logZoe(message);
+				alert(message);
+			}
              
-            function onDeviceReady() {
+            function onMobileinit() {
+				logZoe('INICIO');
 				checkDatabase();
      
             }
 			
 			function checkDatabase(){
-                db2 = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+				logZoe("checkDatabase");
+				db2 = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
                 db2.transaction(createDB, errorCB, successCB);
 			}
          
 			function createDB(tx) {
-				sqlCreate = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
-			tx.executeSql(sqlCreate,[],nullHandler,errorHandler);
-			console.log("sqlCreate: "+sqlCreate);
+			// var	sqlCreate1 = 'DROP TABLE salesrep';
+		//	tx.executeSql(sqlCreate1,[],nullHandler,errorHandler);
+			var	sqlCreate2 = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
+			tx.executeSql(sqlCreate2,[],nullHandler,errorHandler);
+			logZoe("sqlCreate: "+sqlCreate2);
+
+		//	tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
+			logZoe("insert"); 
+			
+			$.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
 			}
 
 // created/openned
@@ -46,33 +68,46 @@
 */
          
             function errorCB(err) {
-                console.log("Error processing SQL: "+err.code);
+
+                logZoe("Error processing SQL: "+err.code + ":" + err.message);
             }
 			
 			function errorHandler(transaction, error) {
-            console.log('Error: ' + error.message + ' code: ' + error.code);
+            logZoe('Error: ' + error.message + ' code: ' + error.code);
 			}
             
 			function nullHandler(){};
 		 
             function successCB() {
-               console.log("YEAH!!!!");
+               logZoe("YEAH!!!!");
 			}
          
             function insertSalesRep(tx) {
-                var _id_salesrep = '1'; // $("[name='code']").val();
-                var _Name        = 'Peralta';// $("[name='name']").val();
-                var _Password    = '123456';// $("[name='password']").val();
-                var _isActive    = '1'; // $("[name='active']").val();
-                var _SyincTime   = '1111'; // $("[name='syncronize time']").val();
+				var _id_salesrep = 2; // $("[name='code']").val();
+                var _Name        = 'Lisa';// $("[name='name']").val();
+                var _Password    = 'abcdefg';// $("[name='password']").val();
+                var _isActive    = 0; // $("[name='active']").val();
+                var _SyincTime   = 2222; // $("[name='syncronize time']").val();
+				logZoe("INSERT: ");
+				logZoe("_id_salesrep: "+_id_salesrep);
+				logZoe("_Name: "+_Name);
+				logZoe("_Password: "+_Password);
+				logZoe("_isActive: "+_isActive);
+				logZoe("_SyincTime: "+_SyincTime);
+				logZoe("_Name: "+_Name); 
+                //SQLInsert
+				//tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (11,aa,a1a1,1,11)', [], sucessQueryDB, errorCB);
 				
-                var _description = $("[name='description']").val();
-                var sql = 'INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)';
-                tx.executeSql(sql, [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
- 				console.log("sql: "+sql);
+				//tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (?,?,?,?,?)', [_id_salesrep,_Name,_Password,_isActive,_SyincTime], sucessQueryDB, errorCB);
+				//tx.executeSql('insert into People(id, name, age) values (?,?,?)', [1, "Marujita", 105]);
+				//tx.executeSql('SELECT * FROM salesrep', [], renderList, errorCB);
+ 				logZoe();
             }
+			
+
          
-            function sucessQueryDB(tx) {     
+            function sucessQueryDB(tx) { 
+				logZoe("Success: ");    
                 tx.executeSql('SELECT * FROM salesrep', [], renderList, errorCB);
             }
          
@@ -85,9 +120,10 @@
                     htmlstring += '<li>' + results.rows.item(i).title + '</li>';
                      
                 }
-                 
-                $('#resultList').html(htmlstring);
-                $('#resultList').listview('refresh');
+
+				logZoe("htmlstring: "+htmlstring); 
+               // $('#resultList').html(htmlstring);
+                //$('#resultList').listview('refresh');
                  
                  
             }
