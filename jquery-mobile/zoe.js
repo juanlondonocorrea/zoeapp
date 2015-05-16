@@ -25,7 +25,7 @@
 
 		});
 		
-		$(document).on("mobileinit",onDeviceReady);
+		$(document).on("mobileinit",onMobileinit);
 
 
             var db2;
@@ -35,7 +35,7 @@
 				alert(message);
 			}
              
-            function onDeviceReady() {
+            function onMobileinit() {
 				logZoe('INICIO');
 				checkDatabase();
      
