@@ -44,7 +44,7 @@
 			log("sqlCreate: "+sqlCreate);
 //			db2.transaction(insertSalesRep, errorCB);
 			tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
-			log("insert");
+			log("insert"); 
 			
 			$.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
 			}
