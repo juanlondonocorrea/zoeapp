@@ -1,8 +1,8 @@
 // JavaScript Document
 
 function consumeWS(mensaje, format){
-	console.log("consumeWS1");
-    var webServiceURL = 'http://192.168.1.101:54320/SyncService';
+	console.log("consumeWS1"); 
+    var webServiceURL = 'http://127.0.0.1:54321/SyncService';
 
     var parameters = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.quickbooks.harana.com/"> \
    <soapenv:Header/> \
@@ -18,11 +18,14 @@ function consumeWS(mensaje, format){
 
 	console.log("consumeWS2 parameters=" + parameters);
 	
+	$.support.cors = true;
+	
     $.ajax({
-        type: "Post",
+        type: "POST",
         url: webServiceURL,
         data: parameters,
-        contentType: "text/xml; charset=\"utf-8\"",
+		complete: recibeSyncResponse,
+        contentType: "text/xml",
         dataType: "xml",
         success: function(msg) {    
 		console.log("consumeWS4 bien");
@@ -34,4 +37,9 @@ function consumeWS(mensaje, format){
     });
 		console.log("consumeWS3");
 
+}
+
+function recibeSyncResponse(xmlHttpRequest, status)
+{
+	console.log(xmlHttpRequest);
 }
