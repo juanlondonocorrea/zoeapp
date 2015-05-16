@@ -8,6 +8,8 @@
     <!-- versionCode is optional and Android only -->
 
     <name>ZOE Application</name>
+	
+	<access origin="https://127.0.0.1*" subdomains="true" />
 
     <description>
         Application ZOE to PILOCH INC 
