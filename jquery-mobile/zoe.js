@@ -1,38 +1,30 @@
 	//load header, footer and menu
 		$(document).bind("pageinit", function(event) {
-			logZoe("hola");
 			$('.app-header').load("header.html", function() {
 				$(this).trigger('create');
 			});
-			logZoe("hola2");
 			$('.app-footer').load("footer.html", function() {
 				$(this).trigger('create');
 			});
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
-			logZoe("hola3");
 			if (typeof(localpageinit) == "function"){
 			logZoe("hola4");
 				try{
-				logZoe("hola5");
 				localpageinit();
 				}catch(err){
 					logZoe(err.message);
 				}
 			}
-						logZoe("hola6");
-						checkDatabase();
-
+			checkDatabase();
 		});
 		
-
-
 
             var db2;
 			
 			function logZoe(message){
-				//console.logZoe(message);
+			//  console.log(message);
 				alert(message);
 			}
              
@@ -55,7 +47,7 @@
 			tx.executeSql(sqlCreate2,[],nullHandler,errorHandler);
 			logZoe("sqlCreate: "+sqlCreate2);
 
-		//	tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
+			tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (5,"aa","a1a1",1,11)',null,renderList);
 			logZoe("insert"); 
 			
 			$.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
