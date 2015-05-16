@@ -46,7 +46,7 @@
 			tx.executeSql(sqlCreate2,[],nullHandler,errorHandler);
 			log("sqlCreate: "+sqlCreate2);
 
-			tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
+		//	tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
 			log("insert"); 
 			
 			$.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
