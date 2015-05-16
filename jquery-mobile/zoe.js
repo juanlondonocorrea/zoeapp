@@ -29,6 +29,7 @@
 			}
              
             function onDeviceReady() {
+				log('INICIO');
 				checkDatabase();
      
             }
@@ -39,13 +40,13 @@
 			}
          
 			function createDB(tx) {
-			var	sqlCreate1 = 'DROP TABLE salesrep';
-			tx.executeSql(sqlCreate1,[],nullHandler,errorHandler);
-		//	var	sqlCreate2 = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
-			//tx.executeSql(sqlCreate2,[],nullHandler,errorHandler);
-			//log("sqlCreate: "+sqlCreate2);
-//			db2.transaction(insertSalesRep, errorCB);
-			//tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
+			// var	sqlCreate1 = 'DROP TABLE salesrep';
+		//	tx.executeSql(sqlCreate1,[],nullHandler,errorHandler);
+			var	sqlCreate2 = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyincTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
+			tx.executeSql(sqlCreate2,[],nullHandler,errorHandler);
+			log("sqlCreate: "+sqlCreate2);
+
+			tx.executeSql('INSERT INTO salesrep (id_salesrep, Name, Password, isActive, SyincTime) VALUES (4,"aa","a1a1",1,11)',null,renderList);
 			log("insert"); 
 			
 			$.mobile.changePage( "#page2", { reverse: false, transition: "slide" } );
