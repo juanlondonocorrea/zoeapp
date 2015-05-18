@@ -32,8 +32,8 @@
             var db2;
 			
 			function logZoe(message){
-				//console.logZoe(message);
-				alert(message);
+				console.log(message);
+				//alert(message);
 			}
              
             function onMobileinit() {
