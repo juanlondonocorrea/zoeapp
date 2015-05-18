@@ -1,45 +1,42 @@
 // JavaScript Document
-
+var synchronizing = false;
 function consumeWS(mensaje, format){
+	if (synchronizing==true){
+		alert("Synchronizing in process");
+		return;
+	}
 	console.log("consumeWS1"); 
+
+	synchronizing = true;
+	navigator.plugins.activityStart("Synchronizing, please wait", "loading");
+	
     var webServiceURL = 'http://127.0.0.1:54321/SyncService';
 
-    var parameters = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.quickbooks.harana.com/"> \
-   <soapenv:Header/> \
-   <soapenv:Body> \
-      <ws:synch> \
-         <uploadOperations> \
-<![CDATA[ ' + mensaje +']]> \
-         </uploadOperations> \
-         <responseFormat>' + format + '</responseFormat> \
-      </ws:synch> \
-   </soapenv:Body> \
-</soapenv:Envelope>';
-
-	console.log("consumeWS2 parameters=" + parameters);
-	
 	$.support.cors = true;
 	
     $.ajax({
         type: "POST",
         url: webServiceURL,
-        data: parameters,
+		jsonp: "callback",
+        data: "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'json'}}",
 		complete: recibeSyncResponse,
-        contentType: "text/xml",
-        dataType: "xml",
-        success: function(msg) {    
-		console.log("consumeWS4 bien");
-            console.log("funciono "+msg);
-        },
+        dataType: "text",
+        success: recibeSyncResponse,
+		timeout: 90*1000 ,
         error: function(e){
-            console.log("error " + e.name);              
+			synchronizing = false;
+			navigator.notification.activityStop();
+			alert("Synchronize fails:" + e.message);
+            console.log("error " + e);              
         }
     });
-		console.log("consumeWS3");
 
 }
 
-function recibeSyncResponse(xmlHttpRequest, status)
+function recibeSyncResponse(msg)
 {
-	console.log(xmlHttpRequest);
+	synchronizing = false
+	navigator.notification.activityStop();
+	console.log(msg);
 }
+
