@@ -20,7 +20,4 @@
         Juan fernando Londono
     </author>
 	
-	//plugin status bar
-	<gap:plugin name="cordova-plugin-progressview" />
-	
 </widget>
