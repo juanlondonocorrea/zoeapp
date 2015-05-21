@@ -5,30 +5,25 @@ function consumeWS(mensaje, format){
 		alert("Synchronizing in process");
 		return;
 	}
-	console.log("consumeWS1"); 
+	log("consumeWS1"); 
 
 	synchronizing = true;
-	navigator.plugins.activityStart("Synchronizing, please wait", "loading");
+	$( "#synchDialog" ).popup( "open" );			
 	
-    var webServiceURL = 'http://127.0.0.1:54321/SyncService';
+    var webServiceURL = 'http://24.234.187.107:54321/SyncService';
 
 	$.support.cors = true;
 	
     $.ajax({
         type: "POST",
         url: webServiceURL,
+		//timeout: 90000 ,
 		jsonp: "callback",
         data: "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'json'}}",
 		complete: recibeSyncResponse,
         dataType: "text",
         success: recibeSyncResponse,
-		timeout: 90*1000 ,
-        error: function(e){
-			synchronizing = false;
-			navigator.notification.activityStop();
-			alert("Synchronize fails:" + e.message);
-            console.log("error " + e);              
-        }
+        error: errSync
     });
 
 }
@@ -36,7 +31,18 @@ function consumeWS(mensaje, format){
 function recibeSyncResponse(msg)
 {
 	synchronizing = false
-	navigator.notification.activityStop();
-	console.log(msg);
+	$( "#synchDialog" ).popup( "close" );			
+	log(msg);
 }
 
+function errSync(jqXHR, textStatus)
+{
+	synchronizing = false;
+	$( "#synchDialog" ).popup( "close" );			
+	log("synchronizing error: " + textStatus);              
+}
+
+function log(msg){
+	var currTime = Date.now();
+	console.log(currTime + " - " + msg);
+}

@@ -12,7 +12,6 @@
 <script type="text/javascript" src="phonegap.js"></script>
 <script src="jquery-mobile/zoe.js" type="text/javascript"></script>
 <script src="jquery-mobile/zoesync.js" type="text/javascript"></script>
-<script src="jquery-mobile/ProgressView.js" type="text/javascript"></script>
 <!-- fin librerias -->
 
 <script>
@@ -35,7 +34,7 @@
 				<FullName>' + window.localStorage.getItem("salesRepName") + '</FullName>\
 				 <OwnerID>0</OwnerID>\
 				</EmployeeQueryRq>';
-			
+
 		consumeWS(mensaje, "JSON");
 		return false;
 	}
@@ -63,6 +62,17 @@
     <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
 	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
 <!-- fin divs -->
+
+<div data-role="popup" id="synchDialog" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+    <div data-role="header" data-theme="a" class="ui-corner-top">
+        <h1>Synchronizer</h1>
+    </div>
+    <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+        <h3 class="ui-title">Data is Synchronizing?</h3>
+        <p>This action cannot be undone.</p>
+        <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
+    </div>
+</div>
 
 </div>
 
