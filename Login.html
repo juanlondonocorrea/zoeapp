@@ -7,6 +7,19 @@
   <script src="js/jquery/jquery-2.1.4.js"></script>
   <script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
   <script src="js/zoe/zoe.js"></script>
+  <script src="js/zoe/salesRepDAO.js"></script>
+  <script>
+	function localpageinit(){
+		console.log("en localpageinit Login.html");
+		$('#login').val(window.localStorage.getItem("salesRepName"));	
+		$('#btnLogin').click(submitLogin);	
+	}
+	function submitLogin(){
+		salesRepDAO.get(function receive(salesRepVO){
+			logZoe(salesRepVO.name);
+		});
+	}
+  </script>
 </head>
  
 <body> 
@@ -19,10 +32,11 @@
 	<div data-role="content">	
 		<form id="formulario" >
       			<label> Username </label>
-      			<input type="text" id="nombredeusuario" name="nombredeusuario">
+      			<input type="text" id="login" name="login">
       			<label> Password </label>
-     			<input type="password" id="clave" name="clave" >
-      			<input type="submit" value="Login" id="botonLogin">
+     			<input type="password" id="password" name="password" >
+      			<input type="submit" value="Login" id="btnLogin">
+                <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear">Config</a>
     		</form>		
 	</div>
 </div>

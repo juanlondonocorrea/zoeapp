@@ -1,7 +1,9 @@
 // JavaScript Document
 var synchronizing = false;
 var xhrSync;
+var receiveSyncCallback;
 function consumeWS(mensaje, format, receiveFunction){
+	receiveSyncCallback = receiveFunction;
 	if (synchronizing==true){
 		alert("Synchronizing in process");
 		return;
@@ -42,6 +44,7 @@ function recibeSyncResponse( jqXHR, textStatus)
 		var obj = JSON.parse(jsonStr);
 		var msgObj = obj.QBXML.QBXMLMsgsRs;
 		log("se recibiio un objeto ListID:"+ msgObj.EmployeeQueryRs.EmployeeRet.ListID);
+		receiveSyncCallback(msgObj);
 	}
 }
 
