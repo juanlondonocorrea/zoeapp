@@ -18,7 +18,7 @@
 					logZoe(err.message);
 				}
 			}
-			checkdatabase();
+			checkDatabase();
 	});
 		
 		$( document ).on( "pagebeforechange" , function(e, data) {
