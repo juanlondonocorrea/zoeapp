@@ -8,6 +8,11 @@
     <!-- versionCode is optional and Android only -->
 
     <name>ZOE Application</name>
+	
+	<access origin="https://24.234.187.107:54320*" subdomains="true" />
+	<access origin="https://24.234.187.107:54321*" subdomains="true" />
+	<access origin="https://127.0.0.1:54320*" subdomains="true" />
+	<access origin="https://127.0.0.1:54321*" subdomains="true" />
 
     <description>
         Application ZOE to PILOCH INC 
@@ -17,6 +22,4 @@
         Juan fernando Londono
     </author>
 	
-	<access origin="http://127.0.0.1:54320"></access>
-	<access origin="http://24.234.187.107:54320"</access>
 </widget>
