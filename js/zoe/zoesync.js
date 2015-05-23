@@ -1,37 +1,65 @@
 // JavaScript Document
+var synchronizing = false;
+var xhrSync;
+function consumeWS(mensaje, format, receiveFunction){
+	if (synchronizing==true){
+		alert("Synchronizing in process");
+		return;
+	}
+	log("consumeWS1"); 
 
-function consumeWS(mensaje, format){
-	console.log("consumeWS1");
-    var webServiceURL = 'http://192.168.1.101:54320/SyncService';
-
-    var parameters = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.quickbooks.harana.com/"> \
-   <soapenv:Header/> \
-   <soapenv:Body> \
-      <ws:synch> \
-         <uploadOperations> \
-<![CDATA[ ' + mensaje +']]> \
-         </uploadOperations> \
-         <responseFormat>' + format + '</responseFormat> \
-      </ws:synch> \
-   </soapenv:Body> \
-</soapenv:Envelope>';
-
-	console.log("consumeWS2 parameters=" + parameters);
+	synchronizing = true;
+	$( "#synchDialog" ).popup( "open" );			
 	
-    $.ajax({
-        type: "Post",
-        url: webServiceURL,
-        data: parameters,
-        contentType: "text/xml; charset=\"utf-8\"",
-        dataType: "xml",
-        success: function(msg) {    
-		console.log("consumeWS4 bien");
-            console.log("funciono "+msg);
-        },
-        error: function(e){
-            console.log("error " + e.name);              
-        }
-    });
-		console.log("consumeWS3");
+    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
+//    var webServiceURL = 'http://127.0.0.1:54320/SyncService';
 
+	$.support.cors = true;
+	
+    xhrSync = $.ajax({
+        type: "POST",
+        url: webServiceURL,
+		timeout: 80000 ,
+		jsonp: "callback",
+        data: "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'}}",
+		complete: recibeSyncResponse,
+        dataType: "text",
+        success: recibeSyncResponse,
+        error: errSync
+    });
+
+}
+
+function recibeSyncResponse( jqXHR, textStatus)
+{
+	log("synchronizing msg received:" + jqXHR.responseText );
+	if (jqXHR.responseText){		
+		synchronizing = false
+		$( "#synchDialog" ).popup( "close" );
+		var jsonStr = 	jqXHR.responseText;
+		jsonStr = jsonStr.substring(1,jsonStr.length-1);
+		log("jsonStr="+jsonStr);
+		var obj = JSON.parse(jsonStr);
+		var msgObj = obj.QBXML.QBXMLMsgsRs;
+		log("se recibiio un objeto ListID:"+ msgObj.EmployeeQueryRs.EmployeeRet.ListID);
+	}
+}
+
+function errSync(jqXHR, textStatus)
+{
+	synchronizing = false;
+	$( "#synchDialog" ).popup( "close" );			
+	log("synchronizing error: " + textStatus);              
+}
+
+function log(msg){
+	var currTime = Date.now();
+	console.log(currTime + " - " + msg);
+}
+
+function cancelSynch(){
+	if(xhrSync && xhrSync.readyState != 4){
+		synchronizing = false;
+		xhrSync.abort();
+	}
 }
