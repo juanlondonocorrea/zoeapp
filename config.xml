@@ -16,5 +16,7 @@
     <author href="http://www.harana.co" email="juan.londono@harana.co">
         Juan fernando Londono
     </author>
-
+	
+	<access origin="http://127.0.0.1:54320"></access>
+	<access origin="http://24.234.187.107:54320"</access>
 </widget>
