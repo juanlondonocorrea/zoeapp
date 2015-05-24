@@ -10,7 +10,7 @@
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
-			logZoe("en pageinit2");
+			logZoe("en pageinit typeof(localpageinit)="  + typeof(localpageinit));
 			if (typeof(localpageinit) == "function"){
 				try{
 				localpageinit();
