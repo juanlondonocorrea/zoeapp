@@ -10,15 +10,15 @@
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
-			logZoe("en pageinit typeof(localpageinit)="  + typeof(localpageinit));
-			if (typeof(localpageinit) == "function"){
-				try{
-				localpageinit();
-				}catch(err){
-					logZoe(err.message);
+			logZoe("en pageinit localpageinit="  + localpageinit);
+			try{
+				if (localpageinit){
+						localpageinit();
 				}
+			}catch(err){
+					logZoe(err.message);
 			}
-	});
+		});
 		
 		$( document ).on( "pagebeforechange" , function(e, data) {
 		  var toPage = data.toPage;
@@ -53,11 +53,15 @@ logZoe("actualiza lastAccess");
 					window.localStorage.setItem('lastAccess',lastAccess);
 				}
 			}
-			
+function openDatabase(){
+	logZoe("opendatabase");
+	db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+	return db;
+}
 
 function checkDatabase(){
 	logZoe("checkDatabase");
-	db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+	db = openDatabase();
 	if (window.localStorage.getItem('dbCreated')=="true"){
 	}else{
 		db.transaction(createDB, errorCB, successCB);
@@ -65,7 +69,6 @@ function checkDatabase(){
 }
 
 	function createDB(tx) {
-		tx.executeSql("drop table salesRep",[],nullHandler,errorHandler);
 	var	sql = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyncTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
 		tx.executeSql(sql,[],nullHandler,errorHandler);
 	}
