@@ -20,7 +20,7 @@
 					}
 				}
 			}catch(exception){
-				logConsole("exception " + exception);
+				logZoe("exception " + exception);
 			}
 			
 	});
