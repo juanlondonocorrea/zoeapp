@@ -23,7 +23,8 @@
 		
 		$( document ).on( "pagebeforechange" , function(e, data) {
 		  var toPage = data.toPage[0].id;
-		  if(toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
+		  logZoe("pagebeforechange toPage=" + toPage);
+		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
 			checkSession();
 		  }
 		});	
