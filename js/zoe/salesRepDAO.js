@@ -8,6 +8,7 @@ var salesRepVO;
 var recordSalesRep;
 
 function getSalesRep(aName,aReceiveFunction,aErrFunc){
+	openDatabase();
 	logZoe("getSalesRep");
 	name=aName;
 	salesRepReceiveFunction = aReceiveFunction;

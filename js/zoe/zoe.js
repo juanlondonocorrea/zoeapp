@@ -60,7 +60,13 @@ logZoe("actualiza lastAccess");
 			}
 			
 
+
 var db;
+
+function openDatabase(){
+		db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+}
+
 function checkDatabase(){
 	logZoe("checkDatabase");
 	db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
@@ -71,7 +77,6 @@ function checkDatabase(){
 }
 
 	function createDB(tx) {
-		tx.executeSql("drop table salesRep",[],nullHandler,errorHandler);
 	var	sql = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyncTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
 		tx.executeSql(sql,[],nullHandler,errorHandler);
 	}
