@@ -10,14 +10,17 @@
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
-			logZoe("en pageinit localpageinit="  + localpageinit);
-			if (localpageinit){
-				try{
-				localpageinit();
-				}catch(err){
-					logZoe(err.message);
+			try{
+				logZoe("en pageinit localpageinit="  + localpageinit);
+				if (localpageinit){
+					try{
+					localpageinit();
+					}catch(err){
+						logZoe(err.message);
+					}
 				}
-			}
+			}catch(exception){}
+			
 	});
 		
 		$( document ).on( "pagebeforechange" , function(e, data) {
