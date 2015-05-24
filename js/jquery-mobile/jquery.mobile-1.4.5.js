@@ -1952,7 +1952,7 @@ $.mobile.widget = $.Widget;
 
 		return function(q){
 
-			div.innerHTML = "­<style media=\"" + q + "\"> #mq-test-1 { width: 42px; }</style>";
+			div.innerHTML = "&shy;<style media=\"" + q + "\"> #mq-test-1 { width: 42px; }</style>";
 
 			docElem.insertBefore( fakeBody, refNode );
 			bool = div.offsetWidth === 42;
@@ -2076,7 +2076,7 @@ function baseTagTest() {
 		href = base.attr( "href" );
 	}
 
-	link = $( "<a href='../../jquery-mobile/testurl' />" ).prependTo( fakeBody );
+	link = $( "<a href='testurl' />" ).prependTo( fakeBody );
 	rebase = link[ 0 ].href;
 	base[ 0 ].href = href || location.pathname;
 
@@ -10193,8 +10193,8 @@ $.widget( "mobile.selectmenu", $.extend( {
 				span.text( text );
 			} else {
 
-				// Set the contents to   which we write as   to be XHTML compliant - see gh-6699
-				span.html( " " );
+				// Set the contents to &nbsp; which we write as &#160; to be XHTML compliant - see gh-6699
+				span.html( "&#160;" );
 			}
 
 			// TODO possibly aggregate multiple select option classes

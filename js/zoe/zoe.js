@@ -18,7 +18,6 @@
 					logZoe(err.message);
 				}
 			}
-			checkDatabase();
 	});
 		
 		$( document ).on( "pagebeforechange" , function(e, data) {
@@ -30,20 +29,18 @@
 		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
 			checkSession();
 		  }
-		});	
-
-
+		});
 			
 			function checkSession(){
 				var currentSRN = window.localStorage.getItem('salesRepName');
 				var lastAccess = window.localStorage.getItem('lastAccess');
 				
-				if (!currentSRN){
+				if (currentSRN==null){
 					$.mobile.navigate('config.html') 	
 				}
 				
 logZoe("en checkSession lastAccess=" + lastAccess);
-				if (!lastAccess || (parseInt(lastAccess, 10) + 5*60*1000) > Date.now()) {
+				if (lastAccess==null || (parseInt(lastAccess, 10) + 5*60*1000) > Date.now()) {
 logZoe("redirige al login");
 					window.localStorage.setItem('lastAccess', null);
 logZoe("redirige al login2");
