@@ -55,7 +55,6 @@ logZoe("actualiza lastAccess");
 			}
 			
 
-var db;
 function checkDatabase(){
 	logZoe("checkDatabase");
 	db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);

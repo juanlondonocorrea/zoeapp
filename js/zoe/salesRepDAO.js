@@ -8,14 +8,16 @@ var salesRepVO;
 var recordSalesRep;
 
 function getSalesRep(aName,aReceiveFunction,aErrFunc){
-	logZoe("getSalesRep");
+	db = openDatabase();
+	logZoe("getSalesRep db=" + db);
 	name=aName;
 	salesRepReceiveFunction = aReceiveFunction;
 	salesRepErrFunc = aErrFunc;
 	db.transaction(doSelectSalesRep, errorCB, successCB);
 }
 function insertSalesRep(record,aErrFunc,succesCB){
-	logZoe("insertSalesRep");
+	db = openDatabase();
+	logZoe("insertSalesRep db=" + db);
 	recordSalesRep = record;
 	salesRepErrFunc = aErrFunc;
 	db.transaction(doInsertSalesRep, errorCB, successCB);
