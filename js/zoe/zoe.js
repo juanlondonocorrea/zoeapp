@@ -20,7 +20,7 @@
 					}
 				}
 			}catch(exception){
-				logConsole("exception " + e);
+				logConsole("exception " + exception);
 			}
 			
 	});
