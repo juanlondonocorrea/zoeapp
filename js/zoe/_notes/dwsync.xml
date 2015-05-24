@@ -4,4 +4,8 @@
 <file name="zoe.js" server="C:/software/java/apache-tomcat-8.0.21/webapps/zoe/" local="130769562192642800" remote="130769562190000000" Dst="0" />
 <file name="database.js" server="C:/software/java/apache-tomcat-8.0.21/webapps/zoe/" local="130768196555466843" remote="130768196550000000" Dst="0" />
 <file name="salesRepDAO.js" server="C:/software/java/apache-tomcat-8.0.21/webapps/zoe/" local="130768815613261627" remote="130768815610000000" Dst="0" />
+<file name="database.js" server="C:/inetpub/wwwroot/SistemaZoe/" local="130769604132835186" remote="130769604130000000" Dst="0" />
+<file name="salesRepDAO.js" server="C:/inetpub/wwwroot/SistemaZoe/" local="130769604132855188" remote="130769604130000000" Dst="0" />
+<file name="zoe.js" server="C:/inetpub/wwwroot/SistemaZoe/" local="130769604133175206" remote="130769604130000000" Dst="0" />
+<file name="zoesync.js" server="C:/inetpub/wwwroot/SistemaZoe/" local="130769604133275212" remote="130769604130000000" Dst="0" />
 </dwsync>
