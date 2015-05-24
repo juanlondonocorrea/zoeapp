@@ -61,15 +61,15 @@ logZoe("actualiza lastAccess");
 			
 
 
-var db;
-
 function openDatabase(){
 		db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+		logZoe("openDatabase db:"+db);
+		return db;
 }
 
 function checkDatabase(){
 	logZoe("checkDatabase");
-	openDatabase();
+	db = openDatabase();
 	if (window.localStorage.getItem('dbCreated')=="true"){
 	}else{
 		db.transaction(createDB, errorCB, successCB);
