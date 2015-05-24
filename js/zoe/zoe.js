@@ -19,7 +19,9 @@
 						logZoe(err.message);
 					}
 				}
-			}catch(exception){}
+			}catch(exception){
+				logConsole("exception " + e);
+			}
 			
 	});
 		
