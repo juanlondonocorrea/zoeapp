@@ -22,7 +22,10 @@
 	});
 		
 		$( document ).on( "pagebeforechange" , function(e, data) {
-		  var toPage = data.toPage[0].id;
+		  var toPage = data.toPage;
+		  if (typeof toPage != 'string'){
+			  toPage = data.toPage[0].id;
+		  }
 		  logZoe("pagebeforechange toPage=" + toPage);
 		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
 			checkSession();
