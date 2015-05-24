@@ -17,7 +17,7 @@
 
 <script>
 	function localpageinit(){
-		console.log("en localpageinit config.html");
+		console.log("en localpageinit config.html salesRepName=" + window.localStorage.getItem("salesRepName"));
 		$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
 		$('#submitConfig').click(submitFormConfig);	
 		$('#sycSalesRep').click(syncSalesRep);	
@@ -25,6 +25,7 @@
 
 	function submitFormConfig(form) {
 		window.localStorage.setItem("salesRepName", $('#salesRepName').val());
+		logZoe("config localStorage salesRepName=" + window.localStorage.getItem("salesRepName"));
 		return false;
 	}
 	
