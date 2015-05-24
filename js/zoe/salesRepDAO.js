@@ -7,6 +7,7 @@ var salesRepErrFunc;
 var salesRepVO;
 var recordSalesRep;
 
+var db;
 function getSalesRep(aName,aReceiveFunction,aErrFunc){
 	logZoe("getSalesRep");
 	openDatabase();
