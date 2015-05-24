@@ -69,7 +69,7 @@ function openDatabase(){
 
 function checkDatabase(){
 	logZoe("checkDatabase");
-	db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
+	openDatabase();
 	if (window.localStorage.getItem('dbCreated')=="true"){
 	}else{
 		db.transaction(createDB, errorCB, successCB);
