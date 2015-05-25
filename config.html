@@ -21,6 +21,8 @@
 		$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
 		$('#submitConfig').click(submitFormConfig);	
 		$('#sycSalesRep').click(syncSalesRep);	
+		$('#createDB').click(checkDatabase);	
+		$('#dropDB').click(dropDatabase);	
 	}
 
 	function submitFormConfig(form) {
@@ -72,6 +74,8 @@
                                  
                         <input id="submitConfig" type="submit" value="Save">
 		                <button class="ui-btn" id="sycSalesRep">Synch Sales Rep</button>
+		                <button class="ui-btn" id="dropDB">Drop database</button>
+		                <button class="ui-btn" id="createDB">create database</button>
                 </form>
             </div>
         

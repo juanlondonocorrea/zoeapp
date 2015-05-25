@@ -60,38 +60,56 @@ function openDatabaseZoe(){
 	return db;
 }
 
-function checkDatabase(){
-	logZoe("checkDatabase");
-	db = openDatabaseZoe();
-	if (window.localStorage.getItem('dbCreated')=="true"){
-	}else{
-		db.transaction(createDB, errorCB, successCB);
+	function checkDatabase(){
+		logZoe("checkDatabase");
+		db = openDatabaseZoe();
+		if (window.localStorage.getItem('dbCreated')=="true"){
+		}else{
+			db.transaction(createDB, errorCB, successCB);
+		}
 	}
-}
+
+	function dropDatabase(){
+		logZoe("dropDatabase");
+		db = openDatabaseZoe();
+		db.transaction(dropDB, errorCB, successCB);
+	}
 
 	function createDB(tx) {
 	var	sql = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyncTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
 		tx.executeSql(sql,[],nullHandler,errorHandler);
 	}
 
+	function dropDB(tx) {
+	var	sql = 'DROP TABLE salesrep';
+		tx.executeSql(sql,[],nullHandler,errorHandler);
+	}
+
 	function errorHandler(transaction, error) {
-		alert('Fatal error executing transaction: ' + error.message + ' code: ' + error.code);
+		alert('Fatal error executing transaction: ' + JSON.stringify(error));
 	}
             
 	function nullHandler(){};
 			
 	function errorCB(err) {
-		logZoe("Error processing SQL: "+err.code + ":" + err.message);
+		logZoe("Error processing SQL: "+JSON.stringify(err));
 	}
 			
 	function errorHandler(transaction, error) {
-		alert("Fatal error executing transaction:"+error);
+		alert("Fatal error executing transaction:"+JSON.stringify(error));
 	}
             
 		 
 	function successCB() {
 		window.localStorage.setItem('dbCreated',"true")
+		alert("Create database success");
 	   logZoe("dbCreated");
+	}             
+
+	function successDropDB() {
+		window.localStorage.setItem('dbCreated',"false")
+		alert("Drop database success");
+	   logZoe("db drop");
 	}             
 	
 	function logZoe(message){
