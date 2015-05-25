@@ -30,6 +30,7 @@ function consumeWS(mensaje, format, receiveFunction){
         data: dataToSend,
         dataType: "text",
         success: recibeSyncResponse,
+        complete: recibeSyncResponse,
         error: errSync
     });
 
