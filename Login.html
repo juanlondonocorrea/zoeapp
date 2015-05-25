@@ -11,16 +11,19 @@
   <script>
   		
 		$(document).bind("pagebeforecreate", function(event) {
-			console.log("en localpageinit Login.html");
+			logZoe("en localpageinit Login.html");
 			initAnyPage(event.target);
 			$('#login').val(window.localStorage.getItem("salesRepName"));	
 			$('#btnLogin').click(submitLogin);	
 		});
 		
 	function submitLogin(){
-		salesRepDAO.get(function receive(salesRepVO){
-			logZoe(JSON.stringify(salesRepVO));
-		});
+		salesRepDAO.get($('#login').val(),receiveSalesRep,errReceiveSalesRep);
+	}
+	
+	function receiveSalesRep(salesRepVO){
+		logZoe("receiveSalesRep="+JSON.stringify(salesRepVO));
+		
 	}
   </script>
 </head>

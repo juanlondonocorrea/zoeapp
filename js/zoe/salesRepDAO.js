@@ -1,13 +1,13 @@
 // JavaScript Document
 
-var salesRepDAO = {get:getSalesRep, store:storeSalesRep, };
+var salesRepDAO = {getByName:getSalesRepByName, store:storeSalesRep, };
 var name;
 var salesRepReceiveFunction;
 var salesRepErrFunc;
 var salesRepVO;
 var recordSalesRep;
 
-function getSalesRep(aName,aReceiveFunction,aErrFunc){
+function getSalesRepByName(aName,aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	logZoe("getSalesRep db=" + db);
 	name=aName;
