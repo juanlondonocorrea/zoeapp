@@ -13,6 +13,7 @@ function consumeWS(mensaje, format, receiveFunction){
 	synchronizing = true;
 	$( "#synchDialog" ).popup( "open" );			
 	
+	log("consumeWS2"); 
     var webServiceURL = 'http://24.234.187.107:54320/SyncService';
 //    var webServiceURL = 'http://127.0.0.1:54320/SyncService';
 
