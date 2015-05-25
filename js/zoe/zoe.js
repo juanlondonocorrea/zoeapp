@@ -29,7 +29,7 @@
 				}
 				
 logZoe("en checkSession lastAccess=" + lastAccess);
-				if (lastAccess==null || (parseInt(lastAccess, 10) + 5*60*1000) > Date.now()) {
+				if (lastAccess=="null" || lastAccess==null || (parseInt(lastAccess, 10) + 5*60*1000) > Date.now()) {
 logZoe("redirige al login");
 					window.localStorage.setItem('lastAccess', null);
 logZoe("redirige al login2");
