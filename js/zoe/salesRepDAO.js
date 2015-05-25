@@ -1,7 +1,7 @@
 // JavaScript Document
 
 var salesRepDAO = {getByName:getSalesRepByName, store:storeSalesRep, };
-var name;
+var filterData;
 var salesRepReceiveFunction;
 var salesRepErrFunc;
 var salesRepVO;
@@ -10,7 +10,7 @@ var recordSalesRep;
 function getSalesRepByName(aName,aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	logZoe("getSalesRep db=" + db);
-	name=aName;
+	filterData=aName;
 	salesRepReceiveFunction = aReceiveFunction;
 	salesRepErrFunc = aErrFunc;
 	db.transaction(doSelectSalesRep, salesRepErrFunc, salesRepReceiveFunction);
@@ -26,11 +26,12 @@ function storeSalesRep(record,aErrFunc,succesCB){
 
 
 function doSelectSalesRep(tx){
-	tx.executeSql('SELECT id_salesrep,Name, Password, isActive, SyncTime FROM salesRep where Name=?', [name],localReceiveFunction, salesRepErrFunc);
+	logZoe("doSelectSalesRep filterData=" + filterData);
+	tx.executeSql('SELECT id_salesrep,Name, Password, isActive, SyncTime FROM salesRep where Name=?', [filterData],localReceiveFunction, salesRepErrFunc);
 }
 
 function localReceiveFunction(tx,results){
-	logZoe("localReceiveFunction:"+ JSON.stringify(results));
+	logZoe("localReceiveFunction:" + JSON.stringify(results));
 	if (results.length>0){
 		salesRepVO = results.rows.item(0)
 	logZoe("localReceiveFunction salesRepVO"+ JSON.stringify(salesRepVO));
