@@ -13,7 +13,7 @@ function getSalesRepByName(aName,aReceiveFunction,aErrFunc){
 	name=aName;
 	salesRepReceiveFunction = aReceiveFunction;
 	salesRepErrFunc = aErrFunc;
-	db.transaction(doSelectSalesRep, errorCB, successCB);
+	db.transaction(doSelectSalesRep, salesRepErrFunc, salesRepReceiveFunction);
 }
 function storeSalesRep(record,aErrFunc,succesCB){
 	db = openDatabaseZoe();
@@ -30,8 +30,10 @@ function doSelectSalesRep(tx){
 }
 
 function localReceiveFunction(tx,results){
+	logZoe("localReceiveFunction:"+ JSON.stringify(results));
 	if (results.length>0){
 		salesRepVO = results.rows.item(0)
+	logZoe("localReceiveFunction salesRepVO"+ JSON.stringify(salesRepVO));
 		salesRepReceiveFunction(salesRepVO);
 	}
 }
