@@ -16,14 +16,16 @@
 <!-- fin librerias -->
 
 <script>
-	function localpageinit(){
-		console.log("en localpageinit config.html salesRepName=" + window.localStorage.getItem("salesRepName"));
-		$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
-		$('#submitConfig').click(submitFormConfig);	
-		$('#sycSalesRep').click(syncSalesRep);	
-		$('#createDB').click(checkDatabase);	
-		$('#dropDB').click(dropDatabase);	
-	}
+		$(document).bind("pagebeforecreate", function(event) {
+			console.log("en pagebeforecreate config.html salesRepName=" + window.localStorage.getItem(
+	"salesRepName"));
+			initAnyPage(event.target);
+			$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
+			$('#submitConfig').click(submitFormConfig);	
+			$('#sycSalesRep').click(syncSalesRep);	
+			$('#createDB').click(checkDatabase);	
+			$('#dropDB').click(dropDatabase);	
+		});
 
 	function submitFormConfig(form) {
 		window.localStorage.setItem("salesRepName", $('#salesRepName').val());
@@ -69,7 +71,7 @@
         <div data-role="page" id="config" data-title="Config">
         
             <div data-role="content"> 
-                <form method="post" onsubmit="return submitForm(this)" id="configForm" data-ajax="false">
+                <form method="post" id="configForm" data-ajax="true">
                     <lable for="salesRepName">Piloch Sales Rep Full Name</lable><input type="text" id="salesRepName" name="salesRepName" placeholder="salesRepName"><br>
                                  
                         <input id="submitConfig" type="submit" value="Save">

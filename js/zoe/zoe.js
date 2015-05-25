@@ -1,6 +1,6 @@
 	//load header, footer and menu
-		$(document).bind("pageinit", function(event) {
-			logZoe("en pageinit");
+	function initAnyPage(target){
+			logZoe("en initAnyPage");
 			$('.app-header').load("header.html", function() {
 				$(this).trigger('create');
 			});
@@ -10,27 +10,57 @@
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
-			try{
-				logZoe("en pageinit localpageinit="  + localpageinit);
-				if (localpageinit){
-						localpageinit();
-				}
-			}catch(err){
-					logZoe(err.message);
-			}
-		});
-		
-		$( document ).on( "pagebeforechange" , function(e, data) {
-		  var toPage = data.toPage;
-		  if (typeof toPage != 'string'){
-			  toPage = data.toPage[0].id;
-		  }
-		  logZoe("pagebeforechange toPage=" + toPage);
+			
+
+		  var toPage = target.id;
+		  logZoe("initAnyPage toPage=" + toPage);
 		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
 			checkSession();
 		  }
+		};
+		/*
+		$( document ).on( "pagecontainertransition" , function(e, data) {
+			try{
+				logZoe("en pagecontainertransition localpageinit="  + localpageinit);
+			}catch(e){}
+		});
+
+		$( document ).on( "pagebeforechange" , function(e, data) {
+			try{
+				logZoe("en pagebeforechange localpageinit="  + localpageinit);
+			}catch(e){}
 		});
 			
+		$( document ).on( "pagebeforetransition" , function(e, data) {
+			try{
+				logZoe("en pagebeforetransition localpageinit="  + localpageinit);
+			}catch(e){}
+		});
+
+		$( document ).on( "pagecreate" , function(e, data) {
+			try{
+				logZoe("en pagecreate localpageinit="  + localpageinit);
+			}catch(e){}
+		});
+
+		$( document ).on( "pagecontainerbeforeshow" , function(e, data) {
+			try{
+				logZoe("en pagecontainerbeforeshow localpageinit="  + localpageinit);
+			}catch(e){}
+		});
+
+		$( document ).on( "pagecontainershow" , function(e, data) {
+			try{
+				logZoe("en pagecontainershow localpageinit="  + localpageinit);
+			}catch(e){}
+		});
+
+		$( document ).on( "pagecontainertransition" , function(e, data) {
+			try{
+				logZoe("en pagecontainertransition localpageinit="  + localpageinit);
+			}catch(e){}
+		});*/
+
 			function checkSession(){
 				var currentSRN = window.localStorage.getItem('salesRepName');
 				var lastAccess = window.localStorage.getItem('lastAccess');
@@ -72,7 +102,7 @@ function openDatabaseZoe(){
 	function dropDatabase(){
 		logZoe("dropDatabase");
 		db = openDatabaseZoe();
-		db.transaction(dropDB, errorCB, successCB);
+		db.transaction(dropDB, errorCB, successDropDB);
 	}
 
 	function createDB(tx) {

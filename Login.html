@@ -9,11 +9,14 @@
   <script src="js/zoe/zoe.js"></script>
   <script src="js/zoe/salesRepDAO.js"></script>
   <script>
-	function localpageinit(){
-		console.log("en localpageinit Login.html");
-		$('#login').val(window.localStorage.getItem("salesRepName"));	
-		$('#btnLogin').click(submitLogin);	
-	}
+  		
+		$(document).bind("pagebeforecreate", function(event) {
+			console.log("en localpageinit Login.html");
+			initAnyPage(event.target);
+			$('#login').val(window.localStorage.getItem("salesRepName"));	
+			$('#btnLogin').click(submitLogin);	
+		});
+		
 	function submitLogin(){
 		salesRepDAO.get(function receive(salesRepVO){
 			logZoe(salesRepVO.name);
@@ -36,7 +39,7 @@
       			<label> Password </label>
      			<input type="password" id="password" name="password" >
       			<input type="submit" value="Login" id="btnLogin">
-                <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
+                <a href="config.html" data-role="button" data-ajax="false" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
     		</form>		
 	</div>
 </div>
