@@ -1,6 +1,6 @@
 // JavaScript Document
 
-var salesRepDAO = {get:getSalesRep, insert:insertSalesRep, };
+var salesRepDAO = {get:getSalesRep, store:storeSalesRep, };
 var name;
 var salesRepReceiveFunction;
 var salesRepErrFunc;
@@ -15,12 +15,12 @@ function getSalesRep(aName,aReceiveFunction,aErrFunc){
 	salesRepErrFunc = aErrFunc;
 	db.transaction(doSelectSalesRep, errorCB, successCB);
 }
-function insertSalesRep(record,aErrFunc,succesCB){
+function storeSalesRep(record,aErrFunc,succesCB){
 	db = openDatabaseZoe();
 	logZoe("insertSalesRep db=" + db);
 	recordSalesRep = record;
 	salesRepErrFunc = aErrFunc;
-	db.transaction(doInsertSalesRep, errorCB, successCB);
+	db.transaction(doStoreSalesRep, errorCB, successCB);
 }
 
 
@@ -36,6 +36,6 @@ function localReceiveFunction(tx,results){
 	}
 }
 
-function doInsertSalesRep(tx){
-	tx.executeSql('INSERT INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.isActive, recordSalesRep.syncTime],localReceiveFunction, salesRepErrFunc);
+function doStoreSalesRep(tx){
+	tx.executeSql('INSERT OR REPLACE INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.isActive, recordSalesRep.syncTime],localReceiveFunction, salesRepErrFunc);
 }

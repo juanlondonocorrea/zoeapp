@@ -49,7 +49,7 @@
 			isActive:employee.EmployeeRet.isActive, 
 			syncTime:Date.now()};
 			
-		salesRepDAO.insert(salesRepVO, errInsert, successInsert);
+		salesRepDAO.store(salesRepVO, errInsert, successInsert);
 	}
 	
 	function successInsert(){
