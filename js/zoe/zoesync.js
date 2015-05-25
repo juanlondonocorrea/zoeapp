@@ -11,8 +11,7 @@ function consumeWS(mensaje, format, receiveFunction){
 	log("consumeWS1"); 
 
 	synchronizing = true;
-	$( "#synchDialog" ).popup( );			
-	$( "#synchDialog" ).popup( "open" );			
+	$.mobile.changePage("#synchDialog", {transition: "flow"});
 	
 	log("consumeWS2"); 
     var webServiceURL = 'http://24.234.187.107:54320/SyncService';
@@ -44,7 +43,7 @@ function recibeSyncResponse( jqXHR, textStatus)
 	log("synchronizing msg received:" + jqXHR.responseText );
 	if (jqXHR.responseText){		
 		synchronizing = false
-		$( "#synchDialog" ).popup( "close" );
+		//$( "#synchDialog" ).popup( "close" );
 		var jsonStr = 	jqXHR.responseText;
 		jsonStr = jsonStr.substring(1,jsonStr.length-1);
 		log("jsonStr="+jsonStr);
