@@ -19,7 +19,7 @@
 		
 	function submitLogin(){
 		salesRepDAO.get(function receive(salesRepVO){
-			logZoe(salesRepVO.name);
+			logZoe(JSON.stringify(salesRepVO));
 		});
 	}
   </script>
