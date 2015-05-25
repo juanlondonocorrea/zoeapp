@@ -11,6 +11,7 @@ function consumeWS(mensaje, format, receiveFunction){
 	log("consumeWS1"); 
 
 	synchronizing = true;
+	$( "#synchDialog" ).popup( );			
 	$( "#synchDialog" ).popup( "open" );			
 	
 	log("consumeWS2"); 
