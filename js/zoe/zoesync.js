@@ -20,16 +20,21 @@ function consumeWS(mensaje, format, receiveFunction){
 
 	$.support.cors = true;
 	
+	var dataToSend = "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'}}"; 
+	
     xhrSync = $.ajax({
         type: "POST",
         url: webServiceURL,
 		timeout: 80000 ,
 		jsonp: "callback",
-        data: "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'}}",
+        data: dataToSend,
         dataType: "text",
         success: recibeSyncResponse,
         error: errSync
     });
+
+	log("consumeWS3 data:" + dataToSend); 
+
 
 }
 
