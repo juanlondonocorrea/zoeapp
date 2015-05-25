@@ -18,7 +18,7 @@
 		});
 		
 	function submitLogin(){
-		salesRepDAO.get($('#login').val(),receiveSalesRep,errReceiveSalesRep);
+		salesRepDAO.getByName($('#login').val(),receiveSalesRep,errReceiveSalesRep);
 	}
 	
 	function receiveSalesRep(salesRepVO){
