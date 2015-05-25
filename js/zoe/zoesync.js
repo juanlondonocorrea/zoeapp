@@ -24,7 +24,6 @@ function consumeWS(mensaje, format, receiveFunction){
 		timeout: 80000 ,
 		jsonp: "callback",
         data: "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'}}",
-		complete: recibeSyncResponse,
         dataType: "text",
         success: recibeSyncResponse,
         error: errSync
