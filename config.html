@@ -55,9 +55,9 @@
 	function successInsert(){
 		alert("Success sync salesRep");
 	}
-
-	function errInsert(){
-		alert("Error on sync salesRep");
+	
+	function errInsert(err){
+		alert("DB Error: "+err.message + "\nCode="+err.code);
 	}
 </script>
 </head>
