@@ -8,7 +8,7 @@ var salesRepVO;
 var recordSalesRep;
 
 function getSalesRep(aName,aReceiveFunction,aErrFunc){
-	db = openDatabase();
+	db = openDatabaseZoe();
 	logZoe("getSalesRep db=" + db);
 	name=aName;
 	salesRepReceiveFunction = aReceiveFunction;
@@ -16,7 +16,7 @@ function getSalesRep(aName,aReceiveFunction,aErrFunc){
 	db.transaction(doSelectSalesRep, errorCB, successCB);
 }
 function insertSalesRep(record,aErrFunc,succesCB){
-	db = openDatabase();
+	db = openDatabaseZoe();
 	logZoe("insertSalesRep db=" + db);
 	recordSalesRep = record;
 	salesRepErrFunc = aErrFunc;

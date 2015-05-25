@@ -53,15 +53,16 @@ logZoe("actualiza lastAccess");
 					window.localStorage.setItem('lastAccess',lastAccess);
 				}
 			}
-function openDatabase(){
-	logZoe("opendatabase");
+			
+function openDatabaseZoe(){
+	logZoe("openDatabaseZoe");
 	db = window.openDatabase("Database", "1.0", "Zoe Database", 2*1024*1024);
 	return db;
 }
 
 function checkDatabase(){
 	logZoe("checkDatabase");
-	db = openDatabase();
+	db = openDatabaseZoe();
 	if (window.localStorage.getItem('dbCreated')=="true"){
 	}else{
 		db.transaction(createDB, errorCB, successCB);
