@@ -50,7 +50,7 @@
 		var salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
 			name:employee.EmployeeRet.Name, 
 			password:employee.EmployeeRet.DataExtRet[0].DataExtValue, 
-			isActive:employee.EmployeeRet.isActive, 
+			isActive:employee.EmployeeRet.IsActive, 
 			syncTime:Date.now()};
 			
 		salesRepDAO.store(salesRepVO, errInsert, successInsert);
@@ -82,9 +82,9 @@
             </div>
         
 
-<div data-role="dialog" id="synchDialog">
+<div data-role="dialog" data-dialog="true" id="synchDialog" >
   <div data-role="header">
-    <h3>Synchronizing..</h2>
+    <h3>Synchronizing...</h2>
   </div>
   <div data-role="content">
     <p>Please wait</p>

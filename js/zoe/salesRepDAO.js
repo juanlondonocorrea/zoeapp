@@ -17,7 +17,7 @@ function getSalesRep(aName,aReceiveFunction,aErrFunc){
 }
 function storeSalesRep(record,aErrFunc,succesCB){
 	db = openDatabaseZoe();
-	logZoe("insertSalesRep db=" + db);
+	logZoe("storeSalesRep db=" + db);
 	recordSalesRep = record;
 	salesRepErrFunc = aErrFunc;
 	db.transaction(doStoreSalesRep, errorCB, successCB);
@@ -38,5 +38,5 @@ function localReceiveFunction(tx,results){
 
 function doStoreSalesRep(tx){
 	logZoe ("doStoreSalesRep"+JSON.stringify(recordSalesRep));
-	tx.executeSql('INSERT OR REPLACE INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.isActive, recordSalesRep.syncTime]/*,localReceiveFunction, salesRepErrFunc*/);
+	tx.executeSql('INSERT OR REPLACE INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.IsActive, recordSalesRep.syncTime]/*,localReceiveFunction, salesRepErrFunc*/);
 }

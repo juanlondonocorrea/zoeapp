@@ -18,48 +18,7 @@
 			checkSession();
 		  }
 		};
-		/*
-		$( document ).on( "pagecontainertransition" , function(e, data) {
-			try{
-				logZoe("en pagecontainertransition localpageinit="  + localpageinit);
-			}catch(e){}
-		});
 
-		$( document ).on( "pagebeforechange" , function(e, data) {
-			try{
-				logZoe("en pagebeforechange localpageinit="  + localpageinit);
-			}catch(e){}
-		});
-			
-		$( document ).on( "pagebeforetransition" , function(e, data) {
-			try{
-				logZoe("en pagebeforetransition localpageinit="  + localpageinit);
-			}catch(e){}
-		});
-
-		$( document ).on( "pagecreate" , function(e, data) {
-			try{
-				logZoe("en pagecreate localpageinit="  + localpageinit);
-			}catch(e){}
-		});
-
-		$( document ).on( "pagecontainerbeforeshow" , function(e, data) {
-			try{
-				logZoe("en pagecontainerbeforeshow localpageinit="  + localpageinit);
-			}catch(e){}
-		});
-
-		$( document ).on( "pagecontainershow" , function(e, data) {
-			try{
-				logZoe("en pagecontainershow localpageinit="  + localpageinit);
-			}catch(e){}
-		});
-
-		$( document ).on( "pagecontainertransition" , function(e, data) {
-			try{
-				logZoe("en pagecontainertransition localpageinit="  + localpageinit);
-			}catch(e){}
-		});*/
 
 			function checkSession(){
 				var currentSRN = window.localStorage.getItem('salesRepName');
