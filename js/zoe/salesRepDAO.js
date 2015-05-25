@@ -37,5 +37,5 @@ function localReceiveFunction(tx,results){
 }
 
 function doInsertSalesRep(tx){
-	tx.executeSql('INSERT INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRem.password, recordSalesRep.isActive, recordSalesRep.syncTime],localReceiveFunction, salesRepErrFunc);
+	tx.executeSql('INSERT INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.isActive, recordSalesRep.syncTime],localReceiveFunction, salesRepErrFunc);
 }
