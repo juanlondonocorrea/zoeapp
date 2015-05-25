@@ -66,7 +66,7 @@
 				var lastAccess = window.localStorage.getItem('lastAccess');
 				
 				if (currentSRN==null){
-					$.mobile.navigate('config.html') 	
+					window.location = 'config.html'; 	
 				}
 				
 logZoe("en checkSession lastAccess=" + lastAccess);
@@ -74,7 +74,7 @@ logZoe("en checkSession lastAccess=" + lastAccess);
 logZoe("redirige al login");
 					window.localStorage.setItem('lastAccess', null);
 logZoe("redirige al login2");
-					$.mobile.navigate('Login.html') 	
+					window.location = 'Login.html'; 	
 logZoe("redirige al listo");
 				}
 				else {
