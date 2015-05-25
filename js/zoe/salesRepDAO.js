@@ -31,11 +31,12 @@ function doSelectSalesRep(tx){
 }
 
 function localReceiveFunction(tx,results){
-	logZoe("localReceiveFunction:" + JSON.stringify(results));
+	logZoe("localReceiveFunction" + results);
 	if (results.length>0){
-		salesRepVO = results.rows.item(0)
+		salesRepVO = results.rows.item(0);
 	logZoe("localReceiveFunction salesRepVO"+ JSON.stringify(salesRepVO));
 		salesRepReceiveFunction(salesRepVO);
+	logZoe("localReceiveFunction fin");
 	}
 }
 
