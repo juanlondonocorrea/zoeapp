@@ -22,8 +22,17 @@
 	}
 	
 	function receiveSalesRep(salesRepVO){
-		logZoe("receiveSalesRep="+salesRepVO);
-		print_call_stack();
+		if (salesRepVO){
+			if (salesRepVO.password == $('#password').val()){
+				window.localStorage.setItem("currentUser",$('#login').val());
+				window.localStorage.setItem("lastAccess",Date.now());
+				window.location ="index.html";
+			}else{
+				alert("invalid user or password");
+				window.localStorage.setItem("currentUser",null);
+				window.localStorage.setItem("lastAccess",null);
+			}
+		}
 		
 	}
 	function errReceiveSalesRep(err){
