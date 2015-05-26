@@ -9,6 +9,8 @@
 
     <name>ZOE Application</name>
 	
+	<icon src="icon_zoe2.png" />
+	
 	<access origin="*" subdomains="true" />
 
     <description>
