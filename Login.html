@@ -23,6 +23,8 @@
 	
 	function receiveSalesRep(salesRepVO){
 		if (salesRepVO){
+			logZoe("receiveSalesRep password=" + salesRepVO.password);
+			logZoe("receiveSalesRep password val=" + $('#password').val());
 			if (salesRepVO.password == $('#password').val()){
 				window.localStorage.setItem("currentUser",$('#login').val());
 				window.localStorage.setItem("lastAccess",Date.now());
