@@ -33,10 +33,15 @@ function doSelectSalesRep(tx){
 function localReceiveFunction(tx,results){
 	logZoe("localReceiveFunction" + results);
 	if (results.length>0){
+	logZoe("localReceiveFunction1");
 		salesRepVO.id_salesrep = results.rows.item(0).id_salesrep;
+	logZoe("localReceiveFunction2");
 		salesRepVO.name = results.rows.item(0).Name;
+	logZoe("localReceiveFunction3");
 		salesRepVO.password = results.rows.item(0).Password;
+	logZoe("localReceiveFunction4");
 		salesRepVO.isActive = results.rows.item(0).isActive;
+	logZoe("localReceiveFunction5");
 		salesRepVO.syncTime = results.rows.item(0).SyncTime;
 	logZoe("localReceiveFunction salesRepVO"+ JSON.stringify(salesRepVO));
 		salesRepReceiveFunction(salesRepVO);

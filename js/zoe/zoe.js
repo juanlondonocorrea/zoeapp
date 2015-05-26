@@ -104,3 +104,10 @@ function openDatabaseZoe(){
 	function logZoe(message){
 	  console.log(message);
 	}
+
+
+	function print_call_stack() {
+	  var stack = new Error().stack;
+	  console.log("PRINTING CALL STACK");
+	  console.log( stack );
+	}
