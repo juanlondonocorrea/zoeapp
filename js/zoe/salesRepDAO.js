@@ -31,8 +31,8 @@ function doSelectSalesRep(tx){
 }
 
 function localReceiveFunction(tx,results){
-	logZoe("localReceiveFunction results.length=" + results.length);
-	if (results.length>0){
+	logZoe("localReceiveFunction results.length=" + results.rows.length);
+	if (results.rows.length>0){
 	logZoe("localReceiveFunction1");
 		salesRepVO.id_salesrep = results.rows.item(0).id_salesrep;
 	logZoe("localReceiveFunction2");
