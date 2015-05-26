@@ -23,12 +23,19 @@
 			function checkSession(){
 				var currentSRN = window.localStorage.getItem('salesRepName');
 				var lastAccess = window.localStorage.getItem('lastAccess');
+				var currentUser = window.localStorage.getItem('currentUser');
 				
 				if (currentSRN==null){
 					window.location = 'config.html'; 	
 				}
 				
+				if (currentUser==null || currentUser=="null"){
+					window.location = 'Login.html'; 	
+				}
+				
 logZoe("en checkSession lastAccess=" + lastAccess);
+logZoe("actualiza lastAccess parseInt(lastAccess, 10) + 5*60*1000)="+(parseInt(lastAccess, 10) + 5*60*1000));
+logZoe("actualiza lastAccess  Date.now()="+ Date.now());
 				if (lastAccess=="null" || lastAccess==null || (parseInt(lastAccess, 10) + 5*60*1000) > Date.now()) {
 logZoe("redirige al login");
 					window.localStorage.setItem('lastAccess', null);
@@ -37,9 +44,9 @@ logZoe("redirige al login2");
 logZoe("redirige al listo");
 				}
 				else {
-logZoe("actualiza lastAccess");
 					lastAccess = Date.now();
 					window.localStorage.setItem('lastAccess',lastAccess);
+logZoe("actualiza lastAccess="+window.localStorage.getItem('lastAccess'));
 				}
 			}
 			
