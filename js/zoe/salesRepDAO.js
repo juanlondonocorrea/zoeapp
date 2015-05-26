@@ -27,11 +27,11 @@ function storeSalesRep(record,aErrFunc,succesCB){
 
 function doSelectSalesRep(tx){
 	logZoe("doSelectSalesRep filterData=" + filterData);
-	tx.executeSql('SELECT id_salesrep,Name, Password, isActive, SyncTime FROM salesRep where Name=?', [filterData],localReceiveFunction, salesRepErrFunc);
+	tx.executeSql("SELECT id_salesrep,Name, Password, isActive, SyncTime FROM salesRep Where Name='Manuel Quezada'", [],localReceiveFunction, salesRepErrFunc);
 }
 
 function localReceiveFunction(tx,results){
-	logZoe("localReceiveFunction" + results);
+	logZoe("localReceiveFunction results.length=" + results.length);
 	if (results.length>0){
 	logZoe("localReceiveFunction1");
 		salesRepVO.id_salesrep = results.rows.item(0).id_salesrep;
