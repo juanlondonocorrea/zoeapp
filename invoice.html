@@ -2,8 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>User Validation</title>
-  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile-1.4.5.min.css" />  
+  <title>Invoice</title>
+  
+  <link rel="stylesheet" href="css/themes/zoe.min.css" />
+  <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.structure-1.4.5.min.css" />
+
+<!--  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile-1.4.5.min.css" />  -->
   <script src="js/jquery-mobile/jquery-2.1.4.js"></script>
   <script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
   <script src="js/zoe/zoe.js"></script>
@@ -20,33 +25,221 @@
 		});
 	}
   </script>
+  
 </head>
  
 <body> 
-<div data-role="page" id="Login">
- 
-	<div data-role="header">
-		<h1>User Authentication</h1>
+<div data-role="page" id="invoice">
+ 	<div data-role="header">
+		<h1>Invoice Creation</h1>
 	</div>
     
 	<div data-role="content">	
 		<form id="formulario" >
-      			<label for="select">Select a Customer:</label>
-                <select name="select" id="select">
-                </select>
-                <label> Terms </label>
-      			<input type="text" id="Terms" name="Terms">
-      			<label> Date </label>
-     			<input type="text" id="Date" name="Date" >
+            <div data-role="fieldcontain">
+              <div>
+              <label for="selCustomer" class="select">Select a Customer:</label>
+              </div>
+              <select name="selCustomer" id="selCustomer">
+                <option value="option1">Customer 1</option>
+                <option value="option2">Customer 2</option>
+                <option value="option3">Customer 3</option>
+                <option value="option4">Customer 4</option>
+                <option value="option5">Customer 5</option>                
+              </select>
+            </div>
+            <div data-role="fieldcontain">
+              <div>
+              <label for="selTerms" class="select">Select Terms:</label>
+              </div>
+              <select name="selTerms" id="selTerms">
+                <option value="option1">Terms 1</option>
+                <option value="option2">Terms 2</option>
+                <option value="option3">Terms 3</option>
+                <option value="option4">Terms 4</option>
+                <option value="option5">Terms 5</option>                
+              </select>
+            </div>
+            <div class="ui-grid-a" style="height:95px">
+              <div class="ui-block-a" style="height:100%">            
+                <div data-role="fieldcontain">
+                  <div>
+                  <label for="Date">Date:</label>
+                  </div>
+                  <input type="date" name="Date" id="Date" value=""  />
+                </div>
+              </div>
+            <div class="ui-block-b" style="height:100%">
+              <div data-role="fieldcontain">
+                <div>
+                <label for="Due">Due:</label>
+                </div>
+                <input type="date" name="Due" id="Due" value=""  />
+              </div>
+			</div>
+           </div>
+
+            <div data-role="fieldcontain">
+              <div>
+              <label for="PONumber">P.O. Number:</label>
+              </div>
+              <input type="text" name="PONumber" id="PONumber" value=""  />
+              <div>
+              <label for="SalesRep">Sales Rep:</label>
+              </div>
+              <input type="text" name="SalesRep" id="SalesRep" value=""  />              
+            </div>
+
+
+
+        <!--    <a href="#" data-role="button" data-icon="plus" data-iconpos="left"><div align="left">Add Item</div></a> -->
+<!-- BEGIN ADD ITEM -->
+            <div data-role="collapsible">
+                <h4>Add Item</h4>
+                <p>Add items to the invoice one by one.</p>
+				<div data-role="fieldcontain">					
+                    <div>
+						<label for="selProduct" class="select">Select a Product:</label>
+					</div>
+					<select name="selProduct" id="selProduct">
+						<option value="option1">Product 1</option>
+						<option value="option2">Product 2</option>
+						<option value="option3">Product 3</option>
+						<option value="option4">Product 4</option>
+						<option value="option5">Product 5</option>                        
+					</select>            	
+				</div>
+
+                <div class="ui-grid-a" style="height:45px">
+                  <div class="ui-block-a" style="height:100%">
+                    <div class="ui-field-contain">
+                      <label for="Quantity">Quantity:</label>
+                    </div>
+                  </div>
+                  <div class="ui-block-b" style="height:100%" align="right">
+                    <input type="number" name="Quantity" id="Quantity" align="right">
+                  </div>
+                </div>
                 
-      			<input type="submit" value="submit" id="submit">
-                <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
-	  </form>		
+                <div class="ui-grid-a" style="height:45px">
+                  <div class="ui-block-a" style="height:100%">
+                    <div class="ui-field-contain" id="RatePrice">
+                      <label for="RatePrice">Rate/Price Each:</label>
+                    </div>
+                  </div>
+                  <div class="ui-block-b" style="height:100%">
+                    <input type="number" name="RatePrice" id="RatePrice" align="right">
+                  </div>
+                </div>
+                
+                <div class="ui-grid-a" style="height:45px">
+                  <div class="ui-block-a" style="height:100%">
+                    <div class="ui-field-contain" id="Amount">
+                      <label for="Amount">Amount:</label>
+                    </div>
+                  </div>
+                  <div class="ui-block-b" style="height:100%">
+                    <input type="number" name="Amount" id="Amount" align="right">
+                  </div>
+                </div>
+    
+                <div data-role="fieldcontain">			
+					<div>
+						<label for="selClass" class="select">Select a Class:</label>
+					</div>
+					<select name="selClass" id="selClass"> 
+						<option value="option1">Class 1</option>
+						<option value="option2">Class 2</option>
+						<option value="option3">Class 3</option>
+						<option value="option4">Class 4</option>
+						<option value="option5">Class 5</option>                        
+					</select>
+               </div>                
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a"><button type="submit" id="submit" data-theme="c">Cancel</button></div>
+                    <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Add</button></div>	   
+                </fieldset>                 
+            </div>
+
+            
+<!-- END   ADD ITEM -->
+
+
+
+
+            <div class="ui-grid-a" style="height:45px">                
+                <div class="ui-block-a" style="height:100%">
+                  <label>Subtotal:</label>
+                </div>
+                <div class="ui-block-b" style="height:100%" align="right">
+                  <label>$0.00</label>
+                </div>
+            </div>
+
+             <div class="ui-grid-a" style="height:95px">
+                <div class="ui-block-a" style="height:100%">           
+                <div data-role="fieldcontain">
+                  <div>
+                  <label for="selAddSalesTax" class="select">Add Sales Tax:</label>
+                  </div>
+                  <select name="selAddSalesTax" id="selAddSalesTax">
+                    <option value="option1">All export (0%)</option>
+                    <option value="option2">Livestock Rate (4.8%)</option>
+                    <option value="option3">Flat-rate compensation percentage for Farmers (5.2%)</option>
+                    <option value="option4">Second Reduced Rate (9%)</option>
+                    <option value="option5">Reduced Rate (13.5%)</option>                    
+                    <option value="option6">Standard Rate (23%)</option>                    
+                  </select>
+                </div>
+                </div>
+                <div class="ui-block-b" style="height:100%" align="right">
+                    <br><br><br>
+                    <label >
+                    $0.00</label>
+                </div>
+             </div>
+            <div class="ui-grid-a" style="height:65px">                
+                <div class="ui-block-a" style="height:100%">
+                  <br><br>
+                  <label>Total:</label>
+                </div>
+                <div class="ui-block-b" style="height: 100%; font-size: 2em;" align="right">
+                  <br>
+                  <label><strong>$0.00</strong></label>
+                </div>
+            </div>
+            <div class="ui-grid-a" style="height:45px">                
+                <div class="ui-block-a" style="height:100%">
+                  <label>Balance Due:</label>
+                </div>
+                <div class="ui-block-b" style="height: 100%; font-weight: bold; color: #6ACC24; font-size: 2em;" align="right">
+                  <label>$0.00</label>
+                </div>
+            </div>
+
+           <div data-role="fieldcontain">
+              <div>
+              <label for="CustomerMessage">Customer Message:</label>
+              </div>
+              <input type="text" name="CustomerMessage" id="CustomerMessage" value=""  />
+              <div>
+              <label for="AddAMemo">Add a memo:</label>
+              </div>
+              <input type="text" name="AddAMemo" id="AddAMemo" value=""  />              
+            </div>
+            
+                        
+                             
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><button type="submit" id="submit" data-theme="c">Cancel</button></div>
+                <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Done</button></div>	   
+            </fieldset>              
+              
+            <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
+      </form>		
 	</div>
 </div>
  
- 
-
  
 </body>
 </html>
