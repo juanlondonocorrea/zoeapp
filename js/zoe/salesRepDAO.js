@@ -34,16 +34,7 @@ function localReceiveFunction(tx,results){
 	logZoe("localReceiveFunction results.length=" + results.rows.length);
 	if (results.rows.length>0){
 	logZoe("localReceiveFunction1 " + JSON.stringify(results.rows.item(0)));
-		salesRepVO.id_salesrep = results.rows.item(0).id_salesrep;
-	logZoe("localReceiveFunction2");
-		salesRepVO.name = results.rows.item(0).Name;
-	logZoe("localReceiveFunction3");
-		salesRepVO.password = results.rows.item(0).Password;
-	logZoe("localReceiveFunction4");
-		salesRepVO.isActive = results.rows.item(0).isActive;
-	logZoe("localReceiveFunction5");
-		salesRepVO.syncTime = results.rows.item(0).SyncTime;
-	logZoe("localReceiveFunction salesRepVO"+ JSON.stringify(salesRepVO));
+		salesRepVO=results.rows.item(0);
 		salesRepReceiveFunction(salesRepVO);
 	}
 	logZoe("localReceiveFunction fin");
