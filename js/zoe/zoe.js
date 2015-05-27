@@ -77,6 +77,7 @@ function openDatabaseZoe(){
             dataType: "text",
             success : function (data) {
 				var sql = data;
+				logZoe("sql=" + sql);
 				tx.executeSql(sql,[],nullHandler,errorHandler);
             }
         });
@@ -91,7 +92,9 @@ function openDatabaseZoe(){
 		alert('Fatal error executing transaction: ' + JSON.stringify(error));
 	}
             
-	function nullHandler(){};
+	function nullHandler(tx, results){
+		logZoe("sqlExecuted. " + JSON.stringify(results));
+	};
 			
 	function errorCB(err) {
 		logZoe("Error processing SQL: "+JSON.stringify(err));
