@@ -1,4 +1,13 @@
-﻿CREATE TABLE salesrep
+﻿DROP INDEX IF EXISTS customer_idx1;
+DROP INDEX IF EXISTS idx_salesrep_1;
+DROP TABLE IF EXISTS terms;
+DROP TABLE IF EXISTS invoice_item;
+DROP TABLE IF EXISTS invoice;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS salesrep;
+
+
+CREATE TABLE salesrep
 (
   id_salesrep TEXT NOT NULL,
   Name TEXT NOT NULL,
@@ -12,7 +21,6 @@
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_salesrep_1 ON salesrep (Name,isActive);
 
--- Table customer
 
 CREATE TABLE customer
 (
@@ -50,7 +58,6 @@ CREATE TABLE customer
 
 CREATE INDEX customer_idx1 ON customer (FullName);
 
--- Table invoice
 
 CREATE TABLE invoice
 (
@@ -58,33 +65,32 @@ CREATE TABLE invoice
   ListID TEXT NOT NULL,
   id_salesrep TEXT NOT NULL,
   po_number TEXT,
-  dueDate NONE,
-  appliedAmount NONE,
-  balanceRemaining NONE,
-  billAddress_addr1 NONE,
-  billAddress_addr2 NONE,
-  billAddress_city NONE,
-  billAddress_state NONE,
-  billAddress_postalcode NONE,
-  shipAddress_addr1 NONE,
-  shipAddress_addr2 NONE,
-  shipAddress_city NONE,
-  shipAddress_state NONE,
-  shipAddress_postalcode NONE,
-  isPaid NONE,
-  isPending NONE,
-  refNumber NONE,
-  salesTaxPercentage NONE,
-  salesTaxTotal NONE,
-  shipDate NONE,
-  subtotal NONE,
+  dueDate INTEGER,
+  appliedAmount NUMERIC,
+  balanceRemaining NUMERIC,
+  billAddress_addr1 TEXT,
+  billAddress_addr2 TEXT,
+  billAddress_city TEXT,
+  billAddress_state TEXT,
+  billAddress_postalcode TEXT,
+  shipAddress_addr1 TEXT,
+  shipAddress_addr2 TEXT,
+  shipAddress_city TEXT,
+  shipAddress_state TEXT,
+  shipAddress_postalcode TEXT,
+  isPaid INTEGER,
+  isPending INTEGER,
+  refNumber TEXT,
+  salesTaxPercentage NUMERIC,
+  salesTaxTotal NUMERIC,
+  shipDate INTEGER,
+  subtotal NUMERIC,
   id_term TEXT NOT NULL,
   CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term),
   CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep) REFERENCES customer (ListID, id_salesrep),
   CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES terms (id_term)
 );
 
--- Table invoice_item
 
 CREATE TABLE invoice_item
 (
@@ -97,7 +103,6 @@ CREATE TABLE invoice_item
   CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term)
 );
 
--- Table terms
 
 CREATE TABLE terms
 (
