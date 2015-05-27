@@ -67,8 +67,8 @@ function openDatabaseZoe(){
 				var index;
 				for (index = 0; index < sqls.length; ++index) {
 					sql = sqls[index].trim();
+					db.transaction(function (tx){
     				console.log("executing..." +sql);
-					db.transaction(function (sql){
 						tx.executeSql(sql,[],nullHandler,errorHandler);
 					}, errorCB, successCB);
 				}
