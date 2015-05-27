@@ -85,9 +85,11 @@ function openDatabaseZoe(){
 		var index;
 		for (index = 0; index < sqls.length; ++index) {
 			var sql = sqls[index].trim();
-			logZoe("tx " +  tx);
-			logZoe("executing " +  sql);
-			tx.executeSql(sql);
+			if (sql!=""){
+				logZoe("tx " +  tx);
+				logZoe("executing " +  sql);
+				tx.executeSql(sql);
+			}
 		}
 	}
 
