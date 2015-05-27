@@ -70,6 +70,7 @@ function openDatabaseZoe(){
 			error: function(err){
 				logZoe("error leyendo dbcreate.sql" + err);
 			}
+		});
 			
 		
 	}
