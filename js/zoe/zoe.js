@@ -56,6 +56,7 @@ function openDatabaseZoe(){
 	return db;
 }
 
+	var currSQL;
 	function checkDatabase(){
 		logZoe("checkDatabase");
 		db = openDatabaseZoe();
@@ -66,10 +67,10 @@ function openDatabaseZoe(){
 				var sqls = data.split(";");
 				var index;
 				for (index = 0; index < sqls.length; ++index) {
-					var sql = sqls[index].trim();
-					db.transaction(function (tx,sql){
-    				console.log("executing..." +sql);
-						tx.executeSql(sql,[],nullHandler,errorHandler);
+					currSQL = sqls[index].trim();
+					db.transaction(function (tx){
+    				console.log("executing..." +currSQL);
+						tx.executeSql(currSQL,[],nullHandler,errorHandler);
 					}, errorCB, successCB);
 				}
             },
