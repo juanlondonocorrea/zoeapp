@@ -77,9 +77,13 @@ function openDatabaseZoe(){
             url : "dbcreate.sql",
             dataType: "text",
             success : function (data) {
-				var sql = data;
-				logZoe("sql=" + sql);
-				tx.executeSql(sql,[],nullHandler,errorHandler);
+				var sqls = data.split(";");
+				logZoe("sqls=" + sqls);
+				var index;
+				for (index = 0; index < sqls.length; ++index) {
+    				console.log("executing..." +sqls[index]);
+				}
+				tx.executeSql(sqls[index],[],nullHandler,errorHandler);
             },
 			error: function(err){
 				logZoe("error leyendo dbcreate.sql" + err);
