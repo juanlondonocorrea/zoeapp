@@ -77,7 +77,6 @@ function openDatabaseZoe(){
             dataType: "text",
             success : function (data) {
 				var sql = data;
-                $(".text").html(data);
 				tx.executeSql(sql,[],nullHandler,errorHandler);
             }
         });
