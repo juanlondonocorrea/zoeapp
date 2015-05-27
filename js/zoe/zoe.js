@@ -72,8 +72,15 @@ function openDatabaseZoe(){
 	}
 
 	function createDB(tx) {
-	var	sql = 'CREATE TABLE IF NOT EXISTS salesrep (id_salesrep TEXT NOT NULL, Name TEXT NOT NULL, Password TEXT NOT NULL, isActive INTEGER NOT NULL, SyncTime NUMERIC NOT NULL, CONSTRAINT Key2 PRIMARY KEY (id_salesrep), CONSTRAINT id_salesrep UNIQUE (id_salesrep) )';
-		tx.executeSql(sql,[],nullHandler,errorHandler);
+	    $.ajax({
+            url : "dbcreate.sql",
+            dataType: "text",
+            success : function (data) {
+				var sql = data;
+                $(".text").html(data);
+				tx.executeSql(sql,[],nullHandler,errorHandler);
+            }
+        });
 	}
 
 	function dropDB(tx) {
