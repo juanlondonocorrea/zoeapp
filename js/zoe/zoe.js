@@ -72,6 +72,7 @@ function openDatabaseZoe(){
 	}
 
 	function createDB(tx) {
+		logZoe("createDB. antes de ajax");
 	    $.ajax({
             url : "dbcreate.sql",
             dataType: "text",
@@ -79,7 +80,11 @@ function openDatabaseZoe(){
 				var sql = data;
 				logZoe("sql=" + sql);
 				tx.executeSql(sql,[],nullHandler,errorHandler);
-            }
+            },
+			error: function(err){
+				logZoe("error leyendo dbcreate.sql" + err);
+			}
+			
         });
 	}
 
