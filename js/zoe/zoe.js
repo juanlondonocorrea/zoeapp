@@ -60,27 +60,7 @@ function openDatabaseZoe(){
 	function checkDatabase(){
 		logZoe("checkDatabase");
 		db = openDatabaseZoe();
-	    $.ajax({
-            url : "dbcreate.sql",
-            dataType: "text",
-            success : function (data) {
-				var sqls = data.split(";");
-				var index;
-				for (index = 0; index < sqls.length; ++index) {
-					currSQL = sqls[index].trim();
-    				console.log("currSQL:" +currSQL);
-					db.transaction(function (tx){
-    				console.log("executing..." +currSQL);
-						tx.executeSql(currSQL,[],nullHandler,errorHandler);
-					}, errorCB, successCB);
-				}
-            },
-			error: function(err){
-				logZoe("error leyendo dbcreate.sql" + err);
-			}
-			
-        });
-		
+		db.transaction(createDB,errorCB, successCreateDB);
 	}
 
 	function dropDatabase(){
@@ -90,6 +70,25 @@ function openDatabaseZoe(){
 	}
 
 	function createDB(tx) {
+	    $.ajax({
+            url : "dbcreate.sql",
+            dataType: "text",
+            success : function (data) {
+				var sqls = data.split(";");
+				var index;
+				for (index = 0; index < sqls.length; ++index) {
+					var sql = sqls[index].trim();
+					logZoe("executing " +  sql);
+					logZOe("tx " +  tx);
+					tx.executeSql(sql);
+				}
+            },
+			error: function(err){
+				logZoe("error leyendo dbcreate.sql" + err);
+			}
+			
+        });
+		
 	}
 
 	function dropDB(tx) {
