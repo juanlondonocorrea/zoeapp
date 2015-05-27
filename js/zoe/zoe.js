@@ -113,7 +113,7 @@ function openDatabaseZoe(){
 	}
             
 		 
-	function successCB() {
+	function successCreateDB() {
 		window.localStorage.setItem('dbCreated',"true")
 		alert("Create database success");
 	   logZoe("dbCreated");
