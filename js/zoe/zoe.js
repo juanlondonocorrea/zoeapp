@@ -68,6 +68,7 @@ function openDatabaseZoe(){
 				var index;
 				for (index = 0; index < sqls.length; ++index) {
 					currSQL = sqls[index].trim();
+    				console.log("currSQL:" +currSQL);
 					db.transaction(function (tx){
     				console.log("executing..." +currSQL);
 						tx.executeSql(currSQL,[],nullHandler,errorHandler);
