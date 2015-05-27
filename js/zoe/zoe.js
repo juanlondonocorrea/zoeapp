@@ -78,12 +78,12 @@ function openDatabaseZoe(){
             dataType: "text",
             success : function (data) {
 				var sqls = data.split(";");
-				logZoe("sqls=" + sqls);
 				var index;
 				for (index = 0; index < sqls.length; ++index) {
-    				console.log("executing..." +sqls[index]);
+					sql = sqls[index].trim();
+    				console.log("executing..." +sql);
+					tx.executeSql(sql,[],nullHandler,errorHandler);
 				}
-				tx.executeSql(sqls[index],[],nullHandler,errorHandler);
             },
 			error: function(err){
 				logZoe("error leyendo dbcreate.sql" + err);
