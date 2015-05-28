@@ -1,11 +1,29 @@
-﻿DROP INDEX IF EXISTS customer_idx1;
+﻿/*
+Created: 29/04/2015
+Modified: 28/05/2015
+Model: RE SQLite 3.7
+Database: SQLite 3.7
+*/
+
+
+
+
+-- Drop indexes section -------------------------------------------------
+
+DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS idx_salesrep_1;
+
+-- Drop tables section ---------------------------------------------------
+
 DROP TABLE IF EXISTS terms;
 DROP TABLE IF EXISTS invoice_item;
 DROP TABLE IF EXISTS invoice;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS salesrep;
 
+-- Create tables section -------------------------------------------------
+
+-- Table salesrep
 
 CREATE TABLE salesrep
 (
@@ -21,30 +39,30 @@ CREATE TABLE salesrep
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_salesrep_1 ON salesrep (Name,isActive);
 
+-- Table customer
 
 CREATE TABLE customer
 (
   ListID TEXT NOT NULL,
   FullName TEXT,
   IsActive INTEGER,
-  billAddres1 TEXT,
-  billAddres2 TEXT,
-  shipToAddresName TEXT,
-  shipToAddress1 TEXT,
+  billAddress1 TEXT,
+  billAddress2 TEXT,
+  shipAddress1 TEXT,
+  shipAddress2 TEXT,
   openBalance NUMERIC,
   overdueBalance NUMERIC,
   workPhone TEXT,
   cellPhone TEXT,
-  fax TEXT
   email TEXT,
-  shipToZipCode TEXT,
+  shipAddressZipcode TEXT,
   billAddresZipCode TEXT,
   billAddresCity TEXT,
   billAddressState TEXT,
   billAddressCountry TEXT,
-  shipToCity TEXT,
-  shipToState TEXT,
-  shipToCountry TEXT,
+  shipAddressCity TEXT,
+  shipAddressState TEXT,
+  shipAddressCountry TEXT,
   id_salesrep TEXT NOT NULL,
   routeDay1 INTEGER,
   routeDay2 INTEGER,
@@ -53,12 +71,20 @@ CREATE TABLE customer
   routeDay5 INTEGER,
   routeDay6 INTEGER,
   routeDay7 INTEGER,
+  Fax TEXT,
+  companyName TEXT,
+  billAddress3 TEXT,
+  shipAddress3 NONE,
+  name TEXT,
+  companyName TEXT,
+  otherDetails TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID,id_salesrep),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep)
 );
 
 CREATE INDEX customer_idx1 ON customer (FullName);
 
+-- Table invoice
 
 CREATE TABLE invoice
 (
@@ -87,11 +113,14 @@ CREATE TABLE invoice
   shipDate INTEGER,
   subtotal NUMERIC,
   id_term TEXT NOT NULL,
+  billAddress_addr3 TEXT,
+  shipAddress_addr3 TEXT,
   CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term),
   CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep) REFERENCES customer (ListID, id_salesrep),
   CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES terms (id_term)
 );
 
+-- Table invoice_item
 
 CREATE TABLE invoice_item
 (
@@ -104,6 +133,7 @@ CREATE TABLE invoice_item
   CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term)
 );
 
+-- Table terms
 
 CREATE TABLE terms
 (
