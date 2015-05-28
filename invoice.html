@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Invoice</title>
+  <title>Invoices</title>
   
   <link rel="stylesheet" href="css/themes/zoe.min.css" />
   <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
@@ -25,11 +25,23 @@
 		});
 	}
   </script>
-  
+<style type="text/css">
+thead {color:black;}
+tbody {color:gray;}
+tfoot {
+	color:#ff770f;
+	font-weight:bolder;
+}
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
 </head>
  
 <body> 
-<div data-role="page" id="invoice">
+
+<div data-role="page" id="invoice" data-theme="a">
  	<div data-role="header">
 		<h1>Invoice Creation</h1>
 	</div>
@@ -158,10 +170,38 @@
                 <fieldset class="ui-grid-a">
                     <div class="ui-block-a"><button type="submit" id="submit" data-theme="c">Cancel</button></div>
                     <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Add</button></div>	   
-                </fieldset>                 
+                </fieldset> 
+                <table class="ui-table" width="100%" border="0" cellspacing="" cellpadding="0" align="center">
+                  <thead class="ui-page-theme-a">
+                    <tr>
+                      <th>Product</th>
+                      <th>Quantity</th>
+                      <th>Price US$</th>
+                      <th>Amount US$</th>
+                      <th>Class</th>      
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <td>Totals</td>
+                      <td><div align="right">180.00</div></td>
+                      <td <div align="right">100.00</div></td>
+                      <td><div align="right">1080.00</div></td>
+                      <td><div align="right"></div></td>      
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <tr>
+                      <td>Rice</td>
+                      <td><div align="right">100.00</div></td>
+                      <td><div align="right">50.20</div></td>
+                      <td><div align="right">5020.00</div></td>
+                      <td>Class 1</td>                  
+                    </tr>
+                  </tbody>
+                </table> 
             </div>
-
-            
+<!-- scrolling of the table body -->
 <!-- END   ADD ITEM -->
 
 
@@ -239,6 +279,47 @@
       </form>		
 	</div>
 </div>
+ 
+ 
+ 
+ Crear cliente
+1.	Cuando el usuario elige la opción de crear cliente se puede ingresar:
+	Nombre del cliente
+	IsActive
+	
+    Phone
+	CellPhone
+	Fax
+	Email
+
+2.	Billing address 
+
+	address line2
+    address line 3
+    city
+    state
+    zipcode
+    country
+    
+    opción de copy billing to shipping
+
+3. Shiping Address
+	address line2
+    address line 3
+    city
+    state
+    zipcode
+    country
+
+4   Términos de pago
+5    Other Datails
+    
+6.	Días de ruta
+7.	Orden de ruta
+	
+8.	Opción para guardar o descartar
+
+
  
  
 </body>
