@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Customer's Details</title>
+  
+  <link rel="stylesheet" href="css/themes/zoe.min.css" />
+  <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.structure-1.4.5.min.css" />
+
+<!--  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile-1.4.5.min.css" />  -->
+  <script src="js/jquery-mobile/jquery-2.1.4.js"></script>
+  <script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+  <script src="js/zoe/zoe.js"></script>
+  <script src="js/zoe/customerDAO.js"></script>
+  <script>
+  
+		$(document).bind("pagebeforecreate", function(event) {
+			console.log("en localpageinit Login.html");
+			initAnyPage(event.target);
+		});
+
+
+  </script>
+<style type="text/css">
+thead {color:black;}
+tbody {color:gray;}
+tfoot {
+	color:#ff770f;
+	font-weight:bolder;
+}
+table, th, td {
+    border: 1px solid black;
+}
+</style>  
+</head>
+
+<body>
+<div data-role="page" id="invoice"  title="Customer's Detail" data-theme="a">
+ 	<div data-role="header">
+		<h1></h1>
+	</div>
+    
+	<div data-role="content">	
+		<form id="formulario" >
+            <div data-role="fieldcontain" >
+                <div>
+                    <label for="FullName">Full Name:</label>
+                </div>
+                <input type="text" name="FullName" id="FullName" value=""  />
+            </div>
+            
+            <div data-role="fieldcontain" >
+                <div>
+                    <label for="Name">Name:</label>
+                </div>
+                <input type="text" name="Name" id="Name" value=""  />
+            </div>
+            
+            
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="CompanyName">Company Name:</label>
+                </div>
+                <input type="text" name="CompanyName" id="CompanyName" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Phone">Phone:</label>
+                </div>
+                <input type="text" name="Phone" id="Phone" value=""  />              
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Cell">Cell:</label>
+                </div>
+            	<input type="text" name="Cell" id="Cell" value=""  />              
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Fax">Fax:</label>
+                </div>
+            	<input type="text" name="Fax" id="Fax" value=""  />              
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Email">Email:</label>
+                </div>
+            	<input type="text" name="Email" id="Email" value=""  />              
+            </div>
+
+
+
+             <div class="ui-grid-a" style="height:95px">
+                <div class="ui-block-a" style="height:100%">           
+                <div data-role="fieldcontain">
+                  <div>
+                  <label for="selAddSalesTax" class="select">Add Sales Tax:</label>
+                  </div>
+                  <select name="selAddSalesTax" id="selAddSalesTax">
+                    <option value="option1">All export (0%)</option>
+                    <option value="option2">Livestock Rate (4.8%)</option>
+                    <option value="option3">Flat-rate compensation percentage for Farmers (5.2%)</option>
+                    <option value="option4">Second Reduced Rate (9%)</option>
+                    <option value="option5">Reduced Rate (13.5%)</option>                    
+                    <option value="option6">Standard Rate (23%)</option>                    
+                  </select>
+                </div>
+                </div>
+                        
+                             
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><button type="submit" id="submit" data-theme="c">Cancel</button></div>
+                <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Done</button></div>	   
+            </fieldset>              
+              
+           
+      </form>		
+	</div>
+</div>
+
+
+
+</body>
+</html>
