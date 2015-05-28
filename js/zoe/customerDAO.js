@@ -73,11 +73,12 @@ function customerLocalListReceiveFunction(tx,results){
 }
 
 function doStoreCustomer(tx){
-	logZoe ("doStoreCustomer"+JSON.stringify(recordCustomer));
+	logZoe ("doStoreCustomer ");
 	if (recordCustomer.length){
 		var i;
 		for (i=0;i<recordCustomer.length;i++){
 			var theRecord = recordCustomer[i];
+			logZoe("store customer:" + JSON.stringify(theRecord));
 			doStoreOneCustomer(tx, theRecord);
 		}
 	}else{
