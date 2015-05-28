@@ -15,7 +15,7 @@ function getSalesRepByName(aName,aReceiveFunction,aErrFunc){
 	salesRepErrFunc = aErrFunc;
 	db.transaction(doSelectSalesRep, salesRepErrFunc, salesRepReceiveFunction);
 }
-function storeSalesRep(record,aErrFunc,succesCB){
+function storeSalesRep(record,aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("storeSalesRep db=" + db);
 	recordSalesRep = record;
