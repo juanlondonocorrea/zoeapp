@@ -41,6 +41,8 @@ function consumeWS(mensaje, format, receiveFunction){
 function recibeSyncResponse( jqXHR, textStatus)
 {
 	log("synchronizing msg received:" + jqXHR.responseText );
+	log("synchronizing textStatus:" + textStatus );
+	log("synchronizing msg received:" + JSON.stringify(jqXHR ));
 	if (jqXHR.responseText){		
 		synchronizing = false
 		//$( "#synchDialog" ).popup( "close" );
