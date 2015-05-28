@@ -44,7 +44,7 @@ function recibeSyncResponse( jqXHR, textStatus)
 {
 	log("synchronizing textStatus:" + textStatus );
 	log("synchronizing msg jqXHR:" + JSON.stringify(jqXHR ));
-	if (jqXHR){		
+	if (jqXHR && jqXHR.responseText){		
 		synchronizing = false
 		//$( "#synchDialog" ).popup( "close" );
 		var jsonStr = 	jqXHR.responseText;
