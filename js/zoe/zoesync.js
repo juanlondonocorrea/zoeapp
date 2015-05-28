@@ -14,7 +14,9 @@ function consumeWS(mensaje, format, receiveFunction){
 	$.mobile.changePage("#synchDialog", {transition: "flow"});
 	
 	log("consumeWS2"); 
-    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
+//    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
+    var webServiceURL = 'http://192.168.88.103:54320/SyncService';
+	
 //    var webServiceURL = 'http://127.0.0.1:54320/SyncService';
 
 	$.support.cors = true;
@@ -40,26 +42,31 @@ function consumeWS(mensaje, format, receiveFunction){
 
 function recibeSyncResponse( jqXHR, textStatus)
 {
-	log("synchronizing msg received:" + jqXHR.responseText );
 	log("synchronizing textStatus:" + textStatus );
-	log("synchronizing msg received:" + JSON.stringify(jqXHR ));
-	if (jqXHR.responseText){		
+	log("synchronizing msg jqXHR:" + JSON.stringify(jqXHR ));
+	if (jqXHR){		
 		synchronizing = false
 		//$( "#synchDialog" ).popup( "close" );
 		var jsonStr = 	jqXHR.responseText;
 		jsonStr = jsonStr.substring(1,jsonStr.length-1);
 		log("jsonStr="+jsonStr);
 		var obj = JSON.parse(jsonStr);
-		var msgObj = obj.QBXML.QBXMLMsgsRs;
-		receiveSyncCallback(msgObj);
+		if (obj && obj.QBXML){
+			var msgObj = obj.QBXML.QBXMLMsgsRs;
+			receiveSyncCallback(msgObj);
+		}else{
+			log("Synch error: empty response");
+			alert("Synch error: empty response");
+		}
 	}
 }
 
 function errSync(jqXHR, textStatus)
 {
 	synchronizing = false;
-	$( "#synchDialog" ).popup( "close" );			
+//	$( "#synchDialog" ).popup( "close" );			
 	log("synchronizing error: " + textStatus);              
+	alert("Synch error: empty response");
 }
 
 function log(msg){
