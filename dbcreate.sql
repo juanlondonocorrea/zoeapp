@@ -113,13 +113,11 @@ CREATE TABLE invoice
   salesTaxTotal NUMERIC,
   shipDate INTEGER,
   subtotal NUMERIC,
-  id_term TEXT NOT NULL,
   billAddress_addr3 TEXT,
   shipAddress_addr3 TEXT,
   id_term TEXT NOT NULL,
-  CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term,id_term),
-  CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep, id_term) REFERENCES customer (ListID, id_salesrep, id_term),
-  CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES terms (id_term)
+  CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term),
+  CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep, id_term) REFERENCES customer (ListID, id_salesrep, id_term)
 );
 
 -- Table invoice_item
@@ -131,9 +129,8 @@ CREATE TABLE invoice_item
   ListID TEXT NOT NULL,
   id_salesrep TEXT NOT NULL,
   id_term TEXT NOT NULL,
-  id_term TEXT NOT NULL,
-  CONSTRAINT Key5 PRIMARY KEY (id_item,id_invoice,ListID,id_salesrep,id_term,id_term),
-  CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term, id_term)
+  CONSTRAINT Key5 PRIMARY KEY (id_item,id_invoice,ListID,id_salesrep,id_term),
+  CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term)
 );
 
 -- Table terms
