@@ -15,6 +15,7 @@
 <script src="js/zoe/zoe.js" type="text/javascript"></script>
 <script src="js/zoe/zoesync.js" type="text/javascript"></script>
 <script src="js/zoe/salesRepDAO.js" type="text/javascript"></script>
+<script src="js/zoe/customerDAO.js" type="text/javascript"></script>
 <!-- fin librerias -->
 
 <script>
@@ -24,7 +25,8 @@
 			initAnyPage(event.target);
 			$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
 			$('#submitConfig').click(submitFormConfig);	
-			$('#sycSalesRep').click(syncSalesRep);	
+			$('#syncSalesRep').click(syncSalesRep);	
+			$('#syncCustomers').click(syncCustomers);	
 			$('#createDB').click(checkDatabase);	
 			$('#dropDB').click(dropDatabase);	
 		});
@@ -47,6 +49,15 @@
 		return false;
 	}
 	
+	function syncCustomers(form){
+		console.log("entre a syncCustomers");
+		var mensaje = 	
+		'<CustomerQueryRq  requestID="aaa2"><MaxReturned >100</MaxReturned></CustomerQueryRq>';
+			
+		consumeWS(mensaje, "JSON", receiveCustomersMessage);
+		return false;
+	}
+
 	function receiveMessage(message){
 		var employee = message.EmployeeQueryRs;
 		var salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
@@ -58,12 +69,34 @@
 		salesRepDAO.store(salesRepVO, errInsert, successInsert);
 	}
 	
+	function receiveCustomerMessage(message){
+		var customers = message.CustomerQueryRs.CustomerRet;
+		var i;
+		var customersVO;
+		for (i=0;i<customers.length;i++){
+			var customerVO = {ListId:customers[i].ListID,
+				FullName:customers[i].FullName, 
+				OpenBalance:customers[i].balance 
+				};
+				customersVO[i] = customerVO;
+		}
+			
+		customerDAO.store(customersVO, errCustomerInsert, successCustomerInsert);
+	}
+
 	function successInsert(){
 		alert("Success sync salesRep");
 	}
 	
 	function errInsert(err){
 		alert("DB Error: "+JSON.stringify(err));
+	}
+	function successCostumerInsert(){
+		alert("Success synch customers");
+	}
+	
+	function errCostumerInsert(err){
+		alert("DB Error synch customers: "+JSON.stringify(err));
 	}
 </script>
 </head>
@@ -77,7 +110,8 @@
                     <lable for="salesRepName">Piloch Sales Rep Full Name</lable><input type="text" id="salesRepName" name="salesRepName" placeholder="salesRepName"><br>
                                  
                         <input id="submitConfig" type="submit" value="Save">
-		                <button class="ui-btn" id="sycSalesRep">Synch Sales Rep</button>
+		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
+		                <button class="ui-btn" id="syncCustomers">Synch Customers</button>
 		                <button class="ui-btn" id="dropDB">Drop database</button>
 		                <button class="ui-btn" id="createDB">create database</button>
                 </form>
