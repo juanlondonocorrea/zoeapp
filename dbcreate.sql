@@ -10,16 +10,16 @@ Database: SQLite 3.7
 
 -- Drop indexes section -------------------------------------------------
 
-DROP INDEX IF EXISTS customer_idx1;
-DROP INDEX IF EXISTS idx_salesrep_1;
+DROP INDEX customer_idx1;
+DROP INDEX idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
-DROP TABLE IF EXISTS terms;
-DROP TABLE IF EXISTS invoice_item;
-DROP TABLE IF EXISTS invoice;
-DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS salesrep;
+DROP TABLE terms;
+DROP TABLE invoice_item;
+DROP TABLE invoice;
+DROP TABLE customer;
+DROP TABLE salesrep;
 
 -- Create tables section -------------------------------------------------
 
@@ -77,8 +77,10 @@ CREATE TABLE customer
   name TEXT,
   companyName TEXT,
   otherDetails TEXT,
-  CONSTRAINT Key3 PRIMARY KEY (ListID,id_salesrep),
-  CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep)
+  id_term TEXT NOT NULL,
+  CONSTRAINT Key3 PRIMARY KEY (ListID,id_salesrep,id_term),
+  CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
+  CONSTRAINT Relationship7 FOREIGN KEY (id_term) REFERENCES terms (id_term)
 );
 
 CREATE INDEX customer_idx1 ON customer (FullName);
@@ -114,8 +116,9 @@ CREATE TABLE invoice
   id_term TEXT NOT NULL,
   billAddress_addr3 TEXT,
   shipAddress_addr3 TEXT,
-  CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term),
-  CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep) REFERENCES customer (ListID, id_salesrep),
+  id_term TEXT NOT NULL,
+  CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term,id_term),
+  CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep, id_term) REFERENCES customer (ListID, id_salesrep, id_term),
   CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES terms (id_term)
 );
 
@@ -128,8 +131,9 @@ CREATE TABLE invoice_item
   ListID TEXT NOT NULL,
   id_salesrep TEXT NOT NULL,
   id_term TEXT NOT NULL,
-  CONSTRAINT Key5 PRIMARY KEY (id_item,id_invoice,ListID,id_salesrep,id_term),
-  CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term)
+  id_term TEXT NOT NULL,
+  CONSTRAINT Key5 PRIMARY KEY (id_item,id_invoice,ListID,id_salesrep,id_term,id_term),
+  CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term, id_term)
 );
 
 -- Table terms
