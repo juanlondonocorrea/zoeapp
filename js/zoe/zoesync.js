@@ -51,7 +51,6 @@ function recibeSyncResponse( jqXHR, textStatus)
 		log("jsonStr="+jsonStr);
 		var obj = JSON.parse(jsonStr);
 		var msgObj = obj.QBXML.QBXMLMsgsRs;
-		log("se recibiio un objeto ListID:"+ msgObj.EmployeeQueryRs.EmployeeRet.ListID);
 		receiveSyncCallback(msgObj);
 	}
 }
