@@ -82,6 +82,7 @@
 				customersVO[i] = customerVO;
 		}
 			
+		customerDAO.deleteAll(errCustomerInsert);
 		customerDAO.store(customersVO, errCustomerInsert, successCustomerInsert);
 		
 	}

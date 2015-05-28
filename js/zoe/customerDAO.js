@@ -1,6 +1,6 @@
 // JavaScript Document
 
-var customerDAO = {list:listCustomers, getById:getCustomerById, store:storeCustomer };
+var customerDAO = {list:listCustomers, getById:getCustomerById, store:storeCustomer, deleteAll:deleteAllCustomer};
 var filterDataCustomer;
 var customerReceiveFunction;
 var customerReceiveListFunction;
@@ -34,6 +34,13 @@ function storeCustomer(records,aErrFunc,successCB){
 	recordCustomer = records;
 	customerErrFunc = aErrFunc;
 	db.transaction(doStoreCustomer, errorCB, successCB);
+}
+
+function deleteAllCustomer(aErrFunc,successCB){
+	db = openDatabaseZoe();
+	logZoe("deleteAllCustomer db=" + db);
+	customerErrFunc = aErrFunc;
+	db.transaction(doDeleteAllCustomer, errorCB, successCB);
 }
 
 
@@ -89,4 +96,8 @@ function doStoreCustomer(tx){
 
 function doStoreOneCustomer(tx, theRecord){
 	tx.executeSql('INSERT OR REPLACE INTO customer(ListId, FullName, openBalance) values (?,?,?)',[theRecord.ListId, theRecord.FullName, theRecord.OpenBalance]);
+}
+
+function doDeleteAllCustomerr(tx){
+	tx.executeSql('DELETE FROM customer',[]);
 }
