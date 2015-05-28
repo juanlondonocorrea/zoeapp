@@ -66,7 +66,7 @@
 			isActive:employee.EmployeeRet.IsActive, 
 			syncTime:Date.now()};
 			
-		salesRepDAO.store(salesRepVO, errInsert, successInsert);
+		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
 	}
 	
 	function receiveCustomersMessage(message){
@@ -93,6 +93,14 @@
 	
 	function errCustomerInsert(err){
 		alert("DB Error synch customers: "+JSON.stringify(err));
+	}
+
+	function successSyncSalesRep(){
+		alert("Success synch salesrep");
+	}
+	
+	function errSalesRepSync(err){
+		alert("DB Error synch salesrep: "+JSON.stringify(err));
 	}
 </script>
 </head>
