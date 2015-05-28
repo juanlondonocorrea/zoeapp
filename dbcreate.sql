@@ -35,6 +35,7 @@ CREATE TABLE customer
   overdueBalance NUMERIC,
   workPhone TEXT,
   cellPhone TEXT,
+  fax TEXT
   email TEXT,
   shipToZipCode TEXT,
   billAddresZipCode TEXT,
