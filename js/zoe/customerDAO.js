@@ -28,7 +28,7 @@ function listCustomers(aReceiveFunction,aErrFunc){
 	db.transaction(doSelectAllCustomer, customerErrFunc, customerReceiveListFunction);
 }
 
-function storeCustomer(records,aErrFunc,succesCB){
+function storeCustomer(records,aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("storeCustomer db=" + db);
 	recordCustomer = records;
