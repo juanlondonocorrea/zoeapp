@@ -10,16 +10,19 @@ Database: SQLite 3.7
 
 -- Drop indexes section -------------------------------------------------
 
-DROP INDEX customer_idx1;
-DROP INDEX idx_salesrep_1;
+DROP INDEX IF EXISTS IX_invoice_custumer;
+DROP INDEX IF EXISTS customer_idx1;
+DROP INDEX IF EXISTS IX_sales_rep_customer;
+DROP INDEX IF EXISTS IX_Relationship7;
+DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
-DROP TABLE terms;
-DROP TABLE invoice_item;
-DROP TABLE invoice;
-DROP TABLE customer;
-DROP TABLE salesrep;
+DROP TABLE IF EXISTS terms;
+DROP TABLE IF EXISTS invoice_item;
+DROP TABLE IF EXISTS invoice;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS salesrep;
 
 -- Create tables section -------------------------------------------------
 
@@ -78,12 +81,16 @@ CREATE TABLE customer
   companyName TEXT,
   otherDetails TEXT,
   id_term TEXT NOT NULL,
-  CONSTRAINT Key3 PRIMARY KEY (ListID,id_salesrep,id_term),
+  CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
   CONSTRAINT Relationship7 FOREIGN KEY (id_term) REFERENCES terms (id_term)
 );
 
 CREATE INDEX customer_idx1 ON customer (FullName);
+
+CREATE INDEX IX_sales_rep_customer ON customer (id_salesrep);
+
+CREATE INDEX IX_Relationship7 ON customer (id_term);
 
 -- Table invoice
 
@@ -91,7 +98,6 @@ CREATE TABLE invoice
 (
   id_invoice TEXT NOT NULL,
   ListID TEXT NOT NULL,
-  id_salesrep TEXT NOT NULL,
   po_number TEXT,
   dueDate INTEGER,
   appliedAmount NUMERIC,
@@ -115,10 +121,11 @@ CREATE TABLE invoice
   subtotal NUMERIC,
   billAddress_addr3 TEXT,
   shipAddress_addr3 TEXT,
-  id_term TEXT NOT NULL,
-  CONSTRAINT Key4 PRIMARY KEY (id_invoice,ListID,id_salesrep,id_term),
-  CONSTRAINT invoice_custumer FOREIGN KEY (ListID, id_salesrep, id_term) REFERENCES customer (ListID, id_salesrep, id_term)
+  CONSTRAINT Key4 PRIMARY KEY (id_invoice),
+  CONSTRAINT invoice_custumer FOREIGN KEY (ListID) REFERENCES customer (ListID)
 );
+
+CREATE INDEX IX_invoice_custumer ON invoice (ListID);
 
 -- Table invoice_item
 
@@ -126,11 +133,8 @@ CREATE TABLE invoice_item
 (
   id_item TEXT NOT NULL,
   id_invoice TEXT NOT NULL,
-  ListID TEXT NOT NULL,
-  id_salesrep TEXT NOT NULL,
-  id_term TEXT NOT NULL,
-  CONSTRAINT Key5 PRIMARY KEY (id_item,id_invoice,ListID,id_salesrep,id_term),
-  CONSTRAINT invoice_lines FOREIGN KEY (id_invoice, ListID, id_salesrep, id_term) REFERENCES invoice (id_invoice, ListID, id_salesrep, id_term)
+  CONSTRAINT Key5 PRIMARY KEY (id_item,id_invoice),
+  CONSTRAINT invoice_lines FOREIGN KEY (id_invoice) REFERENCES invoice (id_invoice)
 );
 
 -- Table terms
