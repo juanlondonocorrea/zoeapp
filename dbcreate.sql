@@ -66,7 +66,7 @@ CREATE TABLE customer
   shipAddressCity TEXT,
   shipAddressState TEXT,
   shipAddressCountry TEXT,
-  id_salesrep TEXT NOT NULL,
+  id_salesrep TEXT,
   routeDay1 INTEGER,
   routeDay2 INTEGER,
   routeDay3 INTEGER,
@@ -80,7 +80,7 @@ CREATE TABLE customer
   name TEXT,
   companyName TEXT,
   otherDetails TEXT,
-  id_term TEXT NOT NULL,
+  id_term TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
   CONSTRAINT Relationship7 FOREIGN KEY (id_term) REFERENCES terms (id_term)
