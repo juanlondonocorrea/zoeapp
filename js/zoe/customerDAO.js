@@ -86,6 +86,6 @@ function doStoreCustomer(tx){
 	
 }
 
-function doStoreOneCustumer(tx, theRecord){
+function doStoreOneCustomer(tx, theRecord){
 	tx.executeSql('INSERT OR REPLACE INTO customer(ListId, FullName, openBalance) values (?,?,?)',[theRecord.ListId, theRecord.FullName, theRecord.openBalance]);
 }
