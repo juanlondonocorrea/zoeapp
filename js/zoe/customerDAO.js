@@ -98,6 +98,6 @@ function doStoreOneCustomer(tx, theRecord){
 	tx.executeSql('INSERT OR REPLACE INTO customer(ListId, FullName, openBalance) values (?,?,?)',[theRecord.ListId, theRecord.FullName, theRecord.OpenBalance]);
 }
 
-function doDeleteAllCustomerr(tx){
+function doDeleteAllCustomer(tx){
 	tx.executeSql('DELETE FROM customer',[]);
 }
