@@ -2,7 +2,7 @@
 var synchronizing = false;
 var xhrSync;
 var receiveSyncCallback;
-function consumeWS(mensaje, format, receiveFunction){
+function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
 	receiveSyncCallback = receiveFunction;
 	if (synchronizing==true){
 		alert("Synchronizing in process");
@@ -23,7 +23,17 @@ function consumeWS(mensaje, format, receiveFunction){
 
 	$.support.cors = true;
 	
-	var dataToSend = "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'}}"; 
+	var dataToSend = "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'"; 
+	
+	if (cache){
+		dataToSend = dataToSend + ",cache:'" + cache + "'";
+	}
+	if (xpathExp){
+		dataToSend = dataToSend + ",xpathExp:'" + xpathExp + "'";
+	}
+	
+	dataToSend += "}}";
+	
 	
     xhrSync = $.ajax({
         type: "POST",

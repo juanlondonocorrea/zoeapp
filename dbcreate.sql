@@ -1,6 +1,6 @@
 ﻿/*
 Created: 29/04/2015
-Modified: 28/05/2015
+Modified: 31/05/2015
 Model: RE SQLite 3.7
 Database: SQLite 3.7
 */
@@ -35,7 +35,7 @@ CREATE TABLE salesrep
   Password TEXT NOT NULL,
   isActive INTEGER NOT NULL,
   SyncTime NUMERIC NOT NULL,
-  initials TEXT,
+  Initial TEXT,
   CONSTRAINT Key2 PRIMARY KEY (id_salesrep),
   CONSTRAINT id_salesrep UNIQUE (id_salesrep)
 );
