@@ -80,8 +80,11 @@
 
 	function receiveMessageSalesRep(message){
 		
+		logZoe("receiveMessageSalesRep message=" + JSON.stringify(message));
 		var salesRep = message.SalesRepQueryRs;
 		salesRepVO.Initial = salesRep.Initial;
+		logZoe("receiveMessageSalesRep salesRepVO=" + JSON.stringify(salesRepVO));
+		logZoe("receiveMessageSalesRep message=" + message);
 			
 		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
 	}
