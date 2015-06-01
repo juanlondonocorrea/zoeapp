@@ -71,7 +71,7 @@
 			
 		var mensajeSalesRep = '<SalesRepQueryRq requestID="c1"></SalesRepQueryRq>';
 		var cache = "salesrep";
-		var xpathExp = '//SalesRepRet[SalesRepEntityRef/FullName="' + window.localStorage.getItem('salesRepName') + '"]';
+		var xpathExp = '//SalesRepRet[SalesRepEntityRef/FullName="' + window.localStorage.getItem('salesRepName') + '"';
 
 		consumeWS(mensajeSalesRep, "JSON", receiveMessageSalesRep,cache, xpathExp);
 			
