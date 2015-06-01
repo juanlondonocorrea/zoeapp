@@ -49,16 +49,6 @@
 		return false;
 	}
 	
-	function syncCustomers(form){
-		console.log("entre a syncCustomers");
-		var mensaje = 	
-		'<CustomerQueryRq  requestID="aaa2"></CustomerQueryRq>';
-		var cache="customers";
-		var xpathExp = "//CustomerRet[SalesRepRef/FullName='7']";
-			
-		consumeWS(mensaje, "JSON", receiveCustomersMessage, cache, xpathExp);
-		return false;
-	}
 
 	var salesRepVO;
 	function receiveMessage(message){
@@ -89,6 +79,19 @@
 		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
 	}
 	
+	function syncCustomers(form){
+		console.log("entre a syncCustomers");
+		salesRepDAO.getByName(window.localStorage.getItem("salesRepName"), function(salesrepVO){
+		logZoe("en sysnCustomers salesrepVO = " + JSON.stringify(salesrepVO));
+		var mensaje = 	
+		'<CustomerQueryRq  requestID="customer1"></CustomerQueryRq>';
+		var cache="customers";
+		var xpathExp = '//CustomerRet[SalesRepRef/FullName="'+ salesrepVO.Initial + '"]';
+		
+		consumeWS(mensaje, "JSON", receiveCustomersMessage, cache, xpathExp);
+		});
+		return false;
+	}
 	function receiveCustomersMessage(message){
 		var customers = message.CustomerQueryRs.CustomerRet;
 		var i;
