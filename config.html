@@ -41,7 +41,7 @@
 	function syncSalesRep(form){
 		console.log("entre a syncSalesRep");
 		var mensaje = 	
-		'		<EmployeeQueryRq requestID="c1"></EmployeeQueryRq>';
+		'		<EmployeeQueryRq requestID="c1"><OwnerID>0</OwnerID></EmployeeQueryRq>';
 		var cache = "employee";
 		var xpathExp = '//EmployeeRet[Name="' + window.localStorage.getItem("salesRepName") + '"]';				
 		consumeWS(mensaje, "JSON", receiveMessage,cache, xpathExp);
@@ -75,11 +75,10 @@
 
 		consumeWS(mensajeSalesRep, "JSON", receiveMessageSalesRep,cache, xpathExp);
 			
-			
-		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
 	}
 
 	function receiveMessageSalesRep(message){
+		
 		var salesRep = message.CustomerQueryRs;
 		salesRepVO.Initial = salesRep.Initial;
 			
