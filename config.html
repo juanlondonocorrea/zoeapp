@@ -67,7 +67,7 @@
 			name:employee.EmployeeRet.Name, 
 			password:employee.EmployeeRet.DataExtRet[0].DataExtValue, 
 			isActive:employee.EmployeeRet.IsActive, 
-			syncTime:Date.now(), Initials:""};
+			syncTime:Date.now(), Initial:""};
 			
 		var mensajeSalesRep = '<SalesRepQueryRq requestID="c1"></SalesRepQueryRq>';
 		var cache = "salesrep";
@@ -80,8 +80,9 @@
 
 	function receiveMessageSalesRep(message){
 		
-		logZoe("receiveMessageSalesRep message=" + JSON.stringify(message));
 		var salesRep = message.SalesRepQueryRs;
+		logZoe("receiveMessageSalesRep salesRep=" + JSON.stringify(salesRep));
+		logZoe("receiveMessageSalesRep salesRep.Initial=" + JSON.stringify(salesRep.Initial));
 		salesRepVO.Initial = salesRep.Initial;
 		logZoe("receiveMessageSalesRep salesRepVO=" + JSON.stringify(salesRepVO));
 		logZoe("receiveMessageSalesRep message=" + message);
