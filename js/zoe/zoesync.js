@@ -78,6 +78,7 @@ function errSync(jqXHR, textStatus)
 	synchronizing = false;
 	$( "#synchDialog" ).popup( "close" );			
 	log("synchronizing error: " + textStatus);              
+	log("synchronizing error jqXHR: " + JSON.stringify(jqXHR));              
 	alert("Synch error: empty response");
 }
 
