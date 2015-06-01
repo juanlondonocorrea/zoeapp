@@ -41,12 +41,10 @@
 	function syncSalesRep(form){
 		console.log("entre a syncSalesRep");
 		var mensaje = 	
-		'		<EmployeeQueryRq requestID="c1">\
-				<FullName>' + window.localStorage.getItem("salesRepName") + '</FullName>\
-				 <OwnerID>0</OwnerID>\
-				</EmployeeQueryRq>';
-				
-		consumeWS(mensaje, "JSON", receiveMessage,cach);
+		'		<EmployeeQueryRq requestID="c1"></EmployeeQueryRq>';
+		var cache = "employee";
+		var xpathExp = "//EmployeeRet[FullName='" + window.localStorage.getItem("salesRepName") + "']";				
+		consumeWS(mensaje, "JSON", receiveMessage,cache, xpathExp);
 		
 		return false;
 	}
@@ -54,9 +52,11 @@
 	function syncCustomers(form){
 		console.log("entre a syncCustomers");
 		var mensaje = 	
-		'<CustomerQueryRq  requestID="aaa2"><MaxReturned >100</MaxReturned></CustomerQueryRq>';
+		'<CustomerQueryRq  requestID="aaa2"></CustomerQueryRq>';
+		var cache="customers";
+		var xpathExp = "//CustomerRet[SalesRepRef/FullName='7']";
 			
-		consumeWS(mensaje, "JSON", receiveCustomersMessage);
+		consumeWS(mensaje, "JSON", receiveCustomersMessage, cache, xpathExp);
 		return false;
 	}
 
