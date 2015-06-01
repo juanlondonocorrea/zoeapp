@@ -80,7 +80,7 @@
 
 	function receiveMessageSalesRep(message){
 		
-		var salesRep = message.CustomerQueryRs;
+		var salesRep = message.SalesRepQueryRs;
 		salesRepVO.Initial = salesRep.Initial;
 			
 		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
