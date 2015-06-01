@@ -73,7 +73,7 @@
 		var salesRep = message.SalesRepQueryRs.SalesRepRet;
 		logZoe("receiveMessageSalesRep salesRep=" + JSON.stringify(salesRep));
 		logZoe("receiveMessageSalesRep salesRep.Initial=" + JSON.stringify(salesRep.Initial));
-		salesRepVO.Initial = salesRep.Initial;
+		salesRepVO.Initial = salesRep.Initial+ "";
 		logZoe("receiveMessageSalesRep salesRepVO=" + JSON.stringify(salesRepVO));
 			
 		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
