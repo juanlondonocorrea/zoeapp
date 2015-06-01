@@ -43,7 +43,7 @@
 		var mensaje = 	
 		'		<EmployeeQueryRq requestID="c1"></EmployeeQueryRq>';
 		var cache = "employee";
-		var xpathExp = '//EmployeeRet[FullName="' + window.localStorage.getItem("salesRepName") + '"]';				
+		var xpathExp = '//EmployeeRet[Name="' + window.localStorage.getItem("salesRepName") + '"]';				
 		consumeWS(mensaje, "JSON", receiveMessage,cache, xpathExp);
 		
 		return false;
@@ -71,7 +71,7 @@
 			
 		var mensajeSalesRep = '<SalesRepQueryRq requestID="c1"></SalesRepQueryRq>';
 		var cache = "salesrep";
-		var xpathExp = '//SalesRepRet[SalesRepEntityRef/Name="' + window.localStorage.getItem('salesRepName') + '"]';
+		var xpathExp = '//SalesRepRet[SalesRepEntityRef/FullName="' + window.localStorage.getItem('salesRepName') + '"]';
 
 		consumeWS(mensajeSalesRep, "JSON", receiveMessageSalesRep,cache, xpathExp);
 			
