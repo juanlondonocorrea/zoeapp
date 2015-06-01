@@ -12,8 +12,8 @@ function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
 
 	synchronizing = true;
 	
-	$( "#synchDialog" ).popup( "open" );
-	$( "#synchDialog" ).on( "popupafterclose", cancelSynch );
+//	$( "#synchDialog" ).popup( "open" );
+//	$( "#synchDialog" ).on( "popupafterclose", cancelSynch );
 	
 	log("consumeWS2"); 
 //    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
@@ -57,7 +57,7 @@ function recibeSyncResponse( jqXHR, textStatus)
 	log("synchronizing msg jqXHR:" + JSON.stringify(jqXHR ));
 	if (jqXHR && jqXHR.responseText){		
 		synchronizing = false
-		$( "#synchDialog" ).popup( "close" );
+//		$( "#synchDialog" ).popup( "close" );
 		var jsonStr = 	jqXHR.responseText;
 		jsonStr = jsonStr.substring(1,jsonStr.length-1);
 		log("jsonStr="+jsonStr);
@@ -75,7 +75,7 @@ function recibeSyncResponse( jqXHR, textStatus)
 function errSync(jqXHR, textStatus)
 {
 	synchronizing = false;
-	$( "#synchDialog" ).popup( "close" );			
+//	$( "#synchDialog" ).popup( "close" );			
 	log("synchronizing error: " + textStatus);              
 	log("synchronizing error jqXHR: " + JSON.stringify(jqXHR));              
 	alert("Synch error: empty response");
