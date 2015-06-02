@@ -25,6 +25,10 @@
 	"salesRepName"));
 			initAnyPage(event.target);
 			$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
+			if (!window.localStorage.getItem("syncURL")){
+				window.localStorage.setItem("syncURL","http://24.234.187.107:54320/SyncService");
+			}
+			$('#syncURL').val(window.localStorage.getItem("syncURL"));	
 			$('#submitConfig').click(submitFormConfig);	
 			$('#syncSalesRep').click(syncSalesRep);	
 			$('#syncCustomers').click(syncCustomers);	
@@ -34,6 +38,7 @@
 
 	function submitFormConfig(form) {
 		window.localStorage.setItem("salesRepName", $('#salesRepName').val());
+		window.localStorage.setItem("syncURL",$('#syncURL').val());
 		logZoe("config localStorage salesRepName=" + window.localStorage.getItem("salesRepName"));
 		return false;
 	}
@@ -178,6 +183,8 @@
             <div data-role="content"> 
                 <form method="post" id="configForm" data-ajax="true">
                     <lable for="salesRepName">Piloch Sales Rep Full Name</lable><input type="text" id="salesRepName" name="salesRepName" placeholder="salesRepName"><br>
+
+                    <lable for="syncURL">Synchronization URL</lable><input type="text" id="syncURL" name="syncURL" placeholder="syncURL"><br>
                                  
                         <input id="submitConfig" type="submit" value="Save">
 		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
