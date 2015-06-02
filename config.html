@@ -101,6 +101,7 @@
 			var routeDay = "";
 			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
 				for (var j = 0; j< customers[i].DataExtRet.length; j++){
+					logZoe("customers[i].DataExtRet[j].DataExtName=" + customers[i].DataExtRet[j].DataExtName);
 					if (customers[i].DataExtRet[j].DataExtName.equals("RouteDay")){
 						routeDay = customers[i].DataExtRet[j].DataExtValue;
 					}
