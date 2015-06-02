@@ -15,7 +15,7 @@
 		  var toPage = target.id;
 		  logZoe("initAnyPage toPage=" + toPage);
 		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
-			checkSession();
+			//checkSession();
 		  }
 		};
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Customers</title>
-  
+
   <link rel="stylesheet" href="css/themes/zoe.min.css" />
   <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
   <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.structure-1.4.5.min.css" />
@@ -12,46 +12,427 @@
   <script src="js/jquery-mobile/jquery-2.1.4.js"></script>
   <script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
   <script src="js/zoe/zoe.js"></script>
-  <script src="js/zoe/salesRepDAO.js"></script>
+  <script src="js/zoe/customerDAO.js"></script>
+  <script> 
+ // var htmlString1=''; 
+	$(document).bind("pagebeforecreate", function(event) {
+		console.log("Cargar Clientes");
+		initAnyPage(event.target);
+		
+		//$(".linkDetail").on(click,showDetail);
+		if (this.activeElement && this.activeElement.id){
+			var index =  this.activeElement.id;
+			index = index.substring(index.indexOf("_")+1);
+			renderDetail(index);
+		}else{
+			//receiveCustomers();
+			customerDAO.list(receiveCustomers, errReceiveCustomers);
+		}
+		
+
+	});
+
+	$(document).bind('pagechange', function() {
+  		$('.ui-page-active .ui-listview').listview('refresh');
+  		$('.ui-page-active :jqmData(role=content)').trigger('create');
+	});	
+
+	$( function() {
+	  $( "#the-search-input" ).textinput();
+
+	});
+	
+	var state;
+	function ChangeEditState()
+	{
+	state = $("#FlipSwithEdit").checked;
+	state = $("#Switch1").text(state.toString());
+	if (state = "on") {
+			disable();
+		}
+		else if (state = "off"){
+			enable();
+		}		
+	}
+	
+/*	
+	$("#FlipSwithEdit").change(function() {
+    var state = $("#FlipSwithEdit").val();
+    $("#Switch1").text(state.toString());
+	if (state = "on") {
+		disable();
+	}
+	else {
+		enable();
+	}
+	
+});*/
+	
+	function enable() {
+      //$("input").closest("div").removeClass("ui-state-disabled");
+	  $('input').prop('readonly',true);
+	}
+
+	function disable() {
+      //$("input").closest("div").addClass("ui-state-disabled");
+	 $('input').prop('readonly',false);
+	}
+
+	var listCustomers = new Array();
+	function receiveCustomers(arrayCustomers){
+/*		var arrayCustomers = new Array();
+		arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
+		arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
+		arrayCustomers[2] = {ListId:'3',FullName:'Jose', openBalance:'100000.00'};
+		arrayCustomers[3] = {ListId:'4',FullName:'Lisa', openBalance:'1000000.00'};
+		arrayCustomers[4] = {ListId:'5',FullName:'Cris', openBalance:'10000000.00'};
+		arrayCustomers[5] = {ListId:'6',FullName:'Isa',  openBalance:'100000000.00'};
+		arrayCustomers[6] = {ListId:'7',FullName:'Ana',  openBalance:'1000000000.00'};
+		arrayCustomers[7] = {ListId:'8',FullName:'Tati', openBalance:'10000000000.00'};
+		arrayCustomers[8] = {ListId:'9',FullName:'Yeny', openBalance:'100000000000.00'};
+		arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
+		arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
+*/		
+		listCustomers = arrayCustomers;
+
+		var htmlString1 = '<ol data-role="listview" data-inset="true">';
+		for(var i=0; i< arrayCustomers.length; i++) {
+			logZoe("ArrayCustomer: "+ JSON.stringify(arrayCustomers[i]));
+			htmlString1 += '<li><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
+			}
+			htmlString1 += '</ol>';
+			$('#CustomersList').html(htmlString1);
+			//$( ".selector" ).listview( "refresh" );
+	}
+	
+	function renderDetail(index){
+		logZoe("renderDetail index=" + index);
+		logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
+		// Trae los datos del "registro" del servidor de QuickBooks
+		
+		$('#ListID').val(listCustomers[index].ListID);
+		$('#FullName').val(listCustomers[index].FullName);
+		$('#openBalance').val(listCustomers[index].openBalance);
+		$('#Name').val(listCustomers[index].Name);
+		$('#CompanyName').val(listCustomers[index].CompanyName);
+		
+		$('#Phone').val(listCustomers[index].Phone);
+		$('#Cell').val(listCustomers[index].Cell);
+		$('#Fax').val(listCustomers[index].Fax);
+		$('#Email').val(listCustomers[index].Email);
+		
+		$('#billAddress1').val(listCustomers[index].billAddress1);
+		$('#billAddress2').val(listCustomers[index].billAddress2);
+		$('#billAddress3').val(listCustomers[index].billAddress3);
+		$('#billCity').val(listCustomers[index].billCity);
+		$('#billState').val(listCustomers[index].billState);
+		$('#billZipCode').val(listCustomers[index].billZipCode);
+		$('#billCountry').val(listCustomers[index].billCountry);
+		
+		$('#shipAddress1').val(listCustomers[index].shipAddress1);
+		$('#shipAddress2').val(listCustomers[index].shipAddress2);
+		$('#shipAddress3').val(listCustomers[index].shipAddress3);
+		$('#shipCity').val(listCustomers[index].shipCity);
+		$('#shipState').val(listCustomers[index].shipState);
+		$('#shipZipCode').val(listCustomers[index].shipZipCode);
+		$('#shipCountry').val(listCustomers[index].shipCountry);
+		
+		$('#openBalance').val(listCustomers[index].openBalance);
+		$('#overdueBalance').val(listCustomers[index].overdueBalance);	
+		
+		$('#Terms').val(listCustomers[index].Terms);
+		$('#OtherDetails').val(listCustomers[index].OtherDetails);	
+	}
+
+  </script>
+<style type="text/css">
+thead {color:black;}
+tbody {color:gray;}
+tfoot {
+	color:#ff770f;
+	font-weight:bolder;
+}
+table, th, td {
+    border: 1px solid black;
+}
+.control-group {
+  margin-bottom: 9px;
+  background-color:#FFFFFF;
+  border-color:#000000;
+  border-width:medium;
+  border:thick;
+
+box-shadow: inset 2px 2px 1px 1px rgba(50, 50, 50, 0.75);
+}
+</style> 
 </head>
 
 <body>
 <div data-role="page" id="Customers" data-theme="a">
- 	<div data-role="header">
-		<h1>Customers</h1>
+	<div data-role="content" id="SearchCustomer">
+    <label for="search-basic">Search Customer:</label>
+    	<input id="the-search-input" type="text" data-type="search">
+    </div>
+    <div data-role="content" id="CustomersList">
+        <!-- Injection-->
 	</div>
-    <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
-    <div data-role="content">
-        <ol data-role="listview" data-inset="true">
-          <li><a href="#">
-            <h3>Customer 1</h3>
-            <p>Balance</p>
-            <span class="ui-li-count">$ 230,00</span>
-            </a><a href="#">Predet.</a></li>
-          <li><a href="#">
-            <h3>Customer 2</h3>
-            <p>Balance</p>
-            <span class="ui-li-count">$ 12.500,28</span>
-            </a><a href="#">Predet.</a></li>
-          <li><a href="#">
-            <h3>Customer 3</h3>
-            <p>Balance</p>
-            <span class="ui-li-count">$ 104.780,45</span>
-            </a><a href="#">Predet.</a></li>
-          <li><a href="#">
-            <h3>Customer 4</h3>
-            <p>Balance</p>
-            <span class="ui-li-count">$ 88.104.900,78</span>
-            </a><a href="#">Predet.</a></li>
-          <li><a href="#">
-            <h3>Customer 5</h3>
-            <p>Balance</p>
-            <span class="ui-li-count">$ 1.235.414.780,45</span>
-            </a><a href="#">Predet.</a></li>            
-        </ol>
-	</div>
-</div>
+    <!-- divs de header, menu y footer-->
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+<!-- fin divs -->
+</div> 
 
+<!-- BEGIN CUSTOMERS DETAILS-->
+<div data-role="page" id="CustomersDetails"  data-title=="Customer's Detail" data-theme="a">
+
+    
+	<div data-role="content" >
+    <div data-role="fieldcontain">
+        <div>
+            <label for="FlipSwithEdit">Edit enable:</label>
+        </div>
+        <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="FlipSwithEdit" data-on-text="On" data-off-text="Off" data-wrapper-class="custom-size-flipswitch" onChange="ChangeEditState();">    
+     </div>
+ <p>Toggle state:<span id="Switch1"></span></p>
+     
+     <a href="#" onclick="enable()" class="ui-btn">Enable</a>
+     <a href="#" onclick="disable()" class="ui-btn">Disable</a>    	
+
+    	<form id="formulario" >
+			<!-- Identification Info --> 
+            
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+<legend><h4>Identification Info</h4></legend>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="ListID">ListID:</label>
+                </div>
+                <input type="text" data-theme="b" name="ListID" id="ListID" value=""/>
+			</div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="FullName">Full Name:</label>
+                </div>
+                <input type="text" data-theme="b" name="FullName" id="FullName" value=""/>
+			</div>
+            
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Name">Name:</label>
+                </div>
+                <input type="text" data-theme="b" name="Name" id="Name" value=""  />
+            </div>
+            
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="CompanyName">Company Name:</label>
+                </div>
+                <input type="text" data-theme="b" name="CompanyName" id="CompanyName" value=""  />
+            </div>
+</fieldset> 
+         
+			<!-- Contact Info -->
+
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px"> 
+<legend><h4>Contact Info</h4></legend>                       
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Phone">Phone:</label>
+                </div>
+                <input type="tel" data-theme="b" name="Phone" id="Phone" value=""  />              
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Cell">Cell:</label>
+                </div>
+            	<input type="tel" data-theme="b" name="Cell" id="Cell" value=""  />              
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Fax">Fax:</label>
+                </div>
+            	<input type="text" data-theme="b" name="Fax" id="Fax" value=""  />              
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="Email">Email:</label>
+                </div>
+            	<input type="email" data-theme="b" name="Email" id="Email" value=""  />              
+            </div>
+</fieldset>
+
+			<!-- Billing Address -->
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+<legend><h4>Billing Address</h4></legend>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="billAddress1">Bill Address Line 1:</label>
+                </div>
+            	<input type="text" data-theme="b" name="billAddress1" id="billAddress1" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="billAddress2">Bill Address Line 2:</label>
+                </div>
+            	<input type="text" data-theme="b" name="billAddress2" id="billAddress2" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="billAddress3">Bill Address Line 3:</label>
+                </div>
+            	<input type="text" data-theme="b" name="billAddress3" id="billAddress3" value=""  />
+            </div>
+            
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="billCity">City:</label>
+                </div>
+            	<input type="text" data-theme="b" name="billCity" id="billCity" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="billState">State:</label>
+                </div>
+            	<input type="text" data-theme="b" name="billState" id="billState" value=""  />
+            </div>
+
+            <div class="ui-grid-a" style="height:95px">
+	            <div class="ui-block-a" style="height:100%"> 
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="billZipCode">Zip Code:</label>
+                        </div>
+                        <input type="number" data-theme="b" name="billZipCode" id="billZipCode" value=""  />
+                    </div>                    
+    	        </div>
+                <div class="ui-block-b" style="height:100%">            
+                <div data-role="fieldcontain">
+                    <div>
+                        <label for="billCountry">Country:</label>
+                    </div>
+                    <input type="text" data-theme="b" name="billCountry" id="billCountry" value=""  />
+                </div>                      
+                </div>  
+           </div>
+</fieldset>
+			<!-- Shiping Address -->
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+<legend><h4>Shiping Address</h4></legend>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="shipAddress1">Ship Address Line 1:</label>
+                </div>
+            	<input type="text" data-theme="b" name="shipAddress1" id="shipAddress1" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="shipAddress2">Ship Address Line 2:</label>
+                </div>
+            	<input type="text" data-theme="b" name="shipAddress2" id="shipAddress2" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="shipAddress3">Ship Address Line 3:</label>
+                </div>
+            	<input type="text" data-theme="b" name="shipAddress3" id="shipAddress3" value=""  />
+            </div>
+            
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="shipCity">Ship City:</label>
+                </div>
+            	<input type="text" data-theme="b" name="shipCity" id="shipCity" value=""  />
+            </div>
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="shipState">Ship State:</label>
+                </div>
+            	<input type="text" data-theme="b" name="shipState" id="shipState" value=""  />
+            </div>
+            
+            <div class="ui-grid-a" style="height:95px">
+	            <div class="ui-block-a" style="height:100%"> 
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="shipZipCode">Ship Zip Code:</label>
+                        </div>
+                        <input type="number" data-theme="b" name="shipZipCode" id="shipZipCode" value=""  />
+                    </div>
+    	        </div>
+                <div class="ui-block-b" style="height:100%">            
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="shipCountry">Ship Country:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="shipCountry" id="shipCountry" value=""  />
+                    </div>
+                </div>  
+           </div>
+</fieldset> 
+			<!-- Balance Info -->
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+<legend><h4>Balance Info</h4></legend>
+            <div class="ui-grid-a" style="height:95px">
+	            <div class="ui-block-a" style="height:100%"> 
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="openBalance">Open Balance:</label>
+                        </div>
+                        <input type="number" data-theme="b" name="openBalance" id="openBalance" value=""  />
+                    </div>                    
+    	        </div>
+                <div class="ui-block-b" style="height:100%">            
+                <div data-role="fieldcontain">
+                    <div>
+                        <label for="overdueBalance">Overdue Balance:</label>
+                    </div>
+                    <input type="number" data-theme="b" name="overdueBalance" id="overdueBalance" value=""  />
+                </div>                      
+                </div>  
+           </div>
+</fieldset>           
+ 			<!-- Terms Info --> 
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+            <div data-role="fieldcontain">
+              <div>
+              <label for="Terms" class="select">Terms:</label>
+              </div>
+              <select name="Terms" id="Terms" data-theme="a">
+                <option value="option1">Terms 1</option>
+                <option value="option2">Terms 2</option>
+                <option value="option3">Terms 3</option>
+                <option value="option4">Terms 4</option>
+                <option value="option5">Terms 5</option>
+                <option value="option6">Terms 6</option>      
+              </select>
+            </div>
+</fieldset> 
+ 			<!-- Other Info -->                       
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+            <div data-role="fieldcontain">
+                <div>
+                    <label for="OtherDetails">Other Details:</label>
+                </div>
+            	<input type="text" data-theme="b" name="OtherDetails" id="OtherDetails" value=""  />
+            </div> 
+</fieldset> 
+            
+<div >            
+            <fieldset class="ui-grid-a" data-role="controlgroup" data-type="horizontal"  style="padding:15px;">
+                <div class="ui-block-a"><button id="cancel" data-add-back-btn="true" data-theme="b">Cancel</button></div>
+                <div class="ui-block-b"><button id="submit" data-theme="c">Done</button></div>	   
+            </fieldset>              
+</div>
+      </form>		
+	</div>
+<!-- END CUSTOMERS DETAILS-->    
+<!-- divs de header, menu y footer-->
+	<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+	<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+<!-- fin divs -->    
+</div>
 
 
 </body>
