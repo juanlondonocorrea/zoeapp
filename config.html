@@ -97,6 +97,7 @@
 		var i;
 		var customersVO = [];
 		for (i=0;i<customers.length;i++){
+			logZoe("customers[i]=" + JSON.stringify(customers[i]));
 			var routeDay = "";
 			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
 				for (var j = 0; j< customers[i].DataExtRet.length; j++){
