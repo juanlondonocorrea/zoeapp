@@ -43,6 +43,7 @@
 	}
 	
 	$(document).bind('pagechange', function() {
+		logZoe("customers on pagechange");
   		$('.ui-page-active .ui-listview').listview('refresh');
   		$('.ui-page-active :jqmData(role=content)').trigger('create');
 	});	
@@ -111,6 +112,7 @@
 			htmlString1 += '<li><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
 			}
 			htmlString1 += '</ol>';
+			logZoe("htmlString1="+htmlString1);
 			$('#CustomersList').html(htmlString1);
 			//$( ".selector" ).listview( "refresh" );
 	}
