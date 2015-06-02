@@ -20,6 +20,7 @@
 		initAnyPage(event.target);
 		
 		//$(".linkDetail").on(click,showDetail);
+		logZoe("this.activeElement: " + JSON.stringify(this.activeElement));
 		if (this.activeElement && this.activeElement.id){
 			logZoe("activeElement.id: "+this.activeElement.id)
 			var index =  this.activeElement.id;
