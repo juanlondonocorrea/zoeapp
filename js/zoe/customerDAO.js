@@ -78,8 +78,8 @@ function customerLocalListReceiveFunction(tx,results){
 			arrayCustomers[i] = results.rows.item(i);
 		}
 	}else{
-			logZoe("customerLocalListReceiveFunction " + JSON.stringify(results));
 		arrayCustomers[0] = results;
+		logZoe("arrayCustomers[0] " + JSON.stringify(arrayCustomers[0]));
 	}
 	customerReceiveListFunction(arrayCustomers);	
 }
