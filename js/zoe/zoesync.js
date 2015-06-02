@@ -2,7 +2,7 @@
 var synchronizing = false;
 var xhrSync;
 var receiveSyncCallback;
-function consumeWS(mensaje, format, receiveFunction){
+function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
 	receiveSyncCallback = receiveFunction;
 	if (synchronizing==true){
 		alert("Synchronizing in process");
@@ -11,17 +11,31 @@ function consumeWS(mensaje, format, receiveFunction){
 	log("consumeWS1"); 
 
 	synchronizing = true;
-	$.mobile.changePage("#synchDialog", {transition: "flow"});
 	
-	log("consumeWS2"); 
+//	$( "#synchDialog" ).popup( "open" );
+//	$( "#synchDialog" ).on( "popupafterclose", cancelSynch );
+	
 //    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
-    var webServiceURL = 'http://192.168.88.103:54320/SyncService';
+//    var webServiceURL = 'http://192.168.88.103:54320/SyncService';
 	
-//    var webServiceURL = 'http://127.0.0.1:54320/SyncService';
+    var webServiceURL = window.localStorage.getItem("syncURL");
+
+	log("consumeWS2 webServiceURL=" + webServiceURL); 
 
 	$.support.cors = true;
 	
-	var dataToSend = "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'}}"; 
+	var dataToSend = "{synch:{uploadOperations:'"+mensaje+"',responseFormat:'"+format+"'"; 
+	
+	if (cache){
+		dataToSend = dataToSend + ",cache:'" + cache + "'";
+	}
+	if (xpathExp){
+		dataToSend = dataToSend + ",xpathExp:'" + xpathExp + "'";
+	}
+	
+	dataToSend += "}}";
+	
+	log("consumeWS3 data:" + dataToSend); 
 	
     xhrSync = $.ajax({
         type: "POST",
@@ -30,12 +44,10 @@ function consumeWS(mensaje, format, receiveFunction){
 		jsonp: "callback",
         data: dataToSend,
         dataType: "text",
-        success: recibeSyncResponse,
         complete: recibeSyncResponse,
-        error: errSync
+        error: errSync,
     });
 
-	log("consumeWS3 data:" + dataToSend); 
 
 
 }
@@ -46,7 +58,7 @@ function recibeSyncResponse( jqXHR, textStatus)
 	log("synchronizing msg jqXHR:" + JSON.stringify(jqXHR ));
 	if (jqXHR && jqXHR.responseText){		
 		synchronizing = false
-		//$( "#synchDialog" ).popup( "close" );
+//		$( "#synchDialog" ).popup( "close" );
 		var jsonStr = 	jqXHR.responseText;
 		jsonStr = jsonStr.substring(1,jsonStr.length-1);
 		log("jsonStr="+jsonStr);
@@ -66,6 +78,7 @@ function errSync(jqXHR, textStatus)
 	synchronizing = false;
 //	$( "#synchDialog" ).popup( "close" );			
 	log("synchronizing error: " + textStatus);              
+	log("synchronizing error jqXHR: " + JSON.stringify(jqXHR));              
 	alert("Synch error: empty response");
 }
 

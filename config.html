@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/themes/zoe.min.css" />
   <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
   <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.structure-1.4.5.min.css" />
+  <link rel="stylesheet" href="js/zoe/jquery.mobile.simpledialog.min.css" />
 
   <!--link rel="stylesheet" href="js/jquery-mobile/jquery.mobile-1.4.5.min.css" /-->  
 <script src="js/jquery-mobile/jquery-2.1.4.js" type="text/javascript"></script>
@@ -24,15 +25,20 @@
 	"salesRepName"));
 			initAnyPage(event.target);
 			$('#salesRepName').val(window.localStorage.getItem("salesRepName"));	
+			if (!window.localStorage.getItem("syncURL")){
+				window.localStorage.setItem("syncURL","http://24.234.187.107:54320/SyncService");
+			}
+			$('#syncURL').val(window.localStorage.getItem("syncURL"));	
 			$('#submitConfig').click(submitFormConfig);	
 			$('#syncSalesRep').click(syncSalesRep);	
 			$('#syncCustomers').click(syncCustomers);	
 			$('#createDB').click(checkDatabase);	
-			$('#dropDB').click(dropDatabase);	
+			logZoe("config.html listo pagebeforecreate");
 		});
 
 	function submitFormConfig(form) {
 		window.localStorage.setItem("salesRepName", $('#salesRepName').val());
+		window.localStorage.setItem("syncURL",$('#syncURL').val());
 		logZoe("config localStorage salesRepName=" + window.localStorage.getItem("salesRepName"));
 		return false;
 	}
@@ -40,46 +46,111 @@
 	function syncSalesRep(form){
 		console.log("entre a syncSalesRep");
 		var mensaje = 	
-		'		<EmployeeQueryRq requestID="c1">\
-				<FullName>' + window.localStorage.getItem("salesRepName") + '</FullName>\
-				 <OwnerID>0</OwnerID>\
-				</EmployeeQueryRq>';
-			
-		consumeWS(mensaje, "JSON", receiveMessage);
+		'		<EmployeeQueryRq requestID="c1"><OwnerID>0</OwnerID></EmployeeQueryRq>';
+		var cache = "employee";
+		var xpathExp = '//EmployeeRet[Name="' + window.localStorage.getItem("salesRepName") + '"]';				
+		consumeWS(mensaje, "JSON", receiveMessageEmployee,cache, xpathExp);
+		
 		return false;
 	}
 	
-	function syncCustomers(form){
-		console.log("entre a syncCustomers");
-		var mensaje = 	
-		'<CustomerQueryRq  requestID="aaa2"><MaxReturned >100</MaxReturned></CustomerQueryRq>';
-			
-		consumeWS(mensaje, "JSON", receiveCustomersMessage);
-		return false;
-	}
 
-	function receiveMessage(message){
+	var salesRepVO;
+	function receiveMessageEmployee(message){
 		var employee = message.EmployeeQueryRs;
-		var salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
+		salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
 			name:employee.EmployeeRet.Name, 
 			password:employee.EmployeeRet.DataExtRet[0].DataExtValue, 
 			isActive:employee.EmployeeRet.IsActive, 
-			syncTime:Date.now()};
+			syncTime:Date.now(), Initial:""};
+			
+		var mensajeSalesRep = '<SalesRepQueryRq requestID="c1"></SalesRepQueryRq>';
+		var cache = "salesrep";
+		var xpathExp = '//SalesRepRet[SalesRepEntityRef/FullName="' + window.localStorage.getItem('salesRepName') + '"]';
+
+		
+		consumeWS(mensajeSalesRep, "JSON", receiveMessageSalesRep,cache, xpathExp);
+			
+	}
+
+	function receiveMessageSalesRep(message){
+		
+		var salesRep = message.SalesRepQueryRs.SalesRepRet;
+		logZoe("receiveMessageSalesRep salesRep=" + JSON.stringify(salesRep));
+		logZoe("receiveMessageSalesRep salesRep.Initial=" + JSON.stringify(salesRep.Initial));
+		salesRepVO.Initial = salesRep.Initial+ "";
+		logZoe("receiveMessageSalesRep salesRepVO=" + JSON.stringify(salesRepVO));
 			
 		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
 	}
 	
+	function syncCustomers(form){
+		console.log("entre a syncCustomers");
+		salesRepDAO.getByName(window.localStorage.getItem("salesRepName"), function(salesrepVO){
+		logZoe("en syncCustomers salesrepVO = " + JSON.stringify(salesrepVO));
+		var mensaje = 	
+		'<CustomerQueryRq  requestID="customer1"></CustomerQueryRq>';
+		var cache="customer";
+		var xpathExp = '//CustomerRet[SalesRepRef/FullName="'+ salesrepVO.Initial + '"]';
+		
+		consumeWS(mensaje, "JSON", receiveCustomersMessage, cache, xpathExp);
+		});
+		return false;
+	}
 	function receiveCustomersMessage(message){
 		var customers = message.CustomerQueryRs.CustomerRet;
 		var i;
 		var customersVO = [];
 		for (i=0;i<customers.length;i++){
-			var customerVO = {ListId:customers[i].ListID,
-				FullName:customers[i].FullName, 
-				OpenBalance:customers[i].Balance 
-				};
-				logZoe("customerVO=" + JSON.stringify(customerVO));
-				customersVO[i] = customerVO;
+			logZoe("customers[i]=" + JSON.stringify(customers[i]));
+			var routeDay = "";
+			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
+				for (var j = 0; j< customers[i].DataExtRet.length; j++){
+					logZoe("customers[i].DataExtRet[j].DataExtName=" + customers[i].DataExtRet[j].DataExtName);
+					if ("RouteDay" == customers[i].DataExtRet[j].DataExtName){
+						routeDay = customers[i].DataExtRet[j].DataExtValue;
+					}
+				}
+			}else if (customers[i].DataExtRet && customers[i].DataExtRet.DataExtName=="RouteDay"){
+						routeDay = customers[i].DataExtRet.DataExtValue;
+			}
+			routeDay = routeDay.toUpperCase();
+			var customerVO = {ListID:customers[i].ListID,
+			FullName:customers[i].FullName,
+			IsActive:customers[i].IsActive==true?1:0,
+			billAddress1:customers[i].BillAddress?customers[i].BillAddress.Addr1:null,
+			billAddress2:customers[i].BillAddress?customers[i].BillAddress.Addr2:null,
+			billAddress3:customers[i].BillAddress?customers[i].BillAddress.Addr3:null,
+			billAddresZipcode:customers[i].BillAddress?customers[i].BillAddress.PostalCode:null,
+			billAddresCity:customers[i].BillAddress?customers[i].BillAddress.City:null,
+			billAddressState:customers[i].BillAddress?customers[i].BillAddress.State:null,
+			billAddressCountry:customers[i].BillAddress?customers[i].BillAddress.Country:null,
+			shipAddress1:customers[i].ShipAddress?customers[i].ShipAddress.Addr1:null,
+			shipAddress2:customers[i].ShipAddress?customers[i].ShipAddress.Addr2:null,
+			shipAddress3:customers[i].ShipAddress?customers[i].ShipAddress.Addr3:null,
+			shipAddressZipcode:customers[i].ShipAddress?customers[i].ShipAddress.PostalCode:null,
+			shipAddressCity:customers[i].ShipAddress?customers[i].ShipAddress.City:null,
+			shipAddressState:customers[i].ShipAddress?customers[i].ShipAddress.State:null,
+			shipAddressCountry:customers[i].ShipAddress?customers[i].ShipAddress.Country:null,
+			openBalance:customers[i].Balance,
+			overdueBalance:customers[i].TotalBalance,
+			workPhone:customers[i].Phone,
+			cellPhone:customers[i].AltPhone,
+			email:customers[i].Email,
+			Fax:customers[i].Fax,
+			id_salesrep:customers[i].SalesRepRef.ListID,
+			routeDay1:routeDay.indexOf("SUN")>0?1:0,
+			routeDay2:routeDay.indexOf("MON")>0?1:0,
+			routeDay3:routeDay.indexOf("TUE")>0?1:0,
+			routeDay4:routeDay.indexOf("WED")>0?1:0,
+			routeDay5:routeDay.indexOf("THU")>0?1:0,
+			routeDay6:routeDay.indexOf("FRI")>0?1:0,
+			routeDay7:routeDay.indexOf("SAT")>0?1:0,
+			name:customers[i].Name,
+			companyName:customers[i].CompanyName,
+			id_term:customers[i].TermRef?customers[i].TermRef.LisID:null};
+			logZoe("customerVO=" + JSON.stringify(customerVO));
+			customersVO[i] = customerVO;
 		}
 			
 		customerDAO.deleteAll(errCustomerInsert);
@@ -112,23 +183,25 @@
             <div data-role="content"> 
                 <form method="post" id="configForm" data-ajax="true">
                     <lable for="salesRepName">Piloch Sales Rep Full Name</lable><input type="text" id="salesRepName" name="salesRepName" placeholder="salesRepName"><br>
+
+                    <lable for="syncURL">Synchronization URL</lable><input type="text" id="syncURL" name="syncURL" placeholder="syncURL"><br>
                                  
                         <input id="submitConfig" type="submit" value="Save">
 		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
 		                <button class="ui-btn" id="syncCustomers">Synch Customers</button>
-		                <button class="ui-btn" id="dropDB">Drop database</button>
 		                <button class="ui-btn" id="createDB">create database</button>
                 </form>
             </div>
         
 
-<div data-role="dialog" data-dialog="true" id="synchDialog" >
-  <div data-role="header">
-    <h3>Synchronizing...</h2>
-  </div>
-  <div data-role="content">
-    <p>Please wait</p>
-  </div>
+<div data-role="popup" id="synchDialog" data-dismissible="false" style="width:300px">
+    <div data-role="header">
+    Synchronizing
+    </div>
+    <div role="main" class="ui-content">
+		  <p>Please wait....</p>
+      		<a href="#" class="ui-btn" data-rel="back">Cancel</a>
+	</div>
 </div>
 
 

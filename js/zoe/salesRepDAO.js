@@ -27,7 +27,7 @@ function storeSalesRep(record,aErrFunc,successCB){
 
 function doSelectSalesRep(tx){
 	logZoe("doSelectSalesRep filterData=" + filterData);
-	tx.executeSql("SELECT id_salesrep,Name, Password, isActive, SyncTime FROM salesRep Where Name=?", [filterData],localReceiveFunction, salesRepErrFunc);
+	tx.executeSql("SELECT id_salesrep,Name, Password, isActive, SyncTime, Initial FROM salesRep Where Name=?", [filterData],localReceiveFunction, salesRepErrFunc);
 }
 
 function localReceiveFunction(tx,results){
@@ -42,5 +42,5 @@ function localReceiveFunction(tx,results){
 
 function doStoreSalesRep(tx){
 	logZoe ("doStoreSalesRep"+JSON.stringify(recordSalesRep));
-	tx.executeSql('INSERT OR REPLACE INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime) values (?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.isActive, recordSalesRep.syncTime]/*,localReceiveFunction, salesRepErrFunc*/);
+	tx.executeSql('INSERT OR REPLACE INTO salesRep(id_salesrep, Name, Password, isActive, SyncTime, Initial) values (?,?,?,?,?,?)',[recordSalesRep.id_salesRep, recordSalesRep.name, recordSalesRep.password, recordSalesRep.isActive, recordSalesRep.syncTime, recordSalesRep.Initial]/*,localReceiveFunction, salesRepErrFunc*/);
 }

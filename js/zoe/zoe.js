@@ -137,3 +137,56 @@ function openDatabaseZoe(){
 	  console.log("PRINTING CALL STACK");
 	  console.log( stack );
 	}
+	
+
+
+function openPopup(title, content, okFun, cancelFun, page){
+	var withCancel = false;
+	var withOk = false;
+	if (okFun) {
+		withOk = true;
+	}
+	if (cancelFun){
+		withCancel=true;
+	}
+	var html = createPopup(title, content, withOk, withCancel);
+        //append popup to DOM, tell jqm to enhance and initialize the popup
+        // and to remove the popup from DOM on close
+        page.append(html).find("#popupDialog").enhanceWithin().popup({
+            afterclose: function (event, ui) {
+				cancelFun(event,ui);
+                //remove from DOM on close
+                $("#popupDialog").remove();
+            }
+        }).popup("open", {
+            transition: "flow",
+            positionTo: "window"
+        });
+        //Add click handler for button in popup
+        $("#popupDialog").on("click", "#btnPopOK", function(){
+            alert("You clicked OK, I will now close the popup");            
+            $("#popupDialog").popup("close");
+		});
+    }
+
+function createPopup(title, content, withOk, withCancel){
+    var html = '<div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="a" data-dismissible="false" >';
+    html += '<div data-role="header"><h1>' + title + '</h1><a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a></div>';
+    html += '<div role="main" class="ui-content"> <h3 class="ui-title">' + content + '</h3>';
+	if (withCancel){
+	html+='<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>';
+	}
+	if (withOk){
+		html+='<a id="btnPopOK" href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="flow">OK</a>';
+	}
+	html+='</div>';
+    html += '</div>';
+    return html;
+}	
+
+function ifUndefNull(variable){
+	if (typeof variable == 'undefined'){
+		return null;
+	}
+	return variable;
+}
