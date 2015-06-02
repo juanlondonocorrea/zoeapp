@@ -58,9 +58,20 @@
 	var salesRepVO;
 	function receiveMessageEmployee(message){
 		var employee = message.EmployeeQueryRs;
+		var password = "";
+		if (employee.DataExtRet && employee.DataExtRet.length>0){
+			for (var j = 0; j< employee.DataExtRet.length; j++){
+				logZoe("employee.DataExtRet[j].DataExtName=" + employee.DataExtRet[j].DataExtName);
+				if ("password" == employee.DataExtRet[j].DataExtName){
+					password = employee.DataExtRet[j].DataExtValue;
+				}
+			}
+		}else if (employee.DataExtRet && employee.DataExtRet.DataExtName=="password"){
+					passwrod = employee.DataExtRet.DataExtValue;
+		}
 		salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
 			name:employee.EmployeeRet.Name, 
-			password:employee.EmployeeRet.DataExtRet[0].DataExtValue, 
+			password:password, 
 			isActive:employee.EmployeeRet.IsActive, 
 			syncTime:Date.now(), Initial:""};
 			
