@@ -44,14 +44,14 @@
 		'		<EmployeeQueryRq requestID="c1"><OwnerID>0</OwnerID></EmployeeQueryRq>';
 		var cache = "employee";
 		var xpathExp = '//EmployeeRet[Name="' + window.localStorage.getItem("salesRepName") + '"]';				
-		consumeWS(mensaje, "JSON", receiveMessage,cache, xpathExp);
+		consumeWS(mensaje, "JSON", receiveMessageEmployee,cache, xpathExp);
 		
 		return false;
 	}
 	
 
 	var salesRepVO;
-	function receiveMessage(message){
+	function receiveMessageEmployee(message){
 		var employee = message.EmployeeQueryRs;
 		salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
 			name:employee.EmployeeRet.Name, 
@@ -97,12 +97,53 @@
 		var i;
 		var customersVO = [];
 		for (i=0;i<customers.length;i++){
-			var customerVO = {ListId:customers[i].ListID,
-				FullName:customers[i].FullName, 
-				OpenBalance:customers[i].Balance 
-				};
-				logZoe("customerVO=" + JSON.stringify(customerVO));
-				customersVO[i] = customerVO;
+			var routeDay = "";
+			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
+				for (var j = 0; j< customers[i].DataExtRet.length; j++){
+					if (customers[i].DataExtRet[j].DataExtName.equals("RouteDay")){
+						routeDay = customers[i].DataExtRet[j].DataExtValue;
+					}
+				}
+			}else if (customers[i].DataExtRet && customers[i].DataExtRet.DataExtName.equals("RouteDay")){
+						routeDay = customers[i].DataExtRet.DataExtValue;
+			}
+			routeDay = routeDay.toUpperCase();
+			var customerVO = {ListID:customers[i].ListID,
+			FullName:customers[i].FullName,
+			IsActive:customers[i].IsActive==true?1:0,
+			billAddress1:customers[i].BillAddress.Addr1,
+			billAddress2:customers[i].BillAddress.Addr2,
+			billAddress3:customers[i].BillAddress.Addr3,
+			billAddresZipcode:customers[i].BillAddress.PostalCode,
+			billAddresCity:customers[i].BillAddress.City,
+			billAddressState:customers[i].BillAddress.State,
+			billAddressCountry:customers[i].BillAddress.Country,
+			shipAddress1:customers[i].ShipAddress.Addr1,
+			shipAddress2:customers[i].ShipAddress.Addr2,
+			shipAddress3:customers[i].ShipAddress.Addr3,
+			shipAddressZipcode:customers[i].ShipAddress.PostalCode,
+			shipAddressCity:customers[i].ShipAddress.City,
+			shipAddressState:customers[i].ShipAddress.State,
+			shipAddressCountry:customers[i].ShipAddress.Country,
+			openBalance:customers[i].Balance,
+			overdueBalance:customers[i].TotalBalance,
+			workPhone:customers[i].Phone,
+			cellPhone:customers[i].AltPhone,
+			email:customers[i].Email,
+			Fax:customers[i].Fax,
+			id_salesrep:customers[i].SalesRepRef.ListID,
+			routeDay1:routeDay.indexOf("SUN")>0?1:0,
+			routeDay2:routeDay.indexOf("MON")>0?1:0,
+			routeDay3:routeDay.indexOf("TUE")>0?1:0,
+			routeDay4:routeDay.indexOf("WED")>0?1:0,
+			routeDay5:routeDay.indexOf("THU")>0?1:0,
+			routeDay6:routeDay.indexOf("FRI")>0?1:0,
+			routeDay7:routeDay.indexOf("SAT")>0?1:0,
+			name:customers[i].Name,
+			companyName:customers[i].CompanyName,
+			id_term:customers[i].TermRef?customers[i].TermRef.LisID:null};
+			logZoe("customerVO=" + JSON.stringify(customerVO));
+			customersVO[i] = customerVO;
 		}
 			
 		customerDAO.deleteAll(errCustomerInsert);

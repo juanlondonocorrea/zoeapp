@@ -50,12 +50,12 @@ function deleteAllCustomer(aErrFunc,successCB){
 
 function doSelectCustomer(tx){
 	logZoe("doSelectCustomer filterData=" + filterDataCustomer);
-	tx.executeSql("SELECT ListId,FullName, openBalance FROM customer Where ListId=?", [filterDataCustomer],customerLocalReceiveFunction, customerErrFunc);
+	tx.executeSql("SELECT ListID, FullName, IsActive, billAddress1, billAddress2, shipAddress1, shipAddress2, openBalance, overdueBalance, workPhone, cellPhone, email, shipAddressZipcode, billAddresZipcode, billAddresCity, billAddressState, billAddressCountry, shipAddressCity, shipAddressState, shipAddressCountry, id_salesrep, routeDay1, routeDay2, routeDay3, routeDay4, routeDay5, routeDay6, routeDay7, Fax, billAddress3, shipAddress3, name, companyName, otherDetails, id_term FROM customer Where ListId=?", [filterDataCustomer],customerLocalReceiveFunction, customerErrFunc);
 }
 
 function doSelectAllCustomer(tx){
 	logZoe("doSelectAllCustomer");
-	tx.executeSql("SELECT ListId,FullName, openBalance FROM customer", [],customerLocalListReceiveFunction, customerErrFunc);
+	tx.executeSql("SELECT ListID, FullName, IsActive, billAddress1, billAddress2, shipAddress1, shipAddress2, openBalance, overdueBalance, workPhone, cellPhone, email, shipAddressZipcode, billAddresZipcode, billAddresCity, billAddressState, billAddressCountry, shipAddressCity, shipAddressState, shipAddressCountry, id_salesrep, routeDay1, routeDay2, routeDay3, routeDay4, routeDay5, routeDay6, routeDay7, Fax, billAddress3, shipAddress3, name, companyName, otherDetails, id_term FROM customer", [],customerLocalListReceiveFunction, customerErrFunc);
 }
 
 function customerLocalReceiveFunction(tx,results){
@@ -95,7 +95,7 @@ function doStoreCustomer(tx){
 }
 
 function doStoreOneCustomer(tx, theRecord){
-	tx.executeSql('INSERT OR REPLACE INTO customer(ListId, FullName, openBalance) values (?,?,?)',[theRecord.ListId, theRecord.FullName, theRecord.OpenBalance]);
+	tx.executeSql('INSERT OR REPLACE INTO customer(ListID, FullName, IsActive, billAddress1, billAddress2, shipAddress1, shipAddress2, openBalance, overdueBalance, workPhone, cellPhone, email, shipAddressZipcode, billAddresZipcode, billAddresCity, billAddressState, billAddressCountry, shipAddressCity, shipAddressState, shipAddressCountry, id_salesrep, routeDay1, routeDay2, routeDay3, routeDay4, routeDay5, routeDay6, routeDay7, Fax, billAddress3, shipAddress3, name, companyName, otherDetails, id_term) values (?,?,?)',[theRecord.ListID, theRecord.FullName, theRecord.IsActive, theRecord.billAddress1, theRecord.billAddress2, theRecord.shipAddress1, theRecord.shipAddress2, theRecord.openBalance, theRecord.overdueBalance, theRecord.workPhone, theRecord.cellPhone, theRecord.email, theRecord.shipAddressZipcode, theRecord.billAddresZipcode, theRecord.billAddresCity, theRecord.billAddressState, theRecord.billAddressCountry, theRecord.shipAddressCity, theRecord.shipAddressState, theRecord.shipAddressCountry, theRecord.id_salesrep, theRecord.routeDay1, theRecord.routeDay2, theRecord.routeDay3, theRecord.routeDay4, theRecord.routeDay5, theRecord.routeDay6, theRecord.routeDay7, theRecord.Fax, theRecord.billAddress3, theRecord.shipAddress3, theRecord.name, theRecord.companyName, theRecord.otherDetails, theRecord.id_term]);
 }
 
 function doDeleteAllCustomer(tx){
