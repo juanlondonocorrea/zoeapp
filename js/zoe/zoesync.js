@@ -15,11 +15,12 @@ function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
 //	$( "#synchDialog" ).popup( "open" );
 //	$( "#synchDialog" ).on( "popupafterclose", cancelSynch );
 	
-	log("consumeWS2"); 
 //    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
 //    var webServiceURL = 'http://192.168.88.103:54320/SyncService';
 	
     var webServiceURL = 'http://127.0.0.1:54320/SyncService';
+
+	log("consumeWS2 webServiceURL=" + webServiceURL); 
 
 	$.support.cors = true;
 	
