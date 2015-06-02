@@ -25,7 +25,7 @@ function listCustomers(aReceiveFunction,aErrFunc){
 	logZoe("listCustomers db=" + db);
 	customerReceiveListFunction = aReceiveFunction;
 	customerErrFunc = aErrFunc;
-	db.transaction(doSelectAllCustomer, customerErrFunc, customerLocalListReceiveFunction);
+	db.transaction(doSelectAllCustomer, customerErrFunc);
 }
 
 function storeCustomer(records,aErrFunc,successCB){
