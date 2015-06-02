@@ -17,9 +17,9 @@ function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
 	
 	log("consumeWS2"); 
 //    var webServiceURL = 'http://24.234.187.107:54320/SyncService';
-    var webServiceURL = 'http://192.168.88.103:54320/SyncService';
+//    var webServiceURL = 'http://192.168.88.103:54320/SyncService';
 	
-//    var webServiceURL = 'http://127.0.0.1:54320/SyncService';
+    var webServiceURL = 'http://127.0.0.1:54320/SyncService';
 
 	$.support.cors = true;
 	
@@ -34,6 +34,7 @@ function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
 	
 	dataToSend += "}}";
 	
+	log("consumeWS3 data:" + dataToSend); 
 	
     xhrSync = $.ajax({
         type: "POST",
@@ -46,7 +47,6 @@ function consumeWS(mensaje, format, receiveFunction, cache, xpathExp){
         error: errSync,
     });
 
-	log("consumeWS3 data:" + dataToSend); 
 
 
 }
