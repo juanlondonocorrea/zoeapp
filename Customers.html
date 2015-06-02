@@ -32,6 +32,10 @@
 
 	});
 
+	function errReceiveCustomers(err){
+		alert("DB Error customers: "+JSON.stringify(err));
+	}
+	
 	$(document).bind('pagechange', function() {
   		$('.ui-page-active .ui-listview').listview('refresh');
   		$('.ui-page-active :jqmData(role=content)').trigger('create');
