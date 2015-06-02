@@ -32,7 +32,6 @@
 			renderDetail(index);*/
 		}else{
 			//receiveCustomers();
-			console.log("customers list");
 			customerDAO.list(receiveCustomers, errReceiveCustomers);
 		}
 		
@@ -91,6 +90,7 @@
 	}
 
 	var listCustomers = new Array();
+	var selectedIndex;
 	function receiveCustomers(arrayCustomers){
 /*		var arrayCustomers = new Array();
 		arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
@@ -104,7 +104,8 @@
 		arrayCustomers[8] = {ListId:'9',FullName:'Yeny', openBalance:'100000000000.00'};
 		arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
 		arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
-*/		
+	*/
+		 listCustomers = arrayCustomers;
 
 		var htmlString1 = '<ol data-role="listview" data-inset="true">';
 		for(var i=0; i< arrayCustomers.length; i++) {
@@ -114,7 +115,15 @@
 			htmlString1 += '</ol>';
 			logZoe("htmlString1="+htmlString1);
 			$('#CustomersList').html(htmlString1);
+			$(".linkDetail").click(goDetail);
 			//$( ".selector" ).listview( "refresh" );
+	}
+	
+	function goDetail(event){
+		var index =  event.currentTarget.id;
+		logZoe("index: "+index)
+		index = index.substring(index.indexOf("_")+1);
+		renderDetail(index);
 	}
 	
 	function renderDetail(index){
