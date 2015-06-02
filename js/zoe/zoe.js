@@ -183,3 +183,10 @@ function createPopup(title, content, withOk, withCancel){
     html += '</div>';
     return html;
 }	
+
+function ifUndefNull(variable){
+	if (typeof variable == 'undefined'){
+		return null;
+	}
+	return variable;
+}
