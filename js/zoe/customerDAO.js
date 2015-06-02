@@ -69,14 +69,19 @@ function customerLocalReceiveFunction(tx,results){
 }
 
 function customerLocalListReceiveFunction(tx,results){
-	logZoe("customerLocalListReceiveFunction results.length=" + JSON.stringify(results));
-	var i;
 	var arrayCustomers= new Array();
-	for (i=0;i<results.rows.length;i++){
-	logZoe("customerLocalListReceiveFunction " + JSON.stringify(results.rows.item(0)));
-		arrayCustomers[i] = results.rows.item(i);
+	if (results.row){
+		logZoe("customerLocalListReceiveFunction results.length=" + results.rows.length);
+		var i;
+		for (i=0;i<results.rows.length;i++){
+			logZoe("customerLocalListReceiveFunction " + JSON.stringify(results.rows.item(0)));
+			arrayCustomers[i] = results.rows.item(i);
+		}
+	}else{
+			logZoe("customerLocalListReceiveFunction " + JSON.stringify(results));
+		arrayCustomers[0] = results;
 	}
-	customerReceiveListFunction(arrayCustomers);
+	customerReceiveListFunction(arrayCustomers);	
 }
 
 function doStoreCustomer(tx){
