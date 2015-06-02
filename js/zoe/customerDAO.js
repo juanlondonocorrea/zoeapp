@@ -69,7 +69,7 @@ function customerLocalReceiveFunction(tx,results){
 }
 
 function customerLocalListReceiveFunction(tx,results){
-	logZoe("customerLocalListReceiveFunction results.length=" + results.rows.length);
+	logZoe("customerLocalListReceiveFunction results.length=" + JSON.stringify(results));
 	var i;
 	var arrayCustomers= new Array();
 	for (i=0;i<results.rows.length;i++){
