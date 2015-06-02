@@ -21,7 +21,9 @@
 		
 		//$(".linkDetail").on(click,showDetail);
 		if (this.activeElement && this.activeElement.id){
+			logZoe("activeElement.id: "+this.activeElement.id)
 			var index =  this.activeElement.id;
+			logZoe("index: "+index)
 			index = index.substring(index.indexOf("_")+1);
 			renderDetail(index);
 		}else{
