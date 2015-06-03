@@ -18,6 +18,7 @@ DROP INDEX IF EXISTS IX_invoice_terms;
 DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS IX_sales_rep_customer;
 DROP INDEX IF EXISTS IX_Relationship3;
+DROP INDEX IF EXISTS IX_Customer_Name;
 DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
@@ -132,6 +133,8 @@ CREATE INDEX customer_idx1 ON customer (FullName);
 CREATE INDEX IX_sales_rep_customer ON customer (id_salesrep);
 
 CREATE INDEX IX_Relationship3 ON customer (id_term);
+
+CREATE INDEX IX_Customer_Name ON customer (FullName);
 
 -- Table invoice
 
