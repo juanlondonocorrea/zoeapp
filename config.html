@@ -18,6 +18,8 @@
 <script src="js/zoe/salesRepDAO.js" type="text/javascript"></script>
 <script src="js/zoe/customerDAO.js" type="text/javascript"></script>
 <script src="js/zoe/invoiceDAO.js" type="text/javascript"></script>
+<script src="js/zoe/termDAO.js" type="text/javascript"></script>
+<script src="js/zoe/taxDAO.js" type="text/javascript"></script>
 <!-- fin librerias -->
 
 <script>
@@ -34,6 +36,7 @@
 			$('#syncSalesRep').click(syncSalesRep);	
 			$('#syncCustomers').click(syncCustomers);	
 			$('#syncInvoices').click(syncInvoices);	
+			$('#syncOthers').click(syncOthers);	
 			$('#createDB').click(checkDatabase);	
 			logZoe("config.html listo pagebeforecreate");
 		});
@@ -144,14 +147,14 @@
 			billAddress1:customers[i].BillAddress?customers[i].BillAddress.Addr1:null,
 			billAddress2:customers[i].BillAddress?customers[i].BillAddress.Addr2:null,
 			billAddress3:customers[i].BillAddress?customers[i].BillAddress.Addr3:null,
-			billAddresZipcode:customers[i].BillAddress?customers[i].BillAddress.PostalCode:null,
+			billAddresZipcode:customers[i].BillAddress?customers[i].BillAddress.PostalCode+"":null,
 			billAddresCity:customers[i].BillAddress?customers[i].BillAddress.City:null,
 			billAddressState:customers[i].BillAddress?customers[i].BillAddress.State:null,
 			billAddressCountry:customers[i].BillAddress?customers[i].BillAddress.Country:null,
 			shipAddress1:customers[i].ShipAddress?customers[i].ShipAddress.Addr1:null,
 			shipAddress2:customers[i].ShipAddress?customers[i].ShipAddress.Addr2:null,
 			shipAddress3:customers[i].ShipAddress?customers[i].ShipAddress.Addr3:null,
-			shipAddressZipcode:customers[i].ShipAddress?customers[i].ShipAddress.PostalCode:null,
+			shipAddressZipcode:customers[i].ShipAddress?customers[i].ShipAddress.PostalCode+"":null,
 			shipAddressCity:customers[i].ShipAddress?customers[i].ShipAddress.City:null,
 			shipAddressState:customers[i].ShipAddress?customers[i].ShipAddress.State:null,
 			shipAddressCountry:customers[i].ShipAddress?customers[i].ShipAddress.Country:null,
@@ -273,6 +276,86 @@
 		alert("DB Error synch invoices: "+JSON.stringify(err));
 	}
 
+
+//SYNCHRONIZATION Others	
+	function syncOthers(form){
+		console.log("entre a syncOthers");
+		var mensaje = 	
+		'<TermsQueryRq  requestID="Term1"><ActiveStatus>ActiveOnly</ActiveStatus></TermsQueryRq>';
+		var cache="term";
+		
+		consumeWS(mensaje, "JSON", receiveTermsMessage, cache);
+		return false;
+	}
+
+	function receiveTermsMessage(message){
+		var terms = message.TermsQueryRs.StandardTermsRet;
+		var i;
+		var termsVO = [];
+		for (i=0;i<terms.length;i++){
+			logZoe("terms[i]=" + JSON.stringify(terms[i]));
+			var termVO = {
+				id_term:terms[i].ListID,
+				name : terms[i].Name,
+				stdDueDays : terms[i].StdDueDays,
+				stdDiscountDays : terms[i].StdDiscountDays,
+				discountPct : terms[i].DiscountPct
+			}
+			termsVO[i] = termVO;
+			
+		}
+			
+		termDAO.deleteAll(errTermInsert);
+		termDAO.store(termsVO, errTermInsert, successTermInsert);
+	}
+
+
+	function successTermInsert(){
+		syncTaxes();
+	}
+	
+	function errTermInsert(err){
+		alert("DB Error synch terms: "+JSON.stringify(err));
+	}
+
+	function syncTaxes(form){
+		console.log("entre a syncTaxes");
+		var mensaje = 	
+		'<SalesTaxCodeQueryRq  requestID="tax1"><ActiveStatus>ActiveOnly</ActiveStatus></SalesTaxCodeQueryRq>';
+		var cache="tax";
+		
+		consumeWS(mensaje, "JSON", receiveTaxesMessage, cache);
+		return false;
+	}
+
+	function receiveTaxesMessage(message){
+		var taxes = message.SalesTaxCodeQueryRs.SalesTaxCodeRet;
+		var i;
+		var taxesVO = [];
+		for (i=0;i<taxes.length;i++){
+			logZoe("taxes[i]=" + JSON.stringify(taxes[i]));
+			var taxVO = {
+				ListID:taxes[i].ListID,
+				name : taxes[i].Name,
+				desc : taxes[i].Desc
+			}
+			taxesVO[i] = taxVO;
+			
+		}
+			
+		taxDAO.deleteAll(errTaxInsert);
+		taxDAO.store(taxesVO, errTaxInsert, successTaxInsert);
+	}
+
+
+	function successTaxInsert(){
+		alert("Success synch tax");
+	}
+	
+	function errTaxInsert(err){
+		alert("DB Error synch tax: "+JSON.stringify(err));
+	}
+
 </script>
 </head>
 
@@ -290,6 +373,7 @@
 		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
 		                <button class="ui-btn" id="syncCustomers">Synch Customers</button>
 		                <button class="ui-btn" id="syncInvoices">Synch Invoices</button>
+		                <button class="ui-btn" id="syncOther">Synch Sales Taxes and Terms</button>
 		                <button class="ui-btn" id="createDB">create database</button>
                 </form>
             </div>
