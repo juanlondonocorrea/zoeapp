@@ -160,9 +160,14 @@
 		
 		$('#openBalance').val(listCustomers[index].openBalance);
 		$('#overdueBalance').val(listCustomers[index].overdueBalance);	
-		
-		$('#Terms').val(listCustomers[index].Terms);
-		$('#OtherDetails').val(listCustomers[index].otherDetails);	
+	
+		$('#routeDay1').val(listCustomers[index].routeDay1);
+		$('#routeDay2').val(listCustomers[index].routeDay2);	
+		$('#routeDay3').val(listCustomers[index].routeDay3);
+		$('#routeDay4').val(listCustomers[index].routeDay4);
+		$('#routeDay5').val(listCustomers[index].routeDay5);
+		$('#routeDay6').val(listCustomers[index].routeDay6);
+		$('#routeDay7').val(listCustomers[index].routeDay7);		
 	}
 
   </script>
@@ -438,7 +443,71 @@ box-shadow: inset 2px 2px 1px 1px rgba(50, 50, 50, 0.75);
             	<input type="text" data-theme="b" name="OtherDetails" id="OtherDetails" value=""  />
             </div> 
 </fieldset> 
-            
+
+			<!-- Billing Address -->
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+<legend><h4>Route Info</h4></legend>
+            <div class="ui-grid-a" style="height:95px">
+	            <div class="ui-block-a" style="height:100%"> 
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay1">Mon:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay1" id="routeDay1" value=""  />
+                    </div>
+				</div>
+                <div class="ui-block-b" style="height:100%">
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay2">Tue:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay2" id="routeDay2" value=""  />
+                    </div>                
+                </div>
+                <div class="ui-block-c" style="height:100%">
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay3">Wed:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay3" id="routeDay3" value=""  />
+                    </div>                
+                </div>
+                <div class="ui-block-d" style="height:100%">
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay4">Thu:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay4" id="routeDay4" value=""  />
+                    </div>                
+                </div> 
+                <div class="ui-block-e" style="height:100%">
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay5">Fri:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay5" id="routeDay5" value=""  />
+                    </div>                
+                </div>
+                <div class="ui-block-f" style="height:100%">
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay6">Sat:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay6" id="routeDay6" value=""  />
+                    </div>                
+                </div>
+                <div class="ui-block-g" style="height:100%">
+                    <div data-role="fieldcontain">
+                        <div>
+                            <label for="routeDay7">Sun:</label>
+                        </div>
+                        <input type="text" data-theme="b" name="routeDay7" id="routeDay7" value=""  />
+                    </div>                
+                </div>                                                                             
+			</div>
+</fieldset>
+
+         
 <div >            
             <fieldset class="ui-grid-a" data-role="controlgroup" data-type="horizontal"  style="padding:15px;">
                 <div class="ui-block-a"><button id="cancel" data-add-back-btn="true" data-theme="b">Cancel</button></div>
