@@ -131,7 +131,8 @@
 		for (i=0;i<customers.length;i++){
 			logZoe("customers[i]=" + JSON.stringify(customers[i]));
 			logZoe("customers[i].TermsRef=" + JSON.stringify(customers[i].TermsRef));
-			logZoe("customers[i].TermsRef.ListID=" + JSON.stringify(customers[i].TermsRef.ListID));					
+			if (customers[i].TermsRef)
+				logZoe("customers[i].TermsRef.ListID=" + JSON.stringify(customers[i].TermsRef.ListID));					
 			var routeDay = "";
 
 			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
@@ -220,7 +221,8 @@
 		for (i=0;i<invoices.length;i++){
 			logZoe("invoices[i]=" + JSON.stringify(invoices[i]));
 			logZoe("invoices[i].TermsRef=" + JSON.stringify(invoices[i].TermsRef));
-			logZoe("invoices[i].TermsRef.ListID=" + JSON.stringify(invoices[i].TermsRef.ListID));
+			if (invoices[i].TermsRef)
+				logZoe("invoices[i].TermsRef.ListID=" + JSON.stringify(invoices[i].TermsRef.ListID));
 			
 			var invoiceVO = {
 				id_invoice:invoices[i].TxnID,
