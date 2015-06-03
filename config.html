@@ -135,6 +135,10 @@
 				logZoe("customers[i].TermsRef.ListID=" + JSON.stringify(customers[i].TermsRef.ListID));					
 			var routeDay = "";
 
+			logZoe("customers[i].DataExtRet" + customers[i].DataExtRet);
+			if (customers[i].DataExtRet){
+				logZoe("customers[i].DataExtRet.length" + customers[i].DataExtRet.length);
+			}
 			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
 				for (var j = 0; j< customers[i].DataExtRet.length; j++){
 					logZoe("customers[i].DataExtRet[j].DataExtName=" + customers[i].DataExtRet[j].DataExtName);
@@ -180,7 +184,7 @@
 			routeDay7:routeDay.indexOf("SAT")>-1?1:0,
 			name:customers[i].Name,
 			companyName:customers[i].CompanyName,
-			id_term:customers[i].TermsRef?customers[i].TermsRef.LisID:null};
+			id_term:typeof customers[i].TermsRef != "undefined"?customers[i].TermsRef.ListID:null};
 			logZoe("customerVO=" + JSON.stringify(customerVO));
 			customersVO[i] = customerVO;
 		}
@@ -250,7 +254,7 @@
 				salesTaxTotal : invoices[i].SalesTaxTotal,
 				shipDate : invoices[i].ShipDate,
 				subtotal : invoices[i].Subtotal,
-				id_term: invoices[i].TermsRef?invoices[i].TermsRef.ListID:null,
+				id_term: typeof invoices[i].TermsRef != "undefined"?invoices[i].TermsRef.ListID:null,
 				items: new Array()
 			}
 			
