@@ -65,7 +65,14 @@
 			enable();
 		}		
 	}
-	
+
+/*	
+	// Check #x
+	$( "#x" ).prop( "checked", true );
+	 
+	// Uncheck #x
+	$( "#x" ).prop( "checked", false );
+*/	
 /*	
 	$("#FlipSwithEdit").change(function() {
     var state = $("#FlipSwithEdit").val();
@@ -131,7 +138,9 @@
 		logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
 		// Trae los datos del "registro" del servidor de QuickBooks
 		
+		$('#SalesRep').val(listCustomers[index].id_salesrep);
 		$('#ListID').val(listCustomers[index].ListID);
+		$('#IsActive').val(listCustomers[index].IsActive);
 		$('#FullName').val(listCustomers[index].FullName);
 		$('#openBalance').val(listCustomers[index].openBalance);
 		$('#Name').val(listCustomers[index].name);
@@ -159,7 +168,10 @@
 		$('#shipCountry').val(listCustomers[index].shipAddressCountry);
 		
 		$('#openBalance').val(listCustomers[index].openBalance);
-		$('#overdueBalance').val(listCustomers[index].overdueBalance);	
+		$('#overdueBalance').val(listCustomers[index].overdueBalance);
+			
+		$('#Terms').val(listCustomers[index].id_term);
+		$('#OtherDetails').val(listCustomers[index].otherDetails);
 	
 		$('#routeDay1').val(listCustomers[index].routeDay1);
 		$('#routeDay2').val(listCustomers[index].routeDay2);	
@@ -254,8 +266,17 @@ box-shadow: inset 2px 2px 1px 1px rgba(50, 50, 50, 0.75);
      <a href="#" onclick="disable()" class="ui-btn">Disable</a>    	
 
     	<form id="formulario" >
-			<!-- Identification Info --> 
-            
+			<!-- Relational Info --> 
+<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+<legend><h4>Sales Representant Info</h4></legend>
+			<div data-role="fieldcontain">
+                 <div>
+                    <label for="ListID">Sales Representant:</label>
+                </div>
+ 				<input type="text" data-theme="b" name="SalesRep" id="SalesRep" value=""/>
+			</div>
+</fieldset>    
+			<!-- Identification Info -->
 <fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
 <legend><h4>Identification Info</h4></legend>
             <div data-role="fieldcontain">
@@ -263,6 +284,7 @@ box-shadow: inset 2px 2px 1px 1px rgba(50, 50, 50, 0.75);
                     <label for="ListID">ListID:</label>
                 </div>
                 <input type="text" data-theme="b" name="ListID" id="ListID" value=""/>
+                <input type="text" data-theme="b" name="IsActive" id="IsActive" value=""/>
 			</div>
             <div data-role="fieldcontain">
                 <div>
