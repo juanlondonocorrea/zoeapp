@@ -17,6 +17,7 @@
 <script src="js/zoe/zoesync.js" type="text/javascript"></script>
 <script src="js/zoe/salesRepDAO.js" type="text/javascript"></script>
 <script src="js/zoe/customerDAO.js" type="text/javascript"></script>
+<script src="js/zoe/invoiceDAO.js" type="text/javascript"></script>
 <!-- fin librerias -->
 
 <script>
@@ -32,6 +33,7 @@
 			$('#submitConfig').click(submitFormConfig);	
 			$('#syncSalesRep').click(syncSalesRep);	
 			$('#syncCustomers').click(syncCustomers);	
+			$('#syncInvoices').click(syncInvoices);	
 			$('#createDB').click(checkDatabase);	
 			logZoe("config.html listo pagebeforecreate");
 		});
@@ -42,7 +44,8 @@
 		logZoe("config localStorage salesRepName=" + window.localStorage.getItem("salesRepName"));
 		return false;
 	}
-	
+
+//SYNCHRONIZATION Employee and Salesrep	
 	function syncSalesRep(form){
 		console.log("entre a syncSalesRep");
 		var mensaje = 	
@@ -83,9 +86,16 @@
 		consumeWS(mensajeSalesRep, "JSON", receiveMessageSalesRep,cache, xpathExp);
 			
 	}
+	function successSyncSalesRep(){
+		alert("Success synch salesrep");
+	}
+	
+	function errSalesRepSync(err){
+		alert("DB Error synch salesrep: "+JSON.stringify(err));
+	}
+	
 
 	function receiveMessageSalesRep(message){
-		
 		var salesRep = message.SalesRepQueryRs.SalesRepRet;
 		logZoe("receiveMessageSalesRep salesRep=" + JSON.stringify(salesRep));
 		logZoe("receiveMessageSalesRep salesRep.Initial=" + JSON.stringify(salesRep.Initial));
@@ -95,6 +105,7 @@
 		salesRepDAO.store(salesRepVO, errSalesRepSync, successSyncSalesRep);
 	}
 	
+//SYNCHRONIZATION Customers	
 	function syncCustomers(form){
 		console.log("entre a syncCustomers");
 		salesRepDAO.getByName(window.localStorage.getItem("salesRepName"), function(salesrepVO){
@@ -108,6 +119,7 @@
 		});
 		return false;
 	}
+
 	function receiveCustomersMessage(message){
 		var customers = message.CustomerQueryRs.CustomerRet;
 		var i;
@@ -169,6 +181,7 @@
 		
 	}
 
+
 	function successCustomerInsert(){
 		alert("Success synch customers");
 	}
@@ -177,13 +190,89 @@
 		alert("DB Error synch customers: "+JSON.stringify(err));
 	}
 
-	function successSyncSalesRep(){
-		alert("Success synch salesrep");
+//SYNCHRONIZATION Invoices	
+	function syncInvoices(form){
+		console.log("entre a syncInvoices");
+		salesRepDAO.getByName(window.localStorage.getItem("salesRepName"), function(salesrepVO){
+		logZoe("en syncInvoices salesrepVO = " + JSON.stringify(salesrepVO));
+		var mensaje = 	
+		'<InvoiceQueryRq requestID="invoice"></InvoiceQueryRq>';
+		var cache="invoice";
+		var xpathExp = '//InvoiceRet[SalesRepRef/ListID="'+ salesrepVO.id_salesrep + '"]';
+		
+		consumeWS(mensaje, "JSON", receiveInvoicesMessage, cache, xpathExp);
+		});
+		return false;
+	}
+
+	function receiveInvoicesMessage(message){
+		var invoices = message.InvoiceQueryRs.InvoiceRet;
+		var i;
+		var invoicesVO = [];
+		for (i=0;i<invoices.length;i++){
+			logZoe("invoices[i]=" + JSON.stringify(invoices[i]));
+			var invoiceVO = {
+				id_invoice:invoices[i].TxnID,
+				ListID : invoices[i].CustomerRef.ListID,
+				po_number : null,
+				dueDate : invoices[i].DueDate,
+				appliedAmount : invoices[i].AppliedAmount,
+				balanceRemaining : invoices[i].BalanceRemaining,
+				billAddress_addr1 : invoices[i].BillAddress?invoices[i].BillAddress.Addr1:null,
+				billAddress_addr2 :invoices[i].BillAddress?invoices[i].BillAddress.Addr2:null,
+				billAddress_addr3 : invoices[i].BillAddress?invoices[i].BillAddress.Addr3:null,
+				billAddress_city : invoices[i].BillAddress?invoices[i].BillAddress.City:null,
+				billAddress_state : invoices[i].BillAddress?invoices[i].BillAddress.State:null,
+				billAddress_postalcode : invoices[i].BillAddress?invoices[i].BillAddress.PostalCode:null,
+				shipAddress_addr1 : invoices[i].BillAddress?invoices[i].BillAddress.addr1:null,
+				shipAddress_addr2 : invoices[i].BillAddress?invoices[i].BillAddress.addr2:null,
+				shipAddress_addr3 : invoices[i].BillAddress?invoices[i].BillAddress.addr3:null,
+				shipAddress_city : invoices[i].BillAddress?invoices[i].BillAddress.City:null,
+				shipAddress_state : invoices[i].BillAddress?invoices[i].BillAddress.State:null,
+				shipAddress_postalcode : invoices[i].BillAddress?invoices[i].BillAddress.PostalCode:null,
+				isPaid : invoices[i].IsPaid=="true"?1:0,
+				isPending : invoices[i].IsPending=="true"?1:0,
+				refNumber : invoices[i].RefNumber,
+				TaxPercentage : invoices[i].SalesTaxPercentage,
+				salesTaxTotal : invoices[i].SalesTaxTotal,
+				shipDate : invoices[i].ShipDate,
+				subtotal : invoices[i].Subtotal,
+				items: new Array()
+			}
+			
+			invoicesVO[i] = invoiceVO;
+			if (invoices[i].InvoiceLineRet){
+				for (j=0;j<invoices[i].InvoiceLineRet.length;j++){
+					var line = invoices[i].InvoiceLineRet[j];
+					var itemVO = {
+							LineID:line.TxnLineID,
+							id_invoice:invoiceVO.id_invoice,
+							Inventory_ListID:line.ItemRef.ListID,
+							Desc:line.Desc,
+							Quantity:line.Quantity,
+							Rate:line.Rate,
+							Amount:line.Amount,
+							SalesTax_ListID:line.SalesTaxCodeRef.ListID
+					}
+					invoiceVO.items[j] = itemVO;
+				}
+			}
+				
+		}
+			
+		invoiceDAO.deleteAll(errCustomerInsert);
+		invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert);
+	}
+
+
+	function successInvoiceInsert(){
+		alert("Success synch invoices");
 	}
 	
-	function errSalesRepSync(err){
-		alert("DB Error synch salesrep: "+JSON.stringify(err));
+	function errInvoiceInsert(err){
+		alert("DB Error synch invoices: "+JSON.stringify(err));
 	}
+
 </script>
 </head>
 
@@ -200,6 +289,7 @@
                         <input id="submitConfig" type="submit" value="Save">
 		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
 		                <button class="ui-btn" id="syncCustomers">Synch Customers</button>
+		                <button class="ui-btn" id="syncInvoices">Synch Invoices</button>
 		                <button class="ui-btn" id="createDB">create database</button>
                 </form>
             </div>
