@@ -75,7 +75,7 @@
 		}else if (employee.DataExtRet && employee.DataExtRet.DataExtName=="password"){
 					passwrod = employee.DataExtRet.DataExtValue;
 		}
-		salesRepVO = {id_salesRep:employee.EmployeeRet.ListID,
+		salesRepVO = {id_employee:employee.EmployeeRet.ListID,
 			name:employee.EmployeeRet.Name, 
 			password:password, 
 			isActive:employee.EmployeeRet.IsActive, 
@@ -102,6 +102,7 @@
 		var salesRep = message.SalesRepQueryRs.SalesRepRet;
 		logZoe("receiveMessageSalesRep salesRep=" + JSON.stringify(salesRep));
 		logZoe("receiveMessageSalesRep salesRep.Initial=" + JSON.stringify(salesRep.Initial));
+		salesRepVO.id_salesRep = salesRep.ListID;
 		salesRepVO.Initial = salesRep.Initial+ "";
 		logZoe("receiveMessageSalesRep salesRepVO=" + JSON.stringify(salesRepVO));
 			

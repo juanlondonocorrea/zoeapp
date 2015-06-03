@@ -73,6 +73,7 @@ CREATE TABLE salesrep
   isActive INTEGER NOT NULL,
   SyncTime NUMERIC NOT NULL,
   initial TEXT,
+  id_employee TEXT,
   CONSTRAINT Key2 PRIMARY KEY (id_salesrep),
   CONSTRAINT id_salesrep UNIQUE (id_salesrep)
 );
