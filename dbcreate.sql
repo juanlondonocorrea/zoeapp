@@ -162,7 +162,10 @@ CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
 CREATE TABLE terms
 (
   id_term TEXT NOT NULL,
-  fullName TEXT,
+  name TEXT,
+  stdDueDays NUMERIC,
+  stdDiscountDays NUMERIC,
+  discountPct NUMERIC,
   CONSTRAINT Key6 PRIMARY KEY (id_term)
 );
 
@@ -180,7 +183,8 @@ CREATE TABLE Inventory
 CREATE TABLE salesTax
 (
   ListID TEXT NOT NULL,
-  FullName TEXT,
+  Name TEXT,
+  desc TEXT,
   CONSTRAINT Key8 PRIMARY KEY (ListID)
 );
 
