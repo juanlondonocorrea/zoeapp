@@ -174,7 +174,7 @@
 			routeDay7:routeDay.indexOf("SAT")>0?1:0,
 			name:customers[i].Name,
 			companyName:customers[i].CompanyName,
-			id_term:customers[i].TermRef?customers[i].TermRef.LisID:null};
+			id_term:customers[i].TermsRef?customers[i].TermsRef.LisID:null};
 			logZoe("customerVO=" + JSON.stringify(customerVO));
 			customersVO[i] = customerVO;
 		}

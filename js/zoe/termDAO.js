@@ -98,7 +98,7 @@ function doStoreTerm(tx){
 }
 
 function doStoreOneTerm(tx, rec){
-	tx.executeSql('INSERT OR REPLACE INTO term(id_term, name, stdDueDays, stdDiscountDays, discountPct) values (?,?,?,?,?)',[rec.id_term, name, rec.stdDueDays, rec.stdDiscountDays, rec.discountPct]);
+	tx.executeSql('INSERT OR REPLACE INTO term(id_term, name, stdDueDays, stdDiscountDays, discountPct) values (?,?,?,?,?)',[rec.id_term, rec.name, rec.stdDueDays, rec.stdDiscountDays, rec.discountPct]);
 }
 
 function doDeleteAllTerms(tx){
