@@ -115,7 +115,6 @@ CREATE TABLE customer
   billAddress3 TEXT,
   shipAddress3 NONE,
   name TEXT,
-  companyName TEXT,
   otherDetails TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep)
