@@ -103,7 +103,7 @@ function doStoreOneInvoice(tx, rec){
 	
 	 if (rec.items){
 		 for (var i=0;i<rec.items.length;i++){
-			 var item = rec.item;
+			 var item = rec.items[i];
 			 tx.executeSql('INSERT OR REPLACE INTO invoice_item(LineID,id_invoice,Inventory_ListID,Desc,Quantity,Rate,Amount,SalesTax_ListID) VALUES(?,?,?,?,?,?,?,?)',[item.LineID,item.id_invoice,item.Inventory_ListID,item.Desc,item.Quantity,item.Rate,item.Amount,item.SalesTax_ListID]);
 		 }
 	 }
