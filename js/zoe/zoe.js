@@ -71,8 +71,7 @@ function openDatabaseZoe(){
 				logZoe("error leyendo dbcreate.sql" + err);
 			}
 		});
-			
-		
+		return false;
 	}
 
 	function dropDatabase(){
