@@ -245,331 +245,348 @@
 		<!-- fin divs -->
 		</div> 
 
-
-
-				<!-- BEGIN CUSTOMERS DETAILS-->
-				<div data-role="page" id="CustomersDetails"  data-title=="Customer's Detail" data-theme="a">
-					<div data-role="content" >
+		<!-- BEGIN CUSTOMERS DETAILS-->
+		<div data-role="page" id="CustomersDetails"  data-title=="Customer's Detail" data-theme="a">
+			<div data-role="content" >
+				<!-- CUSTOMERS DETAILS (LIST DETAILS, EDIT, ADD/ACTIVITIES) -->
+				<div data-role="inlinetabs">
+					<ul>
+						<li data-tab="1">Activities</li>
+						<li data-tab="2">Details</li>
+					</ul>
+					
+					<!-- CUSTOMERS DETAILS (ACTIVITIES) -->
+					<div data-tab="1">
+						Activities Content
+					</div>
+					<!-- CUSTOMERS DETAILS (DETAILS) -->
+					<div data-tab="2">
+						Detail Content
+					</div>
+				</div>				
+				
+				
+				<div data-role="fieldcontain">
+					<div>
+						<label for="FlipSwithEdit">Edit enable:</label>
+					</div>
+					<input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="FlipSwithEdit" data-on-text="On" data-off-text="Off" data-wrapper-class="custom-size-flipswitch" onChange="ChangeEditState();">    
+				</div>
+				 <p>Toggle state:<span id="Switch1"></span></p>
+			 
+				 <a href="#" onclick="enable()" class="ui-btn">Enable</a>
+				 <a href="#" onclick="disable()" class="ui-btn">Disable</a>    	
+		
+				<form id="formulario" >
+					<!-- Relational Info --> 
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<legend><h4>Sales Representant Info</h4></legend>
 						<div data-role="fieldcontain">
 							<div>
-								<label for="FlipSwithEdit">Edit enable:</label>
+								<label for="ListID">Sales Representant:</label>
 							</div>
-							<input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="FlipSwithEdit" data-on-text="On" data-off-text="Off" data-wrapper-class="custom-size-flipswitch" onChange="ChangeEditState();">    
+							<input type="text" data-theme="b" name="SalesRep" id="SalesRep" value=""/>
 						</div>
-						 <p>Toggle state:<span id="Switch1"></span></p>
-					 
-						 <a href="#" onclick="enable()" class="ui-btn">Enable</a>
-						 <a href="#" onclick="disable()" class="ui-btn">Disable</a>    	
-				
-						<form id="formulario" >
-							<!-- Relational Info --> 
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<legend><h4>Sales Representant Info</h4></legend>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="ListID">Sales Representant:</label>
-									</div>
-									<input type="text" data-theme="b" name="SalesRep" id="SalesRep" value=""/>
-								</div>
-							</fieldset>    
-							<!-- Identification Info -->
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<legend><h4>Identification Info</h4></legend>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="ListID">ListID:</label>
-									</div>
-									<input type="text" data-theme="b" name="ListID" id="ListID" value=""/>
-									<input type="text" data-theme="b" name="IsActive" id="IsActive" value=""/>
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="FullName">Full Name:</label>
-									</div>
-									<input type="text" data-theme="b" name="FullName" id="FullName" value=""/>
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="Name">Name:</label>
-									</div>
-									<input type="text" data-theme="b" name="Name" id="Name" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="CompanyName">Company Name:</label>
-									</div>
-									<input type="text" data-theme="b" name="CompanyName" id="CompanyName" value=""  />
-								</div>
-							</fieldset> 
-							<!-- Contact Info -->
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px"> 
-								<legend><h4>Contact Info</h4></legend>                       
-								<div data-role="fieldcontain">
-									<div>
-										<label for="Phone">Phone:</label>
-									</div>
-									<input type="tel" data-theme="b" name="Phone" id="Phone" value=""  />              
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="Cell">Cell:</label>
-									</div>
-									<input type="tel" data-theme="b" name="Cell" id="Cell" value=""  />              
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="Fax">Fax:</label>
-									</div>
-									<input type="text" data-theme="b" name="Fax" id="Fax" value=""  />              
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="Email">Email:</label>
-									</div>
-									<input type="email" data-theme="b" name="Email" id="Email" value=""  />              
-								</div>
-							</fieldset>
-							<!-- Billing Address -->
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<legend><h4>Billing Address</h4></legend>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="billAddress1">Bill Address Line 1:</label>
-									</div>
-									<input type="text" data-theme="b" name="billAddress1" id="billAddress1" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="billAddress2">Bill Address Line 2:</label>
-									</div>
-									<input type="text" data-theme="b" name="billAddress2" id="billAddress2" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="billAddress3">Bill Address Line 3:</label>
-									</div>
-									<input type="text" data-theme="b" name="billAddress3" id="billAddress3" value=""  />
-								</div>
-								
-								<div data-role="fieldcontain">
-									<div>
-										<label for="billCity">City:</label>
-									</div>
-									<input type="text" data-theme="b" name="billCity" id="billCity" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="billState">State:</label>
-									</div>
-									<input type="text" data-theme="b" name="billState" id="billState" value=""  />
-								</div>
-								<div class="ui-grid-a" style="height:95px">
-									<div class="ui-block-a" style="height:100%"> 
-										<div data-role="fieldcontain">
-											<div>
-												<label for="billZipCode">Zip Code:</label>
-											</div>
-											<input type="number" data-theme="b" name="billZipCode" id="billZipCode" value=""  />
-										</div>                    
-									</div>
-									<div class="ui-block-b" style="height:100%">            
-									<div data-role="fieldcontain">
-										<div>
-											<label for="billCountry">Country:</label>
-										</div>
-										<input type="text" data-theme="b" name="billCountry" id="billCountry" value=""  />
-									</div>                      
-									</div>  
-								</div>
-							</fieldset>
-							<!-- Shiping Address -->
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<legend><h4>Shiping Address</h4></legend>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="shipAddress1">Ship Address Line 1:</label>
-									</div>
-									<input type="text" data-theme="b" name="shipAddress1" id="shipAddress1" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="shipAddress2">Ship Address Line 2:</label>
-									</div>
-									<input type="text" data-theme="b" name="shipAddress2" id="shipAddress2" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="shipAddress3">Ship Address Line 3:</label>
-									</div>
-									<input type="text" data-theme="b" name="shipAddress3" id="shipAddress3" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="shipCity">Ship City:</label>
-									</div>
-									<input type="text" data-theme="b" name="shipCity" id="shipCity" value=""  />
-								</div>
-								<div data-role="fieldcontain">
-									<div>
-										<label for="shipState">Ship State:</label>
-									</div>
-									<input type="text" data-theme="b" name="shipState" id="shipState" value=""  />
-								</div>
-								<div class="ui-grid-a" style="height:95px">
-									<div class="ui-block-a" style="height:100%"> 
-										<div data-role="fieldcontain">
-											<div>
-												<label for="shipZipCode">Ship Zip Code:</label>
-											</div>
-											<input type="number" data-theme="b" name="shipZipCode" id="shipZipCode" value=""  />
-										</div>
-									</div>
-									<div class="ui-block-b" style="height:100%">            
-										<div data-role="fieldcontain">
-											<div>
-												<label for="shipCountry">Ship Country:</label>
-											</div>
-											<input type="text" data-theme="b" name="shipCountry" id="shipCountry" value=""  />
-										</div>
-									</div>  
-								</div>
-							</fieldset> 
-							<!-- Balance Info -->
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<legend><h4>Balance Info</h4></legend>
-								<div class="ui-grid-a" style="height:95px">
-									<div class="ui-block-a" style="height:100%"> 
-										<div data-role="fieldcontain">
-											<div>
-												<label for="openBalance">Open Balance:</label>
-											</div>
-											<input type="text" data-theme="b" name="openBalance" id="openBalance" value=""  />
-										</div>                    
-									</div>
-									<div class="ui-block-b" style="height:100%">            
-										<div data-role="fieldcontain">
-											<div>
-												<label for="overdueBalance">Overdue Balance:</label>
-											</div>
-											<input type="text" data-theme="b" name="overdueBalance" id="overdueBalance" value=""  />
-										</div>                      
-									</div>  
-								</div>
-							</fieldset>           
-							<!-- Terms Info --> 
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<div data-role="fieldcontain">
-								  <div>
-									<label for="Terms" class="select">Terms:</label>
-								  </div>
-								  <select name="Terms" id="Terms" data-theme="a">
-									<option value="option1">Terms 1</option>
-									<option value="option2">Terms 2</option>
-									<option value="option3">Terms 3</option>
-									<option value="option4">Terms 4</option>
-									<option value="option5">Terms 5</option>
-									<option value="option6">Terms 6</option>      
-								  </select>
-								</div>
-							</fieldset> 
-							<!-- Other Info -->                       
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-								<div data-role="fieldcontain">
-									<div>
-										<label for="OtherDetails">Other Details:</label>
-									</div>
-									<input type="text" data-theme="b" name="OtherDetails" id="OtherDetails" value=""  />
-								</div> 
-							</fieldset> 
-							<fieldset data-role="controlgroup">
-								<legend>Vertical:</legend>
-								<input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
-								<label for="checkbox-v-2a">One</label>
-								<input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
-								<label for="checkbox-v-2b">Two</label>
-								<input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
-								<label for="checkbox-v-2c">Three</label>
-							</fieldset>
-							<!-- Route days info -->
-							<fieldset data-role="controlgroup" style="padding:15px">
-								<legend><h4>Route Info</h4></legend>
-								<div class="ui-grid-f" style="height:95px">
-									<div class="ui-block-a" style="height:100%"> 
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay1">Sun:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay1" id="routeDay1" value=""  />
-										</div>
-									</div>
-									<div class="ui-block-b" style="height:100%">
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay2">Mon:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay2" id="routeDay2" value=""  />
-										</div>                
-									</div>
-									<div class="ui-block-c" style="height:100%">
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay3">Tue:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay3" id="routeDay3" value=""  />
-										</div>                
-									</div>
-									<div class="ui-block-d" style="height:100%">
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay4">Wed:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay4" id="routeDay4" value=""  />
-										</div>                
-									</div> 
-									<br/><br/><br/><br/>
-									<div class="ui-block-e" style="height:100%">
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay5">Thu:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay5" id="routeDay5" value=""  />
-										</div>                
-									</div>
-									<div class="ui-block-f" style="height:100%">
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay6">Fri:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay6" id="routeDay6" value=""  />
-										</div>                
-									</div>
-									<div class="ui-block-g" style="height:100%">
-										<div data-role="fieldcontain">
-											<div>
-												<label for="routeDay7">Sat:</label>
-											</div>
-											<input type="checkbox" data-theme="b" name="routeDay7" id="routeDay7" value=""  />
-										</div>                
-									</div>                                                                             
-								</div>
-							</fieldset>
-							<!-- Done and Cancel Buttons -->
-							<div >            
-								<fieldset class="ui-grid-a" data-role="controlgroup" data-type="horizontal"  style="padding:15px;">
-									<div class="ui-block-a"><button id="cancel" data-add-back-btn="true" data-theme="b">Cancel</button></div>
-									<div class="ui-block-b"><button id="submit" data-theme="c">Done</button></div>	   
-								</fieldset>              
+					</fieldset>    
+					<!-- Identification Info -->
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<legend><h4>Identification Info</h4></legend>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="ListID">ListID:</label>
 							</div>
-						</form>		
+							<input type="text" data-theme="b" name="ListID" id="ListID" value=""/>
+							<input type="text" data-theme="b" name="IsActive" id="IsActive" value=""/>
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="FullName">Full Name:</label>
+							</div>
+							<input type="text" data-theme="b" name="FullName" id="FullName" value=""/>
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="Name">Name:</label>
+							</div>
+							<input type="text" data-theme="b" name="Name" id="Name" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="CompanyName">Company Name:</label>
+							</div>
+							<input type="text" data-theme="b" name="CompanyName" id="CompanyName" value=""  />
+						</div>
+					</fieldset> 
+					<!-- Contact Info -->
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px"> 
+						<legend><h4>Contact Info</h4></legend>                       
+						<div data-role="fieldcontain">
+							<div>
+								<label for="Phone">Phone:</label>
+							</div>
+							<input type="tel" data-theme="b" name="Phone" id="Phone" value=""  />              
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="Cell">Cell:</label>
+							</div>
+							<input type="tel" data-theme="b" name="Cell" id="Cell" value=""  />              
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="Fax">Fax:</label>
+							</div>
+							<input type="text" data-theme="b" name="Fax" id="Fax" value=""  />              
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="Email">Email:</label>
+							</div>
+							<input type="email" data-theme="b" name="Email" id="Email" value=""  />              
+						</div>
+					</fieldset>
+					<!-- Billing Address -->
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<legend><h4>Billing Address</h4></legend>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="billAddress1">Bill Address Line 1:</label>
+							</div>
+							<input type="text" data-theme="b" name="billAddress1" id="billAddress1" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="billAddress2">Bill Address Line 2:</label>
+							</div>
+							<input type="text" data-theme="b" name="billAddress2" id="billAddress2" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="billAddress3">Bill Address Line 3:</label>
+							</div>
+							<input type="text" data-theme="b" name="billAddress3" id="billAddress3" value=""  />
+						</div>
+						
+						<div data-role="fieldcontain">
+							<div>
+								<label for="billCity">City:</label>
+							</div>
+							<input type="text" data-theme="b" name="billCity" id="billCity" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="billState">State:</label>
+							</div>
+							<input type="text" data-theme="b" name="billState" id="billState" value=""  />
+						</div>
+						<div class="ui-grid-a" style="height:95px">
+							<div class="ui-block-a" style="height:100%"> 
+								<div data-role="fieldcontain">
+									<div>
+										<label for="billZipCode">Zip Code:</label>
+									</div>
+									<input type="number" data-theme="b" name="billZipCode" id="billZipCode" value=""  />
+								</div>                    
+							</div>
+							<div class="ui-block-b" style="height:100%">            
+							<div data-role="fieldcontain">
+								<div>
+									<label for="billCountry">Country:</label>
+								</div>
+								<input type="text" data-theme="b" name="billCountry" id="billCountry" value=""  />
+							</div>                      
+							</div>  
+						</div>
+					</fieldset>
+					<!-- Shiping Address -->
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<legend><h4>Shiping Address</h4></legend>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="shipAddress1">Ship Address Line 1:</label>
+							</div>
+							<input type="text" data-theme="b" name="shipAddress1" id="shipAddress1" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="shipAddress2">Ship Address Line 2:</label>
+							</div>
+							<input type="text" data-theme="b" name="shipAddress2" id="shipAddress2" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="shipAddress3">Ship Address Line 3:</label>
+							</div>
+							<input type="text" data-theme="b" name="shipAddress3" id="shipAddress3" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="shipCity">Ship City:</label>
+							</div>
+							<input type="text" data-theme="b" name="shipCity" id="shipCity" value=""  />
+						</div>
+						<div data-role="fieldcontain">
+							<div>
+								<label for="shipState">Ship State:</label>
+							</div>
+							<input type="text" data-theme="b" name="shipState" id="shipState" value=""  />
+						</div>
+						<div class="ui-grid-a" style="height:95px">
+							<div class="ui-block-a" style="height:100%"> 
+								<div data-role="fieldcontain">
+									<div>
+										<label for="shipZipCode">Ship Zip Code:</label>
+									</div>
+									<input type="number" data-theme="b" name="shipZipCode" id="shipZipCode" value=""  />
+								</div>
+							</div>
+							<div class="ui-block-b" style="height:100%">            
+								<div data-role="fieldcontain">
+									<div>
+										<label for="shipCountry">Ship Country:</label>
+									</div>
+									<input type="text" data-theme="b" name="shipCountry" id="shipCountry" value=""  />
+								</div>
+							</div>  
+						</div>
+					</fieldset> 
+					<!-- Balance Info -->
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<legend><h4>Balance Info</h4></legend>
+						<div class="ui-grid-a" style="height:95px">
+							<div class="ui-block-a" style="height:100%"> 
+								<div data-role="fieldcontain">
+									<div>
+										<label for="openBalance">Open Balance:</label>
+									</div>
+									<input type="text" data-theme="b" name="openBalance" id="openBalance" value=""  />
+								</div>                    
+							</div>
+							<div class="ui-block-b" style="height:100%">            
+								<div data-role="fieldcontain">
+									<div>
+										<label for="overdueBalance">Overdue Balance:</label>
+									</div>
+									<input type="text" data-theme="b" name="overdueBalance" id="overdueBalance" value=""  />
+								</div>                      
+							</div>  
+						</div>
+					</fieldset>           
+					<!-- Terms Info --> 
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<div data-role="fieldcontain">
+						  <div>
+							<label for="Terms" class="select">Terms:</label>
+						  </div>
+						  <select name="Terms" id="Terms" data-theme="a">
+							<option value="option1">Terms 1</option>
+							<option value="option2">Terms 2</option>
+							<option value="option3">Terms 3</option>
+							<option value="option4">Terms 4</option>
+							<option value="option5">Terms 5</option>
+							<option value="option6">Terms 6</option>      
+						  </select>
+						</div>
+					</fieldset> 
+					<!-- Other Info -->                       
+					<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+						<div data-role="fieldcontain">
+							<div>
+								<label for="OtherDetails">Other Details:</label>
+							</div>
+							<input type="text" data-theme="b" name="OtherDetails" id="OtherDetails" value=""  />
+						</div> 
+					</fieldset> 
+					<fieldset data-role="controlgroup">
+						<legend>Vertical:</legend>
+						<input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+						<label for="checkbox-v-2a">One</label>
+						<input type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+						<label for="checkbox-v-2b">Two</label>
+						<input type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+						<label for="checkbox-v-2c">Three</label>
+					</fieldset>
+					<!-- Route days info -->
+					<fieldset data-role="controlgroup" style="padding:15px">
+						<legend><h4>Route Info</h4></legend>
+						<div class="ui-grid-f" style="height:95px">
+							<div class="ui-block-a" style="height:100%"> 
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay1">Sun:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay1" id="routeDay1" value=""  />
+								</div>
+							</div>
+							<div class="ui-block-b" style="height:100%">
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay2">Mon:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay2" id="routeDay2" value=""  />
+								</div>                
+							</div>
+							<div class="ui-block-c" style="height:100%">
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay3">Tue:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay3" id="routeDay3" value=""  />
+								</div>                
+							</div>
+							<div class="ui-block-d" style="height:100%">
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay4">Wed:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay4" id="routeDay4" value=""  />
+								</div>                
+							</div> 
+							<br/><br/><br/><br/>
+							<div class="ui-block-e" style="height:100%">
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay5">Thu:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay5" id="routeDay5" value=""  />
+								</div>                
+							</div>
+							<div class="ui-block-f" style="height:100%">
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay6">Fri:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay6" id="routeDay6" value=""  />
+								</div>                
+							</div>
+							<div class="ui-block-g" style="height:100%">
+								<div data-role="fieldcontain">
+									<div>
+										<label for="routeDay7">Sat:</label>
+									</div>
+									<input type="checkbox" data-theme="b" name="routeDay7" id="routeDay7" value=""  />
+								</div>                
+							</div>                                                                             
+						</div>
+					</fieldset>
+					<!-- Done and Cancel Buttons -->
+					<div >            
+						<fieldset class="ui-grid-a" data-role="controlgroup" data-type="horizontal"  style="padding:15px;">
+							<div class="ui-block-a"><button id="cancel" data-add-back-btn="true" data-theme="b">Cancel</button></div>
+							<div class="ui-block-b"><button id="submit" data-theme="c">Done</button></div>	   
+						</fieldset>              
 					</div>
-					<!-- END CUSTOMERS DETAILS-->    
+				</form>		
+			</div>
+			   
 
 
-                    <!-- divs de header, menu y footer-->
-                    <div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
-                    <div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
-                    <div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
-                    <!-- fin divs -->    
-				</div>
+			<!-- divs de header, menu y footer-->
+			<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+			<div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+			<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+			<!-- fin divs -->    
+		</div>
+		<!-- END CUSTOMERS DETAILS--> 
 	</body>
 </html>
