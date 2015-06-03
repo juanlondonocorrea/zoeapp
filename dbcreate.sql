@@ -160,7 +160,7 @@ CREATE TABLE invoice
   salesTaxTotal NUMERIC,
   shipDate INTEGER,
   subtotal NUMERIC,
-  id_term TEXT NOT NULL,
+  id_term TEXT,
   billAddress_addr3 TEXT,
   shipAddress_addr3 TEXT,
   zoeUpdateDate INTEGER,
