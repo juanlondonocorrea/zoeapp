@@ -15,6 +15,7 @@ DROP INDEX IF EXISTS IX_Relationship1;
 DROP INDEX IF EXISTS IX_Relationship2;
 DROP INDEX IF EXISTS IX_invoice_custumer;
 DROP INDEX IF EXISTS IX_invoice_terms;
+DROP INDEX IF EXISTS Index1;
 DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS IX_sales_rep_customer;
 DROP INDEX IF EXISTS IX_Relationship3;
@@ -118,6 +119,8 @@ CREATE TABLE customer
   name TEXT,
   otherDetails TEXT,
   id_term TEXT,
+  zoeUpdateDate INTEGER,
+  zoeSyncDate INTEGER,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
   CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES term (id_term)
@@ -159,6 +162,8 @@ CREATE TABLE invoice
   id_term TEXT NOT NULL,
   billAddress_addr3 TEXT,
   shipAddress_addr3 TEXT,
+  zoeUpdateDate INTEGER,
+  zoeSycDate INTEGER,
   CONSTRAINT Key4 PRIMARY KEY (id_invoice),
   CONSTRAINT invoice_custumer FOREIGN KEY (ListID) REFERENCES customer (ListID),
   CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES term (id_term)
@@ -167,6 +172,8 @@ CREATE TABLE invoice
 CREATE INDEX IX_invoice_custumer ON invoice (ListID);
 
 CREATE INDEX IX_invoice_terms ON invoice (id_term);
+
+CREATE INDEX Index1 ON invoice ();
 
 -- Table invoice_item
 
