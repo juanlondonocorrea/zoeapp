@@ -182,10 +182,10 @@ CREATE TABLE invoice_item
   CONSTRAINT Relationship2 FOREIGN KEY (SalesTax_ListID) REFERENCES salesTax (ListID)
 );
 
-CREATE INDEX IX_invoice_lines ON invoice_item (id_invoice);
+--CREATE INDEX IX_invoice_lines ON invoice_item (id_invoice);
 
-CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
+--CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
 
-CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
+--CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
 
 
