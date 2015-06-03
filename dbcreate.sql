@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS invoice;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS salesrep;
 DROP TABLE IF EXISTS Inventory;
-DROP TABLE IF EXISTS terms;
+DROP TABLE IF EXISTS term;
 DROP TABLE IF EXISTS salesTax;
 
 -- Create tables section -------------------------------------------------
@@ -42,9 +42,9 @@ CREATE TABLE salesTax
   CONSTRAINT Key8 PRIMARY KEY (ListID)
 );
 
--- Table terms
+-- Table term
 
-CREATE TABLE terms
+CREATE TABLE term
 (
   id_term TEXT NOT NULL,
   name TEXT,
@@ -120,7 +120,7 @@ CREATE TABLE customer
   id_term TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
-  CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES terms (id_term)
+  CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES term (id_term)
 );
 
 CREATE INDEX customer_idx1 ON customer (FullName);
@@ -161,7 +161,7 @@ CREATE TABLE invoice
   shipAddress_addr3 TEXT,
   CONSTRAINT Key4 PRIMARY KEY (id_invoice),
   CONSTRAINT invoice_custumer FOREIGN KEY (ListID) REFERENCES customer (ListID),
-  CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES terms (id_term)
+  CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES term (id_term)
 );
 
 CREATE INDEX IX_invoice_custumer ON invoice (ListID);
