@@ -59,7 +59,7 @@ function doSelectInvoice(tx){
 
 function doCustomerInvoices(tx){
 	logZoe("doSelectSelesrepInvoices");
-	tx.executeSql("SELECT id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal FROM invoice WHERE ListID = ?", [filterDataInvoice],invoiceLocalListReceiveFunction, invoiceErrFunc);
+	tx.executeSql("SELECT id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal, id_term FROM invoice WHERE ListID = ?", [filterDataInvoice],invoiceLocalListReceiveFunction, invoiceErrFunc);
 }
 
 function invoiceLocalReceiveFunction(tx,results){
@@ -99,7 +99,7 @@ function doStoreInvoice(tx){
 }
 
 function doStoreOneInvoice(tx, rec){
-	tx.executeSql('INSERT OR REPLACE INTO invoice(id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[rec.id_invoice, rec.ListID, rec.po_number, rec.dueDate, rec.appliedAmount, rec.balanceRemaining, rec.billAddress_addr1, rec.billAddress_addr2, rec.billAddress_addr3, rec.billAddress_city, rec.billAddress_state, rec.billAddress_postalcode, rec.shipAddress_addr1, rec.shipAddress_addr2, rec.shipAddress_addr3, rec.shipAddress_city, rec.shipAddress_state, rec.shipAddress_postalcode, rec.isPaid, rec.isPending, rec.refNumber, rec.TaxPercentage, rec.salesTaxTotal, rec.shipDate, rec.subtotal]);
+	tx.executeSql('INSERT OR REPLACE INTO invoice(id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal, id_term) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[rec.id_invoice, rec.ListID, rec.po_number, rec.dueDate, rec.appliedAmount, rec.balanceRemaining, rec.billAddress_addr1, rec.billAddress_addr2, rec.billAddress_addr3, rec.billAddress_city, rec.billAddress_state, rec.billAddress_postalcode, rec.shipAddress_addr1, rec.shipAddress_addr2, rec.shipAddress_addr3, rec.shipAddress_city, rec.shipAddress_state, rec.shipAddress_postalcode, rec.isPaid, rec.isPending, rec.refNumber, rec.TaxPercentage, rec.salesTaxTotal, rec.shipDate, rec.subtotal, rec.id_term]);
 	
  if (rec.items){
 	 for (var i=0;i<rec.items[i];i++){
