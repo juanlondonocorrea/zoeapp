@@ -98,7 +98,7 @@ function doStoreTax(tx){
 }
 
 function doStoreOneTax(tx, rec){
-	tx.executeSql('INSERT OR REPLACE INTO salesTax(ListID, name, desc) values (?,?,?,?,?)',[rec.ListID, rec.name, rec.desc]);
+	tx.executeSql('INSERT OR REPLACE INTO salesTax(ListID, name, desc) values (?,?,?)',[rec.ListID, rec.name, rec.desc]);
 }
 
 function doDeleteAllTaxes(tx){
