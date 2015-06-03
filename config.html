@@ -38,6 +38,7 @@
 			$('#syncInvoices').click(syncInvoices);	
 			$('#syncOthers').click(syncOthers);	
 			$('#createDB').click(checkDatabase);	
+			$('#syncAll').click(sycAll);	
 			logZoe("config.html listo pagebeforecreate");
 		});
 
@@ -47,6 +48,17 @@
 		logZoe("config localStorage salesRepName=" + window.localStorage.getItem("salesRepName"));
 		return false;
 	}
+
+//SYCHRONIZATION ALL
+var synchronizingAll = false;
+function syncAll(form){
+	try{
+		synchronizingAll=true;
+		syncSalesRep();
+	}catch(exception){
+		console.log(JSON.stringify(exception));
+	}
+}
 
 //SYNCHRONIZATION Employee and Salesrep	
 	function syncSalesRep(form){
@@ -90,7 +102,11 @@
 			
 	}
 	function successSyncSalesRep(){
-		alert("Success synch salesrep");
+		if (synchronizingAll){
+			syncOthers();
+		}else{
+			alert("Success synch salesrep");
+		}
 	}
 	
 	function errSalesRepSync(err){
@@ -196,7 +212,11 @@
 
 
 	function successCustomerInsert(){
-		alert("Success synch customers");
+		if (synchronizingAll){
+			syncInvoices();
+		}else{
+			alert("Success synch customers");
+		}
 	}
 	
 	function errCustomerInsert(err){
@@ -284,7 +304,12 @@
 
 
 	function successInvoiceInsert(){
-		alert("Success synch invoices");
+		if (synchronizingAll){
+			synchronizingAll = false;
+			alert("Success synch all");
+		}else{
+			alert("Success synch Invoices");
+		}
 	}
 	
 	function errInvoiceInsert(err){
@@ -364,7 +389,11 @@
 
 
 	function successTaxInsert(){
-		alert("Success synch tax");
+		if (synchronizingAll){
+			syncCustomers();
+		}else{
+			alert("Success synch term and salestax");
+		}
 	}
 	
 	function errTaxInsert(err){
@@ -390,6 +419,7 @@
 		                <button class="ui-btn" id="syncInvoices">Synch Invoices</button>
 		                <button class="ui-btn" id="syncOthers">Synch Sales Taxes and Terms</button>
 		                <button class="ui-btn" id="createDB">create database</button>
+		                <button class="ui-btn" id="syncAll">Sync ALL</button>
                 </form>
             </div>
         
