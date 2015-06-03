@@ -1,6 +1,6 @@
 ﻿/*
 Created: 29/04/2015
-Modified: 02/06/2015
+Modified: 03/06/2015
 Model: RE SQLite 3.7
 Database: SQLite 3.7
 */
@@ -17,6 +17,7 @@ DROP INDEX IF EXISTS IX_invoice_custumer;
 DROP INDEX IF EXISTS IX_invoice_terms;
 DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS IX_sales_rep_customer;
+DROP INDEX IF EXISTS IX_Relationship3;
 DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
@@ -116,13 +117,17 @@ CREATE TABLE customer
   shipAddress3 NONE,
   name TEXT,
   otherDetails TEXT,
+  id_term TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
-  CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep)
+  CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
+  CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES terms (id_term)
 );
 
 CREATE INDEX customer_idx1 ON customer (FullName);
 
 CREATE INDEX IX_sales_rep_customer ON customer (id_salesrep);
+
+CREATE INDEX IX_Relationship3 ON customer (id_term);
 
 -- Table invoice
 
