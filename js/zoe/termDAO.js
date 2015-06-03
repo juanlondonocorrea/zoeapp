@@ -43,7 +43,7 @@ function deleteAllTerms(aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("deleteAllTerms db=" + db);
 	termErrFunc = aErrFunc;
-	db.transaction(doDeleteAllTerm, errorCB, successCB);
+	db.transaction(doDeleteAllTerms, errorCB, successCB);
 }
 
 
