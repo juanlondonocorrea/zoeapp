@@ -40,7 +40,7 @@ function storeInvoice(records,aErrFunc,successCB){
 	db.transaction(doStoreInvoice, errorCB, successCB);
 }
 
-function deleteAllInvoice(aErrFunc,successCB){
+function deleteAllInvoices(aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("deleteAllInvoice db=" + db);
 	invoiceErrFunc = aErrFunc;

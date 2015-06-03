@@ -39,9 +39,9 @@ function storeTerm(records,aErrFunc,successCB){
 	db.transaction(doStoreTerm, errorCB, successCB);
 }
 
-function deleteAllTerm(aErrFunc,successCB){
+function deleteAllTerms(aErrFunc,successCB){
 	db = openDatabaseZoe();
-	logZoe("deleteAllTerm db=" + db);
+	logZoe("deleteAllTerms db=" + db);
 	termErrFunc = aErrFunc;
 	db.transaction(doDeleteAllTerm, errorCB, successCB);
 }
