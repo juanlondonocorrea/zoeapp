@@ -23,7 +23,7 @@ function getInvoiceById(aId,aReceiveFunction,aErrFunc){
 	db.transaction(doSelectInvoice, invoiceErrFunc, invoiceReceiveFunction);
 }
 
-function listInvoicesBySalesRep(customer_ListID, aReceiveFunction,aErrFunc){
+function listInvoicesBySalesrep(customer_ListID, aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	logZoe("listInvoices db=" + db);
 	invoiceReceiveListFunction = aReceiveFunction;

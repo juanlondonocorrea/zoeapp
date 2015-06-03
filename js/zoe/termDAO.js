@@ -1,6 +1,6 @@
 // JavaScript Document
 
-var termDAO = {list:listTermes, 
+var termDAO = {list:listTerms, 
 				getById:getTermById, 
 				store:storeTerm, 
 				deleteAll:deleteAllTerms};

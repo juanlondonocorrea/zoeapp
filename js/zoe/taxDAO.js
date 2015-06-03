@@ -39,7 +39,7 @@ function storeTax(records,aErrFunc,successCB){
 	db.transaction(doStoreTax, errorCB, successCB);
 }
 
-function deleteAllTax(aErrFunc,successCB){
+function deleteAllTaxes(aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("deleteAllTax db=" + db);
 	taxErrFunc = aErrFunc;
