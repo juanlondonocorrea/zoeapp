@@ -10,24 +10,24 @@ Database: SQLite 3.7
 
 -- Drop indexes section -------------------------------------------------
 
-DROP INDEX IX_invoice_lines;
-DROP INDEX IX_Relationship1;
-DROP INDEX IX_Relationship2;
-DROP INDEX IX_invoice_custumer;
-DROP INDEX IX_invoice_terms;
-DROP INDEX customer_idx1;
-DROP INDEX IX_sales_rep_customer;
-DROP INDEX idx_salesrep_1;
+DROP INDEX IF EXISTS IX_invoice_lines;
+DROP INDEX IF EXISTS IX_Relationship1;
+DROP INDEX IF EXISTS IX_Relationship2;
+DROP INDEX IF EXISTS IX_invoice_custumer;
+DROP INDEX IF EXISTS IX_invoice_terms;
+DROP INDEX IF EXISTS customer_idx1;
+DROP INDEX IF EXISTS IX_sales_rep_customer;
+DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
-DROP TABLE invoice_item;
-DROP TABLE invoice;
-DROP TABLE customer;
-DROP TABLE salesrep;
-DROP TABLE Inventory;
-DROP TABLE terms;
-DROP TABLE salesTax;
+DROP TABLE IF EXISTS invoice_item;
+DROP TABLE IF EXISTS invoice;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS salesrep;
+DROP TABLE IF EXISTS Inventory;
+DROP TABLE IF EXISTS terms;
+DROP TABLE IF EXISTS salesTax;
 
 -- Create tables section -------------------------------------------------
 
@@ -182,10 +182,10 @@ CREATE TABLE invoice_item
   CONSTRAINT Relationship2 FOREIGN KEY (SalesTax_ListID) REFERENCES salesTax (ListID)
 );
 
---CREATE INDEX IX_invoice_lines ON invoice_item (id_invoice);
+CREATE INDEX IX_invoice_lines ON invoice_item (id_invoice);
 
---CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
+CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
 
---CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
+CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
 
 
