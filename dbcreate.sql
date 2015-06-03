@@ -15,7 +15,6 @@ DROP INDEX IF EXISTS IX_Relationship1;
 DROP INDEX IF EXISTS IX_Relationship2;
 DROP INDEX IF EXISTS IX_invoice_custumer;
 DROP INDEX IF EXISTS IX_invoice_terms;
-DROP INDEX IF EXISTS Index1;
 DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS IX_sales_rep_customer;
 DROP INDEX IF EXISTS IX_Relationship3;
@@ -173,8 +172,6 @@ CREATE TABLE invoice
 CREATE INDEX IX_invoice_custumer ON invoice (ListID);
 
 CREATE INDEX IX_invoice_terms ON invoice (id_term);
-
-CREATE INDEX Index1 ON invoice ();
 
 -- Table invoice_item
 
