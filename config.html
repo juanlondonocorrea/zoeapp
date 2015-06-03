@@ -116,7 +116,7 @@
 		var mensaje = 	
 		'<CustomerQueryRq  requestID="customer1"></CustomerQueryRq>';
 		var cache="customer";
-		var xpathExp = '//CustomerRet[SalesRepRef/ListID="'+ salesrepVO.id_salesrep + '"]';
+		var xpathExp = '//CustomerRet[SalesRepRef/FullName="'+ salesrepVO.initial + '"]';
 		
 		consumeWS(mensaje, "JSON", receiveCustomersMessage, cache, xpathExp);
 		});
