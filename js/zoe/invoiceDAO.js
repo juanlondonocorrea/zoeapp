@@ -44,7 +44,7 @@ function deleteAllInvoices(aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("deleteAllInvoice db=" + db);
 	invoiceErrFunc = aErrFunc;
-	db.transaction(doDeleteAllInvoice, errorCB, successCB);
+	db.transaction(doDeleteAllInvoices, errorCB, successCB);
 }
 
 
