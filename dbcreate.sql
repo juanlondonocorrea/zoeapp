@@ -21,15 +21,46 @@ DROP INDEX idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
-DROP TABLE salesTax;
-DROP TABLE Inventory;
-DROP TABLE terms;
 DROP TABLE invoice_item;
 DROP TABLE invoice;
 DROP TABLE customer;
 DROP TABLE salesrep;
+DROP TABLE Inventory;
+DROP TABLE terms;
+DROP TABLE salesTax;
 
 -- Create tables section -------------------------------------------------
+
+-- Table salesTax
+
+CREATE TABLE salesTax
+(
+  ListID TEXT NOT NULL,
+  Name TEXT,
+  desc TEXT,
+  CONSTRAINT Key8 PRIMARY KEY (ListID)
+);
+
+-- Table terms
+
+CREATE TABLE terms
+(
+  id_term TEXT NOT NULL,
+  name TEXT,
+  stdDueDays NUMERIC,
+  stdDiscountDays NUMERIC,
+  discountPct NUMERIC,
+  CONSTRAINT Key6 PRIMARY KEY (id_term)
+);
+
+-- Table Inventory
+
+CREATE TABLE Inventory
+(
+  ListID TEXT NOT NULL,
+  FullName TEXT,
+  CONSTRAINT Key7 PRIMARY KEY (ListID)
+);
 
 -- Table salesrep
 
@@ -156,36 +187,5 @@ CREATE INDEX IX_invoice_lines ON invoice_item (id_invoice);
 CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
 
 CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
-
--- Table terms
-
-CREATE TABLE terms
-(
-  id_term TEXT NOT NULL,
-  name TEXT,
-  stdDueDays NUMERIC,
-  stdDiscountDays NUMERIC,
-  discountPct NUMERIC,
-  CONSTRAINT Key6 PRIMARY KEY (id_term)
-);
-
--- Table Inventory
-
-CREATE TABLE Inventory
-(
-  ListID TEXT NOT NULL,
-  FullName TEXT,
-  CONSTRAINT Key7 PRIMARY KEY (ListID)
-);
-
--- Table salesTax
-
-CREATE TABLE salesTax
-(
-  ListID TEXT NOT NULL,
-  Name TEXT,
-  desc TEXT,
-  CONSTRAINT Key8 PRIMARY KEY (ListID)
-);
 
 
