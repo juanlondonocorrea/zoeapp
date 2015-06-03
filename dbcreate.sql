@@ -6,9 +6,6 @@ Database: SQLite 3.7
 */
 
 
--- Drop triggers for tables section -------------------------------------------------
-
-DROP TRIGGER IF EXISTS Trigger1;
 
 
 -- Drop indexes section -------------------------------------------------
@@ -135,15 +132,6 @@ CREATE INDEX customer_idx1 ON customer (FullName);
 CREATE INDEX IX_sales_rep_customer ON customer (id_salesrep);
 
 CREATE INDEX IX_Relationship3 ON customer (id_term);
-
--- Create triggers for table customer
-
-CREATE TRIGGER Trigger1 BEFORE INSERT
- ON customer
- FOR EACH ROW
-BEGIN
-    /*UPDATE, INSERT, DELETE, SELECT Statements */
-END;
 
 -- Table invoice
 
