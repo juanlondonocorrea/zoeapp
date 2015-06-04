@@ -82,7 +82,7 @@ function doCustomerInvoices(tx){
 }
 
 function invoiceLocalReceiveFunction(tx,results){
-	logZoe("invoiceLocalReceiveFunction results = " + JSON.stringify(results));
+	logZoe("invoiceLocalReceiveFunction");
 	if (results.rows.length>0){
 	logZoe("localReceiveFunction1 " + JSON.stringify(results.rows.item(0)));
 		invoiceVO=results.rows.item(0);
