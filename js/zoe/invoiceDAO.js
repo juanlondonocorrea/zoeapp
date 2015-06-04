@@ -106,8 +106,8 @@ function invoiceItemsLocalReceiveFunction(tx,results){
 			invoiceVO.items[i] = results.rows[i];
 		}
 	}
+	logZoe("invoiceItemsLocalReceiveFunction fin invoiceVO=" +  JSON.stringify(invoiceVO));
 	invoiceReceiveFunction(invoiceVO);
-	logZoe("invoiceItemsLocalReceiveFunction fin");
 }
 
 
