@@ -24,7 +24,7 @@ function getInvoiceById(aId,includeDetail,aReceiveFunction,aErrFunc){
 	invoiceReceiveFunction = aReceiveFunction;
 	includeInvoiceDetails = includeDetail;
 	invoiceErrFunc = aErrFunc;
-	db.transaction(doSelectInvoice, invoiceErrFunc, invoiceReceiveFunction);
+	db.transaction(doSelectInvoice, invoiceErrFunc);
 }
 
 function listInvoicesBySalesrep(salesrep_ListID, aReceiveFunction,aErrFunc){
