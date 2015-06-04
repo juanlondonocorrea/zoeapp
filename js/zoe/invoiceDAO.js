@@ -33,7 +33,7 @@ function listInvoicesBySalesrep(salesrep_ListID, aReceiveFunction,aErrFunc){
 	invoiceReceiveListFunction = aReceiveFunction;
 	invoiceErrFunc = aErrFunc;
 	filterDataInvoice = salesrep_ListID;
-	db.transaction(doSalesrepInvoices, invoiceErrFunc, invoiceLocalListReceiveFunction);
+	db.transaction(doSalesrepInvoices, invoiceErrFunc);
 }
 
 function listInvoicesByCustomer(customer_ListID, aReceiveFunction,aErrFunc){
