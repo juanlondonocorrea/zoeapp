@@ -39,6 +39,7 @@
 			$('#syncOthers').click(syncOthers);	
 			$('#createDB').click(checkDatabase);	
 			$('#syncAll').click(syncAll);	
+			$('#testGetInvoice').click(testGetInvoice);	
 			logZoe("config.html listo pagebeforecreate");
 		});
 
@@ -399,6 +400,15 @@ function syncAll(form){
 	function errTaxInsert(err){
 		alert("DB Error synch tax: "+JSON.stringify(err));
 	}
+	
+	//TESTS
+	functiontestGetInvoice(){
+		invoiceDAO.getById("34AF-1421041597", true,receiveGetInvoice);
+	}
+	
+	function receiveGetInvoice(invoiceVO){
+		logZoe("receiveGetInvoice:" + JSON.stringify(invoiceVO));
+	}
 
 </script>
 </head>
@@ -420,6 +430,7 @@ function syncAll(form){
 		                <button class="ui-btn" id="syncOthers">Synch Sales Taxes and Terms</button>
 		                <button class="ui-btn" id="createDB">create database</button>
 		                <button class="ui-btn" id="syncAll">Sync ALL</button>
+		                <button class="ui-btn" id="testGetInvoice">testGetInvoice</button>
                 </form>
             </div>
         

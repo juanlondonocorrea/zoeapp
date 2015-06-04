@@ -1,6 +1,7 @@
 // JavaScript Document
 
 var invoiceDAO = {listBySalesrep:listInvoicesBySalesrep, 
+				listByCustomer:listInvoicesByCustomer,
 				getById:getInvoiceById, 
 				store:storeInvoice, 
 				deleteAll:deleteAllInvoices};
@@ -10,20 +11,32 @@ var invoiceReceiveListFunction;
 var invoiceErrFunc;
 var invoiceVO;
 var recordInvoice;
+var includeInvoiceDetails;
+
 
 //----------------------
 //metodos hacia afuera
 //----------------------
-function getInvoiceById(aId,aReceiveFunction,aErrFunc){
+function getInvoiceById(aId,includeDetail,aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	logZoe("getInvoice db=" + db);
 	filterData=aId;
 	invoiceReceiveFunction = aReceiveFunction;
+	includeInvoiceDetails = includeDetail;
 	invoiceErrFunc = aErrFunc;
 	db.transaction(doSelectInvoice, invoiceErrFunc, invoiceReceiveFunction);
 }
 
-function listInvoicesBySalesrep(customer_ListID, aReceiveFunction,aErrFunc){
+function listInvoicesBySalesrep(salesrep_ListID, aReceiveFunction,aErrFunc){
+	db = openDatabaseZoe();
+	logZoe("listInvoices db=" + db);
+	invoiceReceiveListFunction = aReceiveFunction;
+	invoiceErrFunc = aErrFunc;
+	filterDataInvoice = salesrep_ListID;
+	db.transaction(doSalesrepInvoices, invoiceErrFunc, invoiceLocalListReceiveFunction);
+}
+
+function listInvoicesByCustomer(customer_ListID, aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	logZoe("listInvoices db=" + db);
 	invoiceReceiveListFunction = aReceiveFunction;
@@ -31,6 +44,7 @@ function listInvoicesBySalesrep(customer_ListID, aReceiveFunction,aErrFunc){
 	filterDataInvoice = customer_ListID;
 	db.transaction(doCustomerInvoices, invoiceErrFunc, invoiceLocalListReceiveFunction);
 }
+
 
 function storeInvoice(records,aErrFunc,successCB){
 	db = openDatabaseZoe();
@@ -57,6 +71,11 @@ function doSelectInvoice(tx){
 	tx.executeSql("SELECT id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal FROM invoice Where id_invoice = ?", [filterDataInvoice],invoiceLocalReceiveFunction, invoiceErrFunc);
 }
 
+function doSalesrepInvoices(tx){
+	logZoe("doSelectSelesrepInvoices");
+	tx.executeSql("SELECT id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal, id_term FROM invoice WHERE id_salesrep = ?", [filterDataInvoice],invoiceLocalListReceiveFunction, invoiceErrFunc);
+}
+
 function doCustomerInvoices(tx){
 	logZoe("doSelectSelesrepInvoices");
 	tx.executeSql("SELECT id_invoice, ListID, po_number, dueDate, appliedAmount, balanceRemaining, billAddress_addr1, billAddress_addr2, billAddress_addr3, billAddress_city, billAddress_state, billAddress_postalcode, shipAddress_addr1, shipAddress_addr2, shipAddress_addr3, shipAddress_city, shipAddress_state, shipAddress_postalcode, isPaid, isPending, refNumber, salesTaxPercentage, salesTaxTotal, shipDate, subtotal, id_term FROM invoice WHERE ListID = ?", [filterDataInvoice],invoiceLocalListReceiveFunction, invoiceErrFunc);
@@ -67,10 +86,28 @@ function invoiceLocalReceiveFunction(tx,results){
 	if (results.rows.length>0){
 	logZoe("localReceiveFunction1 " + JSON.stringify(results.rows.item(0)));
 		invoiceVO=results.rows.item(0);
-		invoiceReceiveFunction(invoiceVO);
+			if (includeInvoiceDetails){
+					tx.executeSql("SELECT LineID, id_invoice, Inventory_ListID, Desc, Quantity, Rate, Amount, SalesTax_ListID FROM invoice_item Where id_invoice = ?", [filterDataInvoice],invoiceItemsLocalReceiveFunction, invoiceErrFunc);
+		
+			}else{
+				invoiceReceiveFunction(invoiceVO);
+			}
 	}
 	logZoe("localReceiveFunction fin");
 }
+
+function invoiceItemsLocalReceiveFunction(tx,results){
+	logZoe("invoiceItemsLocalReceiveFunction results = " + JSON.stringify(results));
+	if (results.rows.length>0){
+		invoiceVO.items=new Array();
+		for (var i = 0; i<results.rows.length; i++){
+			invoiceVO.items[i] = results.rows[i];
+		}
+	}
+	invoiceReceiveFunction(invoiceVO);
+	logZoe("invoiceItemsLocalReceiveFunction fin");
+}
+
 
 function invoiceLocalListReceiveFunction(tx,results){
 	logZoe("invoiceLocalListReceiveFunction results.length=" + results.rows.length);
@@ -110,6 +147,6 @@ function doStoreOneInvoice(tx, rec){
 }
 
 function doDeleteAllInvoices(tx){
-	tx.executeSql('DELETE FROM invoice',[]);
 	tx.executeSql('DELETE FROM invoice_items',[]);
+	tx.executeSql('DELETE FROM invoice',[]);
 }
