@@ -231,10 +231,7 @@
 	</head>
 
 	<body>
-		<d
-		
-		 10523.
-		  iv data-role="page" id="CustomerTabs"  data-title=="Customers' Detail" data-theme="a"
+		<div data-role="page" id="CustomerTabs"  data-title=="Customers' Detail" data-theme="a">
             <div role="main" class="ui-content">
                 <h4>Customers' Details</h4>
             </div>        
@@ -259,8 +256,21 @@
 		<div data-role="page" id="CustomersDetails"  data-title=="Customers' Detail" data-theme="a">
 			<div data-role="content" >
 				<!-- CUSTOMERS DETAILS (LIST DETAILS, EDIT, ADD/ACTIVITIES) -->
-				
-
+				<div data-role="data-theme"  data-theme="a" data-content-theme="a" data-tab-theme="a" data-scroll="true"> <!-- inlinetabs -->
+					<ul>
+						<li data-tab="1">Activities</li>
+						<li data-tab="2">Details</li>
+					</ul>
+					
+					<!-- CUSTOMERS DETAILS (ACTIVITIES) -->
+					<div data-tab="1">
+						Activities Content
+					</div>
+					<!-- CUSTOMERS DETAILS (DETAILS) -->
+					<div data-tab="2">
+						DetailS Content
+					</div>
+				</div>				
 				
 				
 				<div data-role="fieldcontain">
@@ -574,9 +584,8 @@
 						</fieldset>              
 					</div>
 				</form>		
-			
 			</div>
-			 				  
+			   
 
 
 			<!-- divs de header, menu y footer-->
