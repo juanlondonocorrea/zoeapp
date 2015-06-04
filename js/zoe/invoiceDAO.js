@@ -82,6 +82,7 @@ function doCustomerInvoices(tx){
 }
 
 function invoiceLocalReceiveFunction(tx,results){
+	logZoe("invoiceLocalReceiveFunction includeInvoiceDetails=" + includeInvoiceDetails);
 	logZoe("invoiceLocalReceiveFunction results.rows=" + results.rows);
 	logZoe("invoiceLocalReceiveFunction results.rows.length=" + results.rows.length);
 	if (results.rows.length>0){
