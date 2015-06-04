@@ -100,10 +100,14 @@ function invoiceLocalReceiveFunction(tx,results){
 
 function invoiceItemsLocalReceiveFunction(tx,results){
 	logZoe("invoiceItemsLocalReceiveFunction results = " + results);
+	if (results && results.rows){
+		logZoe("invoiceItemsLocalReceiveFunction results.rows.length = " + results.rows.length);
+	}
 	if (results && results.rows && results.rows.length>0){
 		invoiceVO.items=new Array();
 		for (var i = 0; i<results.rows.length; i++){
 			invoiceVO.items[i] = results.rows[i];
+			logZoe("invoiceItemsLocalReceiveFunction lastItem=" + results.rows[i]);
 		}
 	}
 	logZoe("invoiceItemsLocalReceiveFunction fin invoiceVO=" +  JSON.stringify(invoiceVO));
