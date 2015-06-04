@@ -20,7 +20,7 @@ var includeInvoiceDetails;
 function getInvoiceById(aId,includeDetail,aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	logZoe("getInvoice db=" + db);
-	filterData=aId;
+	filterDataInvoice=aId;
 	invoiceReceiveFunction = aReceiveFunction;
 	includeInvoiceDetails = includeDetail;
 	invoiceErrFunc = aErrFunc;
