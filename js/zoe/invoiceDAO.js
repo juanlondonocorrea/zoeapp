@@ -108,7 +108,7 @@ function invoiceItemsLocalReceiveFunction(tx,results){
 		var i;
 		for (i = 0; i<results.rows.length; i++){
 			logZoe("invoiceItemsLocalReceiveFunction lastItem=" + results.rows.item(i));
-			invoiceVO.items[i] = results.rows[i];
+			invoiceVO.items[i] = results.rows.item(i);
 		}
 	}
 	logZoe("invoiceItemsLocalReceiveFunction fin invoiceVO=" +  JSON.stringify(invoiceVO));
