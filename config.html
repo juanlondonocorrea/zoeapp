@@ -37,7 +37,7 @@
 			$('#syncSalesRep').click(syncSalesRep);	
 			$('#syncCustomers').click(syncCustomers);	
 			$('#syncInvoices').click(syncInvoices);	
-			$('#syncInventory').click(syncItemSites);	
+			$('#syncInventory').click(syncInventoryItems);	
 			$('#syncOthers').click(syncOthers);	
 			$('#createDB').click(checkDatabase);	
 			$('#syncAll').click(syncAll);	
@@ -367,14 +367,13 @@ function syncAll(form){
 		return false;
 	}
 
-	function receiveInventoryMessage(message){
+	function receiveItemSitesMessage(message){
 		var inventory = message.ItemSitesQueryRs.ItemSitesRet;
 		var i;
 		var inventoryListVO = [];
 		for (i=0;i<inventory.length;i++){
 			logZoe("inventory[i]=" + JSON.stringify(inventory[i]));
 			var inventoryVO = {ListID:inventory[i].ItemInventoryRef.ListID,
-			FullName:inventory[i].ItemInventoryRef.FullName,
 			InventorySite_ListID:inventory[i].InventorySiteRef.ListID,
 			QuantityOnHand:inventory[i].QuantityOnHand};
 			logZoe("inventoryVO=" + JSON.stringify(inventoryVO));
