@@ -20,7 +20,7 @@ function getTermById(aId,aReceiveFunction,aErrFunc){
 	filterData=aId;
 	termReceiveFunction = aReceiveFunction;
 	termErrFunc = aErrFunc;
-	db.transaction(doSelectTerm, termErrFunc, termReceiveFunction);
+	db.transaction(doSelectTerm, termErrFunc);
 }
 
 function listTerms(aReceiveFunction,aErrFunc){
@@ -28,7 +28,7 @@ function listTerms(aReceiveFunction,aErrFunc){
 	logZoe("listTerms db=" + db);
 	termReceiveListFunction = aReceiveFunction;
 	termErrFunc = aErrFunc;
-	db.transaction(doTerms, termErrFunc, termLocalListReceiveFunction);
+	db.transaction(doTerms, termErrFunc);
 }
 
 function storeTerm(records,aErrFunc,successCB){

@@ -20,6 +20,7 @@
 <script src="js/zoe/invoiceDAO.js" type="text/javascript"></script>
 <script src="js/zoe/termDAO.js" type="text/javascript"></script>
 <script src="js/zoe/taxDAO.js" type="text/javascript"></script>
+<script src="js/zoe/inventoryDAO.js" type="text/javascript"></script>
 <!-- fin librerias -->
 
 <script>
@@ -36,6 +37,7 @@
 			$('#syncSalesRep').click(syncSalesRep);	
 			$('#syncCustomers').click(syncCustomers);	
 			$('#syncInvoices').click(syncInvoices);	
+			$('#syncInventory').click(syncItemSites);	
 			$('#syncOthers').click(syncOthers);	
 			$('#createDB').click(checkDatabase);	
 			$('#syncAll').click(syncAll);	
@@ -214,7 +216,7 @@ function syncAll(form){
 
 	function successCustomerInsert(){
 		if (synchronizingAll){
-			syncInvoices();
+			syncItemSites();
 		}else{
 			alert("Success synch customers");
 		}
@@ -318,6 +320,84 @@ function syncAll(form){
 	}
 
 
+//SYNCHRONIZATION inventory
+
+	function syncInventoryItems(form){
+		console.log("entre a syncInventoryItems");
+		var mensaje = 	
+		'<ItemQueryRq></ItemQueryRq>';
+		var cache="item";
+		
+		consumeWS(mensaje, "JSON", receiveInventoryItemsMessage, cache);
+		return false;
+	}
+
+	function receiveInventoryItemsMessage(message){
+		var items = message.ItemQueryRs.ItemInventoryRet;
+		var i;
+		var itemListVO = [];
+		for (i=0;i<items.length;i++){
+			logZoe("items[i]=" + JSON.stringify(items[i]));
+			var itemVO = {ListID:items[i].ListID,
+			FullName:items[i].FullName,
+			inventorySite_ListID:null,
+			quantityOnHand:null,
+			salesTax_ListID:items[i].SalesTaxCodeRef?items[i].SalesTaxCodeRef.ListID:null,
+			salesPrice:items[i].salesPrice};
+			itemListVO[i] = itemVO;
+		}
+			
+		inventoryDAO.deleteAll(errInventoryInsert);
+		inventoryDAO.store(itemListVO, errInventoryInsert, syncItemSites);
+		
+	}
+	
+
+	function syncItemSites(form){
+		console.log("entre a syncItemSites");
+		salesRepDAO.getByName(window.localStorage.getItem("salesRepName"), function(salesrepVO){
+		logZoe("en syncInventory salesrepVO = " + JSON.stringify(salesrepVO));
+		var mensaje = 	
+		'<ItemSitesQueryRq><ActiveStatus>All</ActiveStatus></ItemSitesQueryRq>';
+		var cache="inventorybysite";
+		var xpathExp = '//ItemSitesRet[InventorySiteRef/FullName="'+ salesrepVO.initial + '"]';
+		
+		consumeWS(mensaje, "JSON", receiveItemSitesMessage, cache, xpathExp);
+		});
+		return false;
+	}
+
+	function receiveInventoryMessage(message){
+		var inventory = message.ItemSitesQueryRs.ItemSitesRet;
+		var i;
+		var inventoryListVO = [];
+		for (i=0;i<inventory.length;i++){
+			logZoe("inventory[i]=" + JSON.stringify(inventory[i]));
+			var inventoryVO = {ListID:inventory[i].ItemInventoryRef.ListID,
+			FullName:inventory[i].ItemInventoryRef.FullName,
+			InventorySite_ListID:inventory[i].InventorySiteRef.ListID,
+			QuantityOnHand:inventory[i].QuantityOnHand};
+			logZoe("inventoryVO=" + JSON.stringify(inventoryVO));
+			inventoryListVO[i] = inventoryVO;
+		}
+			
+		inventoryDAO.storeItemSites(inventoryListVO, errInventoryInsert, successInventoryInsert);
+		
+	}
+
+
+	function successInventoryInsert(){
+		if (synchronizingAll){
+			syncInvoices();
+		}else{
+			alert("Success synch inventory");
+		}
+	}
+	
+	function errInventoryInsert(err){
+		alert("DB Error synch inventory: "+JSON.stringify(err));
+	}
+
 //SYNCHRONIZATION Others	
 	function syncOthers(form){
 		console.log("entre a syncOthers");
@@ -403,7 +483,8 @@ function syncAll(form){
 	
 	//TESTS
 	function testGetInvoice(){
-		invoiceDAO.getById("3CBE-1421044358", false,receiveGetInvoice);
+		//recupera facturas completas (incluye items)
+		invoiceDAO.getById("3CBE-1421044358", true,receiveGetInvoice);
 		return false;
 	}
 	
@@ -428,6 +509,7 @@ function syncAll(form){
 		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
 		                <button class="ui-btn" id="syncCustomers">Synch Customers</button>
 		                <button class="ui-btn" id="syncInvoices">Synch Invoices</button>
+		                <button class="ui-btn" id="syncInventory">Synch Inventory</button>
 		                <button class="ui-btn" id="syncOthers">Synch Sales Taxes and Terms</button>
 		                <button class="ui-btn" id="createDB">create database</button>
 		                <button class="ui-btn" id="syncAll">Sync ALL</button>

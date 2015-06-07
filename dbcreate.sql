@@ -1,6 +1,6 @@
 ﻿/*
 Created: 29/04/2015
-Modified: 03/06/2015
+Modified: 06/06/2015
 Model: RE SQLite 3.7
 Database: SQLite 3.7
 */
@@ -10,6 +10,8 @@ Database: SQLite 3.7
 
 -- Drop indexes section -------------------------------------------------
 
+DROP INDEX IF EXISTS IX_Inventory_fullName;
+DROP INDEX IF EXISTS IX_Relationship6;
 DROP INDEX IF EXISTS IX_invoice_lines;
 DROP INDEX IF EXISTS IX_Relationship1;
 DROP INDEX IF EXISTS IX_Relationship2;
@@ -23,6 +25,7 @@ DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
+DROP TABLE IF EXISTS PriceList;
 DROP TABLE IF EXISTS invoice_item;
 DROP TABLE IF EXISTS invoice;
 DROP TABLE IF EXISTS customer;
@@ -61,8 +64,17 @@ CREATE TABLE Inventory
 (
   ListID TEXT NOT NULL,
   FullName TEXT,
-  CONSTRAINT Key7 PRIMARY KEY (ListID)
+  InventorySite_ListID TEXT,
+  QuantityOnHand NUMERIC,
+  salesPrice NUMERIC,
+  salesTax_ListID TEXT,
+  CONSTRAINT Key7 PRIMARY KEY (ListID),
+  CONSTRAINT Relationship6 FOREIGN KEY (salesTax_ListID) REFERENCES salesTax (ListID)
 );
+
+CREATE INDEX IX_Inventory_fullName ON Inventory (FullName);
+
+CREATE INDEX IX_Relationship6 ON Inventory (salesTax_ListID);
 
 -- Table salesrep
 
@@ -200,5 +212,17 @@ CREATE INDEX IX_invoice_lines ON invoice_item (id_invoice);
 CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
 
 CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
+
+-- Table PriceList
+
+CREATE TABLE PriceList
+(
+  customer_ListID TEXT NOT NULL,
+  inventory_ListId TEXT NOT NULL,
+  price NUMERIC,
+  CONSTRAINT Key9 PRIMARY KEY (inventory_ListId,customer_ListID),
+  CONSTRAINT Relationship4 FOREIGN KEY (customer_ListID) REFERENCES customer (ListID),
+  CONSTRAINT Relationship5 FOREIGN KEY (inventory_ListId) REFERENCES Inventory (ListID)
+);
 
 

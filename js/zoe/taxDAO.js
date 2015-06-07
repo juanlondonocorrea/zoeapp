@@ -20,7 +20,7 @@ function getTaxById(aId,aReceiveFunction,aErrFunc){
 	filterData=aId;
 	taxReceiveFunction = aReceiveFunction;
 	taxErrFunc = aErrFunc;
-	db.transaction(doSelectTax, taxErrFunc, taxReceiveFunction);
+	db.transaction(doSelectTax, taxErrFunc);
 }
 
 function listTaxes(aReceiveFunction,aErrFunc){
@@ -28,7 +28,7 @@ function listTaxes(aReceiveFunction,aErrFunc){
 	logZoe("listTaxes db=" + db);
 	taxReceiveListFunction = aReceiveFunction;
 	taxErrFunc = aErrFunc;
-	db.transaction(doTaxes, taxErrFunc, taxLocalListReceiveFunction);
+	db.transaction(doTaxes, taxErrFunc);
 }
 
 function storeTax(records,aErrFunc,successCB){
