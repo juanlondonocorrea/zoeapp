@@ -111,7 +111,7 @@ function doStoreInventory(tx){
 }
 
 function doStoreOneInventory(tx, rec){
-		tx.executeSql('INSERT OR REPLACE INTO inventory(ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesTax_ListID) values (?,?,?,?,?,?)',[rec.ListID, rec.FullName, ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.salesPrice, ifUndefNull(reg.salesTax_ListID)]);
+		tx.executeSql('INSERT OR REPLACE INTO inventory(ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesTax_ListID) values (?,?,?,?,?,?)',[rec.ListID, rec.FullName, ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.salesPrice, ifUndefNull(rec.salesTax_ListID)]);
 }
 
 
