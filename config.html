@@ -61,6 +61,7 @@ function syncAll(form){
 	}catch(exception){
 		console.log(JSON.stringify(exception));
 	}
+	return false;
 }
 
 //SYNCHRONIZATION Employee and Salesrep	
@@ -110,6 +111,7 @@ function syncAll(form){
 		}else{
 			alert("Success synch salesrep");
 		}
+		return false;
 	}
 	
 	function errSalesRepSync(err){

@@ -63,7 +63,7 @@ function deleteAllInventories(aErrFunc,successCB){
 
 function doSelectInventory(tx){
 	logZoe("doSelectInventory filterData=" + filterDataInventory);
-	tx.executeSql("SELECT inventory.ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesTax_ListID, salesTax.desc FROM inventory, salesTax Where inventory.ListID = ? AND salesTax_ListID = salesTax.ListID", [filterDataInventory],inventoryLocalReceiveFunction, inventoryErrFunc);
+	tx.executeSql("SELECT inventory.ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesDesc, salesTax_ListID, salesTax.desc FROM inventory, salesTax Where inventory.ListID = ? AND salesTax_ListID = salesTax.ListID", [filterDataInventory],inventoryLocalReceiveFunction, inventoryErrFunc);
 }
 
 function doListInventory(tx){
@@ -111,7 +111,7 @@ function doStoreInventory(tx){
 }
 
 function doStoreOneInventory(tx, rec){
-		tx.executeSql('INSERT OR REPLACE INTO inventory(ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesTax_ListID) values (?,?,?,?,?,?)',[rec.ListID, rec.FullName, ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.salesPrice, ifUndefNull(rec.salesTax_ListID)]);
+		tx.executeSql('INSERT OR REPLACE INTO inventory(ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesTax_ListID, salesDesc) values (?,?,?,?,?,?,?)',[rec.ListID, rec.FullName, ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.salesPrice, ifUndefNull(rec.salesTax_ListID), ifUndefNull(rec.salesDesc)]);
 }
 
 
