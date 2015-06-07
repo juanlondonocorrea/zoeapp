@@ -131,7 +131,7 @@ function doStoreItemSites(tx){
 }
 
 function doStoreOneItemSites(tx, rec){
-		tx.executeSql('INSERT OR REPLACE INTO inventory(ListID, InventorySite_ListID, QuantityOnHand) values (?,?,?)',[rec.ListID, ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand)]);
+		tx.executeSql('UPDATE inventory SET InventorySite_ListID = ?, QuantityOnHand = ? WHERE List_ID=?',[ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.ListID]);
 }
 
 function doDeleteAllInventories(tx){

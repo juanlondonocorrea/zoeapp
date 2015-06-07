@@ -1,6 +1,6 @@
 ﻿/*
 Created: 29/04/2015
-Modified: 06/06/2015
+Modified: 07/06/2015
 Model: RE SQLite 3.7
 Database: SQLite 3.7
 */
@@ -12,6 +12,7 @@ Database: SQLite 3.7
 
 DROP INDEX IF EXISTS IX_Inventory_fullName;
 DROP INDEX IF EXISTS IX_Relationship6;
+DROP INDEX IF EXISTS IX_Inventory_salesDesc;
 DROP INDEX IF EXISTS IX_invoice_lines;
 DROP INDEX IF EXISTS IX_Relationship1;
 DROP INDEX IF EXISTS IX_Relationship2;
@@ -68,6 +69,7 @@ CREATE TABLE Inventory
   QuantityOnHand NUMERIC,
   salesPrice NUMERIC,
   salesTax_ListID TEXT,
+  salesDesc TEXT,
   CONSTRAINT Key7 PRIMARY KEY (ListID),
   CONSTRAINT Relationship6 FOREIGN KEY (salesTax_ListID) REFERENCES salesTax (ListID)
 );
@@ -75,6 +77,8 @@ CREATE TABLE Inventory
 CREATE INDEX IX_Inventory_fullName ON Inventory (FullName);
 
 CREATE INDEX IX_Relationship6 ON Inventory (salesTax_ListID);
+
+CREATE INDEX IX_Inventory_salesDesc ON Inventory (salesDesc);
 
 -- Table salesrep
 
