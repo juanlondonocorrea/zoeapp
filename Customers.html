@@ -122,7 +122,8 @@
 
 			function enableEdit(){
 				$("select").closest("#CustomerTerms").removeClass("ui-state-disabled");
-				$("chckbox").closest("#routeDays").addClass("ui-state-disabled");
+				$("select").closest("#CustomerPriceLevel").removeClass("ui-state-disabled");
+				$("checkbox").closest("#routeDays").removeClass("ui-state-disabled");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
 				
 				//$('#TabCustomerDetails :checkbox').prop('readonly',false);
@@ -134,7 +135,8 @@
 			}
 			function disableEdit(){
 				$("select").closest("#CustomerTerms").addClass("ui-state-disabled");
-				$("chckbox").closest("routeDays").addClass("ui-state-disabled");
+				$("select").closest("#CustomerPriceLevel").addClass("ui-state-disabled");
+				$("checkbox").closest("routeDays").addClass("ui-state-disabled");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
 				
@@ -148,7 +150,7 @@
 			var selectedIndex;
 			function receiveCustomers(arrayCustomers){
 				var arrayCustomers = new Array();
-			/*	arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
+/*				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
 				arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
 				arrayCustomers[2] = {ListId:'3',FullName:'Jose', openBalance:'100000.00'};
 				arrayCustomers[3] = {ListId:'4',FullName:'Lisa', openBalance:'1000000.00'};
@@ -159,7 +161,7 @@
 				arrayCustomers[8] = {ListId:'9',FullName:'Yeny', openBalance:'100000000000.00'};
 				arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
 				arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
-			*/
+*/			
 				 listCustomers = arrayCustomers;
 
 				var htmlString1 = '<ol id="custList" data-role="listview" data-inset="true">';
@@ -239,7 +241,8 @@
 				$('#routeDay4').val(listCustomers[index].routeDay4);
 				$('#routeDay5').val(listCustomers[index].routeDay5);
 				$('#routeDay6').val(listCustomers[index].routeDay6);
-				$('#routeDay7').val(listCustomers[index].routeDay7);		
+				$('#routeDay7').val(listCustomers[index].routeDay7);
+				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
 			}
 		</script>
 		<style type="text/css">
@@ -464,7 +467,6 @@
 									<div>
 										<label for="billAddress3">Bill Address Line 3:</label>
 									</div>
-
 									<input type="text" data-theme="b" name="billAddress3" id="billAddress3" value=""  />
 								</div>
 								
@@ -653,6 +655,22 @@
                                         <input type="checkbox" data-theme="b" name="routeDay7" id="routeDay7" value=""  />
                                     </div> 
 							</fieldset>
+							<!-- Price Level Info -->                       
+							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+								<div data-role="fieldcontain" id="CustomerPriceLevel">
+								  <div>
+									<label for="pricelevel_ListID" class="select">Price Level:</label>
+								  </div>
+								  <select name="pricelevel_ListID" id="pricelevel_ListID" data-theme="a">
+									<option value="option1">Price Level 1</option>
+									<option value="option2">Price Level 2</option>
+									<option value="option3">Price Level 3</option>
+									<option value="option4">Price Level 4</option>
+									<option value="option5">Price Level 5</option>
+									<option value="option6">Price Level 6</option>      
+								  </select>
+								</div>
+							</fieldset>                                                         
 							<!-- Done and Cancel Buttons -->
                             <fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px;">
                                 <div class="ui-grid-a" style="height:45px">
