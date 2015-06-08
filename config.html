@@ -507,11 +507,14 @@ function syncAll(form){
 				name : pricelevels[i].Name,
 				type : pricelevels[i].PriceLevelType,
 				fixedPercentage : pricelevels[i].PriceLevelFixedPercentage,
+				items : new Array()
 			}
 			pricelevelsVO[i] = pricelevelVO;
+			console.log("pricelevels[i].type=" + pricelevels[i].type);
 			if (pricelevels[i].type=="PerItem"){
 				pricelevelsVO[i].items = new Array();
 				var items = pricelevels[i].PriceLevelPerItemRet;
+				console.log("items=" + items);
 				var j;
 				for (j=0;j<items.length;j++){
 						var itemVO = {
@@ -519,6 +522,7 @@ function syncAll(form){
 							inventory_ListID: items[j].ItemRef.ListID,
 							customPrice: items[j].customPrice
 						}
+						console.log("itemVO =" + JSON.stringify(itemVO));
 						pricelevelsVO[i].items[j] = itemVO;
 				}
 			}
