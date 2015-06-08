@@ -4,9 +4,9 @@ var inventoryDAO = {list:listInventory,
 				getById:getInventoryById, 
 				store:storeInventory,
 				storeItemSites:storeItemSites,
-				storePriceLevels:storePriceLevels, 
+				storePricelevels:storePricelevels, 
 				deleteAll:deleteAllInventories,
-				deleteAllPriceLevels:deleteAllPriceLevels};
+				deleteAllPricelevels:deleteAllPricelevels};
 var filterDataInventory;
 var inventoryReceiveFunction;
 var inventoryReceiveListFunction;
@@ -50,7 +50,7 @@ function storeItemSites(records,aErrFunc,successCB){
 	db.transaction(doStoreItemSites, errorCB, successCB);
 }
 
-function storePriceLevels(records,aErrFunc,successCB){
+function storePricelevels(records,aErrFunc,successCB){
 	db = openDatabaseZoe();
 	logZoe("storePriceLevels db=" + db);
 	recordInventory = records;
@@ -65,6 +65,12 @@ function deleteAllInventories(aErrFunc,successCB){
 	db.transaction(doDeleteAllInventories, errorCB, successCB);
 }
 
+function deleteAllPricelevels(aErrFunc,successCB){
+	db = openDatabaseZoe();
+	logZoe("deleteAllPricelevels db=" + db);
+	inventoryErrFunc = aErrFunc;
+	db.transaction(doDeleteAllPricelevels, errorCB, successCB);
+}
 
 //----------------------
 //metodos privados
@@ -144,17 +150,17 @@ function doStoreOneItemSites(tx, rec){
 }
 
 
-function doStorePriceLevels(tx){
+function doStorePricelevels(tx){
 	logZoe ("doStorePriceLevels ");
 	if (recordInventory.length){
 		var i;
 		for (i=0;i<recordInventory.length;i++){
 			var theRecord = recordInventory[i];
 			logZoe("store pricelevels:" + JSON.stringify(theRecord));
-			doStoreOnePriceLevel(tx, theRecord);
+			doStoreOnePricelevel(tx, theRecord);
 		}
 	}else{
-			doStoreOnePriceLevel(tx, recordInventory);
+			doStoreOnePricelevel(tx, recordInventory);
 	}
 	
 }
@@ -168,6 +174,6 @@ function doDeleteAllInventories(tx){
 	tx.executeSql('DELETE FROM inventory',[]);
 }
 
-function doDeleteAllPriceLevels(tx){
+function doDeleteAllPricelevels(tx){
 	tx.executeSql('DELETE FROM pricelevel',[]);
 }
