@@ -39,6 +39,7 @@
 			$('#syncInvoices').click(syncInvoices);	
 			$('#syncInventory').click(syncInventoryItems);	
 			$('#syncOthers').click(syncOthers);	
+			$('#syncPricelist').click(syncPricelist);	
 			$('#createDB').click(checkDatabase);	
 			$('#syncAll').click(syncAll);	
 			$('#testGetInvoice').click(testGetInvoice);	
@@ -390,7 +391,7 @@ function syncAll(form){
 
 	function successInventoryInsert(){
 		if (synchronizingAll){
-			syncInvoices();
+			syncPricelevel();
 		}else{
 			alert("Success synch inventory");
 		}
@@ -483,6 +484,49 @@ function syncAll(form){
 		alert("DB Error synch tax: "+JSON.stringify(err));
 	}
 	
+//SYNCHRONIZATION pricelist	
+	function syncPricelevel(form){
+		console.log("entre a syncPricelevel");
+		var mensaje = 'pricelevel';
+		var cache="pricelevel";
+		
+		consumeWS(mensaje, "JSON", receivePricelevelMessage, cache);
+		return false;
+	}
+
+	function receivePricelevelMessage(message){
+		var pricelevel = message.pricelevel;
+		var i;
+		var priceleveslVO = [];
+		for (i=0;i<pricelevel.length;i++){
+			logZoe("pricelevel[i]=" + JSON.stringify(pricelevel[i]));
+			var pricelevelVO = {
+				itemname:pricelevel[i].itemname,
+				level : pricelevel[i].level,
+				Price : pricelevel[i].Price
+			}
+			priceleveslVO[i] = pricelevelVO;
+			
+		}
+			
+		inventoryDAO.deleteAllPriceLevels(errPricelevelInsert);
+		inventoryDAO.store(priceleveslVO, errPriceLevelInsert, successPricelevelInsert);
+	}
+
+
+	function successPricelevelInsert(){
+		if (synchronizingAll){
+			syncInvoices();
+		}else{
+			alert("Succes sync princelevels");
+		}
+	}
+	
+	function errPriceLevelInsert(err){
+		alert("DB Error synch princelevels: "+JSON.stringify(err));
+	}
+	
+	
 	//TESTS
 	function testGetInvoice(){
 		//recupera facturas completas (incluye items)
@@ -509,12 +553,13 @@ function syncAll(form){
                                  
                         <input id="submitConfig" type="submit" value="Save">
 		                <button class="ui-btn" id="syncSalesRep">Synch Sales Rep</button>
+		                <button class="ui-btn" id="syncOthers">Synch Sales Taxes and Terms</button>
 		                <button class="ui-btn" id="syncCustomers">Synch Customers</button>
 		                <button class="ui-btn" id="syncInvoices">Synch Invoices</button>
 		                <button class="ui-btn" id="syncInventory">Synch Inventory</button>
-		                <button class="ui-btn" id="syncOthers">Synch Sales Taxes and Terms</button>
-		                <button class="ui-btn" id="createDB">create database</button>
+		                <button class="ui-btn" id="syncPricelist">Synch pricelist</button>
 		                <button class="ui-btn" id="syncAll">Sync ALL</button>
+		                <button class="ui-btn" id="createDB">create database</button>
 		                <button class="ui-btn" id="testGetInvoice">testGetInvoice</button>
                 </form>
             </div>

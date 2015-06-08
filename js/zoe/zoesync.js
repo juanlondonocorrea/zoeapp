@@ -67,6 +67,9 @@ function recibeSyncResponse( jqXHR, textStatus)
 			var msgObj = obj.QBXML.QBXMLMsgsRs;
 			receiveSyncCallback(msgObj);
 		}else{
+			if (obj){
+				receiveSyncCallback(obj);
+			}
 			log("Synch error: empty response");
 			alert("Synch error: empty response");
 		}

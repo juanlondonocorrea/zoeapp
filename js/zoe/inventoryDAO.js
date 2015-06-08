@@ -3,8 +3,10 @@
 var inventoryDAO = {list:listInventory, 
 				getById:getInventoryById, 
 				store:storeInventory,
-				storeItemSites:storeItemSites, 
-				deleteAll:deleteAllInventories};
+				storeItemSites:storeItemSites,
+				storePriceLevels:storePriceLevels, 
+				deleteAll:deleteAllInventories,
+				deleteAllPriceLevels:deleteAllPriceLevels};
 var filterDataInventory;
 var inventoryReceiveFunction;
 var inventoryReceiveListFunction;
@@ -48,6 +50,13 @@ function storeItemSites(records,aErrFunc,successCB){
 	db.transaction(doStoreItemSites, errorCB, successCB);
 }
 
+function storePriceLevels(records,aErrFunc,successCB){
+	db = openDatabaseZoe();
+	logZoe("storePriceLevels db=" + db);
+	recordInventory = records;
+	inventoryErrFunc = aErrFunc;
+	db.transaction(doStorePriceLevels, errorCB, successCB);
+}
 
 function deleteAllInventories(aErrFunc,successCB){
 	db = openDatabaseZoe();
@@ -134,6 +143,31 @@ function doStoreOneItemSites(tx, rec){
 		tx.executeSql('UPDATE inventory SET InventorySite_ListID = ?, QuantityOnHand = ? WHERE ListID=?',[ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.ListID]);
 }
 
+
+function doStorePriceLevels(tx){
+	logZoe ("doStorePriceLevels ");
+	if (recordInventory.length){
+		var i;
+		for (i=0;i<recordInventory.length;i++){
+			var theRecord = recordInventory[i];
+			logZoe("store pricelevels:" + JSON.stringify(theRecord));
+			doStoreOnePriceLevel(tx, theRecord);
+		}
+	}else{
+			doStoreOnePriceLevel(tx, recordInventory);
+	}
+	
+}
+
+function doStoreOneInventory(tx, rec){
+		tx.executeSql('INSERT OR REPLACE INTO pricelevel(customer_ListID, inventory_ListID, price) SELECT customer.listID, inventory.listID, ? price FROM customer, inventory WHERE customer.FullName = ? AND inventory.FullName=?',[rec.level, rec.itemname, rec.Price]);
+}
+
+
 function doDeleteAllInventories(tx){
 	tx.executeSql('DELETE FROM inventory',[]);
+}
+
+function doDeleteAllPriceLevels(tx){
+	tx.executeSql('DELETE FROM pricelevel',[]);
 }
