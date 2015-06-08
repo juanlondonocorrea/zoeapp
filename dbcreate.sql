@@ -26,7 +26,7 @@ DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
-DROP TABLE IF EXISTS PriceList;
+DROP TABLE IF EXISTS pricelevel;
 DROP TABLE IF EXISTS invoice_item;
 DROP TABLE IF EXISTS invoice;
 DROP TABLE IF EXISTS customer;
@@ -217,9 +217,9 @@ CREATE INDEX IX_Relationship1 ON invoice_item (Inventory_ListID);
 
 CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
 
--- Table PriceList
+-- Table pricelevel
 
-CREATE TABLE PriceList
+CREATE TABLE pricelevel
 (
   customer_ListID TEXT NOT NULL,
   inventory_ListId TEXT NOT NULL,
