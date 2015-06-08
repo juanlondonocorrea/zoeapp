@@ -21,6 +21,7 @@
 <script src="js/zoe/termDAO.js" type="text/javascript"></script>
 <script src="js/zoe/taxDAO.js" type="text/javascript"></script>
 <script src="js/zoe/inventoryDAO.js" type="text/javascript"></script>
+<script src="js/zoe/pricelevelDAO.js" type="text/javascript"></script>
 <!-- fin librerias -->
 
 <script>
@@ -524,8 +525,8 @@ function syncAll(form){
 			
 		}
 			
-		inventoryDAO.deleteAllPricelevels(errPricelevelInsert);
-		inventoryDAO.storePricelevels(priceleveslVO, errPricelevelInsert, successPricelevelInsert);
+		pricelevelDAO.deleteAll(errPricelevelInsert);
+		pricelevelDAO.store(priceleveslVO, errPricelevelInsert, successPricelevelInsert);
 	}
 
 

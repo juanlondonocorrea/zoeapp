@@ -4,9 +4,7 @@ var inventoryDAO = {list:listInventory,
 				getById:getInventoryById, 
 				store:storeInventory,
 				storeItemSites:storeItemSites,
-				storePricelevels:storePricelevels, 
-				deleteAll:deleteAllInventories,
-				deleteAllPricelevels:deleteAllPricelevels};
+				deleteAll:deleteAllInventories};
 var filterDataInventory;
 var inventoryReceiveFunction;
 var inventoryReceiveListFunction;
@@ -149,31 +147,6 @@ function doStoreOneItemSites(tx, rec){
 		tx.executeSql('UPDATE inventory SET InventorySite_ListID = ?, QuantityOnHand = ? WHERE ListID=?',[ifUndefNull(rec.InventorySite_ListID), ifUndefNull(rec.QuantityOnHand), rec.ListID]);
 }
 
-
-function doStorePricelevels(tx){
-	logZoe ("doStorePricelevels ");
-	if (recordInventory.length){
-		var i;
-		for (i=0;i<recordInventory.length;i++){
-			var theRecord = recordInventory[i];
-			logZoe("store pricelevels:" + JSON.stringify(theRecord));
-			doStoreOnePricelevel(tx, theRecord);
-		}
-	}else{
-			doStoreOnePricelevel(tx, recordInventory);
-	}
-	
-}
-
-function doStoreOnePricelevel(tx, rec){
-		tx.executeSql('INSERT OR REPLACE INTO pricelevel(customer_ListID, inventory_ListID, price) SELECT customer.listID, inventory.listID, ? price FROM customer, inventory WHERE customer.FullName = ? AND inventory.FullName=?',[rec.level, rec.itemname, rec.Price]);
-}
-
-
 function doDeleteAllInventories(tx){
 	tx.executeSql('DELETE FROM inventory',[]);
-}
-
-function doDeleteAllPricelevels(tx){
-	tx.executeSql('DELETE FROM pricelevel',[]);
 }
