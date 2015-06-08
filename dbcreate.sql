@@ -1,6 +1,6 @@
 ﻿/*
 Created: 29/04/2015
-Modified: 07/06/2015
+Modified: 08/06/2015
 Model: RE SQLite 3.7
 Database: SQLite 3.7
 */
@@ -22,10 +22,12 @@ DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS IX_sales_rep_customer;
 DROP INDEX IF EXISTS IX_Relationship3;
 DROP INDEX IF EXISTS IX_Customer_Name;
+DROP INDEX IF EXISTS IX_Relationship7;
 DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
 
+DROP TABLE IF EXISTS pricelevel_item;
 DROP TABLE IF EXISTS pricelevel;
 DROP TABLE IF EXISTS invoice_item;
 DROP TABLE IF EXISTS invoice;
@@ -139,9 +141,11 @@ CREATE TABLE customer
   zoeUpdateDate INTEGER,
   zoeSyncDate INTEGER,
   needSync INTEGER,
+  pricelevel_ListID TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
-  CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES term (id_term)
+  CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES term (id_term),
+  CONSTRAINT Relationship7 FOREIGN KEY (pricelevel_ListID) REFERENCES pricelevel (ListID)
 );
 
 CREATE INDEX customer_idx1 ON customer (FullName);
@@ -151,6 +155,8 @@ CREATE INDEX IX_sales_rep_customer ON customer (id_salesrep);
 CREATE INDEX IX_Relationship3 ON customer (id_term);
 
 CREATE INDEX IX_Customer_Name ON customer (FullName);
+
+CREATE INDEX IX_Relationship7 ON customer (pricelevel_ListID);
 
 -- Table invoice
 
@@ -221,12 +227,23 @@ CREATE INDEX IX_Relationship2 ON invoice_item (SalesTax_ListID);
 
 CREATE TABLE pricelevel
 (
-  customer_ListID TEXT NOT NULL,
-  inventory_ListId TEXT NOT NULL,
-  price NUMERIC,
-  CONSTRAINT Key9 PRIMARY KEY (inventory_ListId,customer_ListID),
-  CONSTRAINT Relationship4 FOREIGN KEY (customer_ListID) REFERENCES customer (ListID),
-  CONSTRAINT Relationship5 FOREIGN KEY (inventory_ListId) REFERENCES Inventory (ListID)
+  ListID TEXT NOT NULL,
+  name TEXT,
+  type TEXT,
+  fixedPercentage TEXT,
+  CONSTRAINT Key9 PRIMARY KEY (ListID)
+);
+
+-- Table pricelevel_item
+
+CREATE TABLE pricelevel_item
+(
+  pricelevel_ListID TEXT NOT NULL,
+  inventory_ListID TEXT NOT NULL,
+  customPrice NUMERIC,
+  CONSTRAINT Key10 PRIMARY KEY (pricelevel_ListID,inventory_ListID),
+  CONSTRAINT Relationship8 FOREIGN KEY (pricelevel_ListID) REFERENCES pricelevel (ListID),
+  CONSTRAINT Relationship9 FOREIGN KEY (inventory_ListID) REFERENCES Inventory (ListID)
 );
 
 

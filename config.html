@@ -206,7 +206,8 @@ function syncAll(form){
 			routeDay7:routeDay.indexOf("SAT")>-1?1:0,
 			name:customers[i].Name,
 			companyName:customers[i].CompanyName,
-			id_term:typeof customers[i].TermsRef != "undefined"?customers[i].TermsRef.ListID:null};
+			id_term:typeof customers[i].TermsRef != "undefined"?customers[i].TermsRef.ListID:null,
+			pricelevel_ListID:customers[i].PriceLevelRef?customers[i].PriceLevelRef.ListID:null};
 			logZoe("customerVO=" + JSON.stringify(customerVO));
 			customersVO[i] = customerVO;
 		}
@@ -484,10 +485,10 @@ function syncAll(form){
 		alert("DB Error synch tax: "+JSON.stringify(err));
 	}
 	
-//SYNCHRONIZATION pricelist	
+//SYNCHRONIZATION pricelevel	
 	function syncPricelevel(form){
 		console.log("entre a syncPricelevel");
-		var mensaje = 'pricelevel';
+		var mensaje = '<PriceLevelQueryRq  requestID="pl"></PriceLevelQueryRq>';
 		var cache="pricelevel";
 		
 		consumeWS(mensaje, "JSON", receivePricelevelMessage, cache);
@@ -495,17 +496,31 @@ function syncAll(form){
 	}
 
 	function receivePricelevelMessage(message){
-		var pricelevel = message.pricelevel;
+		var pricelevels = message.PriceLevelQueryRs.PriceLevelRet;
 		var i;
-		var priceleveslVO = [];
-		for (i=0;i<pricelevel.length;i++){
+		var pricelevelsVO = [];
+		for (i=0;i<pricelevels.length;i++){
 			logZoe("pricelevel[i]=" + JSON.stringify(pricelevel[i]));
 			var pricelevelVO = {
-				itemname:pricelevel[i].itemname,
-				level : pricelevel[i].level,
-				Price : pricelevel[i].Price
+				ListID: pricelevels[i].ListID,
+				name : pricelevels[i].Name,
+				type : pricelevels[i].PriceLevelType,
+				fixedPercentage : pricelevels[i].PriceLevelFixedPercentage,
 			}
-			priceleveslVO[i] = pricelevelVO;
+			pricelevelsVO[i] = pricelevelVO;
+			if (pricelevels[i].type=="PerItem"){
+				pricelevelsVO[i].items = new Array();
+				var items = pricelevels[i].PriceLevelPerItemRet;
+				var j;
+				for (j=0;j<items.length;j++){
+						var itemVO = {
+							pricelevel_ListID: pricelevels[i].ListID,
+							inventory_ListID: items[j].ItemRef.ListID,
+							customPrice: items[j].customPrice
+						}
+						pricelevelsVO[i].items[j] = itemVO;
+				}
+			}
 			
 		}
 			
@@ -517,8 +532,9 @@ function syncAll(form){
 	function successPricelevelInsert(){
 		if (synchronizingAll){
 			syncInvoices();
-		}else{
-			alert("Succes sync princelevels");
+		}
+		else{
+			alert("Succes sync priceLevel");
 		}
 	}
 	
