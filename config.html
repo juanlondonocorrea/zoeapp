@@ -510,15 +510,14 @@ function syncAll(form){
 				items : new Array()
 			}
 			pricelevelsVO[i] = pricelevelVO;
-			console.log("pricelevels[i].type=" + pricelevels[i].type);
-			if (pricelevels[i].type=="PerItem"){
-				pricelevelsVO[i].items = new Array();
+			console.log("pricelevelVO.type=" + pricelevelVO.type);
+			if (pricelevelVO.type=="PerItem"){
 				var items = pricelevels[i].PriceLevelPerItemRet;
 				console.log("items=" + items);
 				var j;
 				for (j=0;j<items.length;j++){
 						var itemVO = {
-							pricelevel_ListID: pricelevels[i].ListID,
+							pricelevel_ListID: pricelevelVO.ListID,
 							inventory_ListID: items[j].ItemRef.ListID,
 							customPrice: items[j].customPrice
 						}
