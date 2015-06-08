@@ -55,7 +55,7 @@ function storePricelevels(records,aErrFunc,successCB){
 	logZoe("storePriceLevels db=" + db);
 	recordInventory = records;
 	inventoryErrFunc = aErrFunc;
-	db.transaction(doStorePriceLevels, errorCB, successCB);
+	db.transaction(doStorePricelevels, errorCB, successCB);
 }
 
 function deleteAllInventories(aErrFunc,successCB){
@@ -151,7 +151,7 @@ function doStoreOneItemSites(tx, rec){
 
 
 function doStorePricelevels(tx){
-	logZoe ("doStorePriceLevels ");
+	logZoe ("doStorePricelevels ");
 	if (recordInventory.length){
 		var i;
 		for (i=0;i<recordInventory.length;i++){
