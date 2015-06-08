@@ -3,7 +3,6 @@
 var pricelevelDAO = {list:listPricelevels, 
 				getById:getPricelevelById, 
 				store:storePricelevel, 
-				storeItem:storeItemPricelevel, 
 				deleteAll:deleteAllPricelevels};
 var filterDataPricelevel;
 var pricelevelReceiveFunction;
