@@ -519,7 +519,7 @@ function syncAll(form){
 						var itemVO = {
 							pricelevel_ListID: pricelevelVO.ListID,
 							inventory_ListID: items[j].ItemRef.ListID,
-							customPrice: items[j].customPrice
+							customPrice: items[j].CustomPrice
 						}
 						console.log("itemVO =" + JSON.stringify(itemVO));
 						pricelevelsVO[i].items[j] = itemVO;
