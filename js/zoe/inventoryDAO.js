@@ -165,7 +165,7 @@ function doStorePricelevels(tx){
 	
 }
 
-function doStoreOneInventory(tx, rec){
+function doStoreOnePricelevel(tx, rec){
 		tx.executeSql('INSERT OR REPLACE INTO pricelevel(customer_ListID, inventory_ListID, price) SELECT customer.listID, inventory.listID, ? price FROM customer, inventory WHERE customer.FullName = ? AND inventory.FullName=?',[rec.level, rec.itemname, rec.Price]);
 }
 
