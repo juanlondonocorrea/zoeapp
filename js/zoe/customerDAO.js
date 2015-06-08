@@ -17,7 +17,7 @@ function getCustomerById(aId,aReceiveFunction,aErrFunc){
 	filterData=aId;
 	customerReceiveFunction = aReceiveFunction;
 	customerErrFunc = aErrFunc;
-	db.transaction(doSelectCustomer, customerErrFunc, customerReceiveFunction);
+	db.transaction(doSelectCustomer, customerErrFunc);
 }
 
 function listCustomers(aReceiveFunction,aErrFunc){
