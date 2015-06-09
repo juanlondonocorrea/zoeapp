@@ -215,7 +215,8 @@
 				$('#priceLevel').trigger("chosen:updated");
 			}
 			
-			function listInvoicesByCustomer(arrayListInvoicesByCust){
+			// List Invoices by Customer 
+			function receiveInvoices(arrayListInvoicesByCust){
 				// Build customers' invoices by Customer, list with <ul> <li>
 				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
@@ -291,7 +292,8 @@
 				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
-				listInvoicesByCustomer(listCustomers[index].ListID, aReceiveFunction,errListInvoicesByCustomer):
+				customerDAO.list(receiveCustomers, errReceiveCustomers);
+				invoiceDAO.list(receiveInvoices, errListInvoicesByCustomer);
 			}
 			
 		</script>
