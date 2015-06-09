@@ -125,6 +125,7 @@
 
 			function enableEdit(){
 				$(".myFormsControl").prop("disabled",false);
+				$(".myFormsControl").prop("readOnly",false);
 				console.log("enableEdit");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
 				
@@ -137,7 +138,8 @@
 			}
 			function disableEdit(){
 				$(".myFormsControl").prop("disabled",true);
-				console.log("enableEdit");
+				$(".myFormsControl").prop("readOnly",true);
+				console.log("disableEdit");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
 				
