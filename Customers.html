@@ -21,16 +21,16 @@
 				console.log("Cargar Clientes");
 				initAnyPage(event.target);
 				
-				//$(".linkDetail").on(click,showDetail);
+				$(".linkDetail").on(click,showDetail);
 				//logZoe("this.activeElement: " + JSON.stringify(this.activeElement));
 				if (this.activeElement && this.activeElement.id){
 				  logZoe("this.activeElement.id: " + this.activeElement.id);
-					/*
+					
 					logZoe("activeElement.id: "+this.activeElement.id)
 					var index =  this.activeElement.id;
 					logZoe("index: "+index)
 					index = index.substring(index.indexOf("_")+1);
-					renderDetail(index);*/
+					renderDetail(index);
 				}else{
 					//receiveCustomers();
 					customerDAO.list(receiveCustomers, errReceiveCustomers);
@@ -167,13 +167,13 @@
 				var htmlString1 = '<ol id="custList" data-role="listview" data-inset="true">';
 				for(var i=0; i< arrayCustomers.length; i++) {
 					logZoe("ArrayCustomer: "+ JSON.stringify(arrayCustomers[i]));
-					if (arrayCustomers[i].openBalance < 0) {
+/*					if (arrayCustomers[i].openBalance < 0) {
 						$("#openB").css("color", "Crimson");
 					}
 					else {
 						$("#openB").css("color", "black");
 					}
-					htmlString1 += '<li><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
+*/					htmlString1 += '<li><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
 					
 					}
 					htmlString1 += '</ol>';
