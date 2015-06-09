@@ -190,23 +190,24 @@
 			}
 
 			function receivePriceLevel(arrayPriceList){
-				var index =  event.currentTarget.id;
 				logZoe("receivePriceLevel index: "+index)
 				console.log("priceLevel length="+arrayPriceList.length); 
 				$('#priceLevel').empty();
 				for (var i in arrayPriceList) {
-					if (arrayPriceList[i].ListID == listCustomers[index].pricelevel_ListID) {
+					if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID) {
 						console.log("priceLevel ListID: "+arrayPriceList.ListID);
-						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[index].pricelevel_ListID);
+						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[selectedIndex].pricelevel_ListID);
 						$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'" selected>'+arrayPriceList[i].name+'</option>');
-					}
+					} else {
 					$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>');
+					}
 					$('#priceLevel').trigger("chosen:updated");
 				}
 			}
 			
 			function goDetail(event){
 				var index =  event.currentTarget.id;
+				selectedIndex = index;
 				logZoe("goDetail index: "+index)
 				index = index.substring(index.indexOf("_")+1);
 				renderDetail(index);
