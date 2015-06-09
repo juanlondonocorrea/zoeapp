@@ -15,6 +15,7 @@
   <script src="js/zoe/salesRepDAO.js"></script>
   <script src="js/zoe/invoiceDAO.js"></script>
   <script src="js/zoe/customerDAO.js"></script>
+  <script src="js/zoe/termDAO.js"></script>
   <script>
 			$(document).bind("pagebeforecreate", function(event) {
 				console.log("Cargar Clientes");
@@ -28,14 +29,24 @@
 			
 			function initThisPage(event){
 				customerDAO.list(receiveCustomers,errReceive);
+				termDAO.list(receiveTerms,errReceive);
 			}
 			
 			function receiveCustomers(list){
 				console.log("receiveCustomers length="+list.length); 
 				$('#selCustomer').empty();
 				for (var i in list) {
-					$('#selCustomer').append('<option value="' + list[i].ListID +'">'+list[i].fullName+'</option>');
+					$('#selCustomer').append('<option value="' + list[i].ListID +'">'+list[i].FullName+'</option>');
 					$('#selCustomer').trigger("chosen:updated");
+				}
+			}
+
+			function receiveTerms(list){
+				console.log("receiveCustomers length="+list.length); 
+				$('#selTerm').empty();
+				for (var i in list) {
+					$('#selTerm').append('<option value="' + list[i].id_term +'">'+list[i].name+'</option>');
+					$('#selTerm').trigger("chosen:updated");
 				}
 			}
 
@@ -73,9 +84,9 @@ table, th, td {
             </div>
             <div data-role="fieldcontain">
               <div>
-              <label for="selTerms" class="select">Select Terms:</label>
+              <label for="selTerm" class="select">Select a Term:</label>
               </div>
-              <select name="selTerms" id="selTerms">
+              <select name="selTerm" id="selTerm">
                 <option value="option1">Terms 1</option>
                 <option value="option2">Terms 2</option>
                 <option value="option3">Terms 3</option>
