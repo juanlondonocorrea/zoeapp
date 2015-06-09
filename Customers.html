@@ -112,8 +112,10 @@
 			// Enable fields
 			function enableEdit(){
 				$(".myFormsControl").textinput('enable');
-				$(".myFormsControl").selectmenu('enable').checkboxradio( "refresh" );;
-				$(".myFormsControl").checkboxradio('enable').checkboxradio( "refresh" );;
+				$(".myFormsControl").selectmenu('enable').selectmenu( "refresh" );
+				$(".myFormsControl").checkboxradio('enable').checkboxradio( "refresh" );
+				$("#Terms").selectmenu('enable').selectmenu( "refresh" );
+				
 //				$('#SalesRep').textinput('enable');
 				
 				//$('#TabCustomerDetails :input').prop('readonly',false);
@@ -131,6 +133,7 @@
 				$(".myFormsControl").textinput('disable');
 				$(".myFormsControl").selectmenu('disable').selectmenu("refresh");
 				$(".myFormsControl").checkboxradio('disable').checkboxradio( "refresh" );
+
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
 				
