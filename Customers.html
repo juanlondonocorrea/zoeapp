@@ -124,9 +124,7 @@
 			}
 
 			function enableEdit(){
-				$(".myFormsControl").prop("disabled",false);
-				$(".myFormsControl").prop("readOnly",false);
-				$(".myFormsControl").widget( "option", "disabled", false );
+				$(".myFormsControl").prop("disabled",false).removeClass("ui-disabled");
 				console.log("enableEdit");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
 				
@@ -138,9 +136,7 @@
 				//'.readonly input:checkbox'
 			}
 			function disableEdit(){
-				$(".myFormsControl").prop("disabled",true);
-				$(".myFormsControl").prop("readOnly",true);
-				$(".myFormsControl").widget( "option", "disabled", true );
+				$(".myFormsControl").prop("disabled",true).addClass("ui-disabled");
 				console.log("disableEdit");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
