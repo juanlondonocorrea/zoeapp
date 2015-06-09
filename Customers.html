@@ -225,8 +225,8 @@
 					}
 					htmlString2 += '</ul>';
 					logZoe("htmlString1="+htmlString2);
-					$('#CustomersList').html(htmlString2);
-					$(".linkDetail").click(goDetail);				
+					$('#InvoiceList').html(htmlString2);
+					//$(".linkDetail").click(goDetail);				
 			}
 			
 			function goDetail(event){
@@ -744,7 +744,7 @@
 							</div>
 							<br/><hr>
                             <!-- BEGIN Invoices List and overdue -->
-							<div class="ui-grid-a" style="height:30px">
+                            <div class="ui-grid-a" style="height:30px">
 								<div class="ui-block-a" style="height:100%"> 
                                     <div align="left">
                                         <label id="Invoice">Invoice # 240</label>
@@ -769,6 +769,13 @@
 								</div>  
 							</div>
                             <hr><br/>
+
+
+                            <div data-role="page" id="Invoices" data-theme="a">
+                                <div data-role="content" id="InvoiceList">
+                                    <!-- Injection-->
+                                </div>
+                            </div> 
                             <!-- END Invoices List and overdue -->							
 					</fieldset> 
 					</div>
