@@ -36,7 +36,7 @@ function listInventory(aReceiveFunction,aErrFunc){
 function listInventoryByCustomer(aCustomer,aReceiveFunction,aErrFunc){
 	db = openDatabaseZoe();
 	filterDataInventory=aCustomer;
-	inventoryReceiveFunction = aReceiveFunction;
+	inventoryReceiveListFunction = aReceiveFunction;
 	inventoryErrFunc = aErrFunc;
 	db.transaction(doListInventoryByCustomer, inventoryErrFunc);
 }
