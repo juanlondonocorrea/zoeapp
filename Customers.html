@@ -124,9 +124,8 @@
 			}
 
 			function enableEdit(){
-				$("select").closest("#CustomerTerms").removeClass("ui-state-disabled");
-				$("select").closest("#CustomerPriceLevel").removeClass("ui-state-disabled");
-				$("checkbox").closest("#routeDays").removeClass("ui-state-disabled");
+				$(".myFormsControl").prop("disabled",false);
+				console.log("enableEdit");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
 				
 				//$('#TabCustomerDetails :checkbox').prop('readonly',false);
@@ -137,9 +136,8 @@
 				//'.readonly input:checkbox'
 			}
 			function disableEdit(){
-				$("select").closest("#CustomerTerms").addClass("ui-state-disabled");
-				$("select").closest("#CustomerPriceLevel").addClass("ui-state-disabled");
-				$("checkbox").closest("routeDays").addClass("ui-state-disabled");
+				$(".myFormsControl").prop("disabled",true);
+				console.log("enableEdit");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
 				
