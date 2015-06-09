@@ -190,19 +190,16 @@
 			}
 
 			function receivePriceLevel(arrayPriceList){
-				logZoe("receivePriceLevel index: "+index)
+				logZoe("receivePriceLevel index: "+selectedIndex)
 				console.log("priceLevel length="+arrayPriceList.length); 
 				$('#priceLevel').empty();
 				for (var i in arrayPriceList) {
-					if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID) {
-						console.log("priceLevel ListID: "+arrayPriceList.ListID);
+						console.log("priceLevel ListID: "+arrayPriceList[i].ListID);
 						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[selectedIndex].pricelevel_ListID);
-						$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'" selected>'+arrayPriceList[i].name+'</option>');
-					} else {
-					$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>');
-					} 
-					$('#priceLevel').trigger("chosen:updated");
+						$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'" ' +
+							((arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID)?'SELECTED':' ') + '>'+arrayPriceList[i].name+'</option>');
 				}
+				$('#priceLevel').trigger("chosen:updated");
 			}
 			
 			function goDetail(event){
