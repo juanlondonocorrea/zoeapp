@@ -221,7 +221,7 @@
 				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
 					//htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
-					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="balanceR" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="#">Predet.</a></li>';
+					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '">Invoice #' + arrayListInvoicesByCust[i].id_invoice + '<a class="linkDetail" href="#">AA: <h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><span id="balanceR" class="ui-li-count">BR: '+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="#">Predet.</a></li>';
 					logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
 					}
 					htmlString2 += '</ul>';
