@@ -112,6 +112,7 @@
 			function ChangeEditState()
 			{
 				state = $('#FlipSwithEdit').is(':checked');
+				console.log("state=" + state);
 				if (state == true) { // Enable Edit
 						enableEdit()
 					}
@@ -121,9 +122,12 @@
 			}
 
 			function enableEdit(){
-				$("select").closest("#CustomerTerms").removeClass("ui-state-disabled");
-				$("select").closest("#CustomerPriceLevel").removeClass("ui-state-disabled");
-				$("checkbox").closest("#routeDays").removeClass("ui-state-disabled");
+				$(".myFormsControl").prop("disabled",false).change();
+				console.log("enableEdit");
+				
+//				$("select").closest("#CustomerTerms").removeClass("ui-state-disabled");
+//				$("select").closest("#CustomerPriceLevel").removeClass("ui-state-disabled");
+//				$("checkbox").closest("#routeDays").removeClass("ui-state-disabled");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
 				
 				//$('#TabCustomerDetails :checkbox').prop('readonly',false);
@@ -134,9 +138,11 @@
 				//'.readonly input:checkbox'
 			}
 			function disableEdit(){
-				$("select").closest("#CustomerTerms").addClass("ui-state-disabled");
-				$("select").closest("#CustomerPriceLevel").addClass("ui-state-disabled");
-				$("checkbox").closest("routeDays").addClass("ui-state-disabled");
+				$(".myFormsControl").prop("disabled",true).change();
+				console.log("disableEdit");
+	//			$("select").closest("#CustomerTerms").addClass("ui-state-disabled");
+	//			$("select").closest("#CustomerPriceLevel").addClass("ui-state-disabled");
+	//			$("checkbox").closest("routeDays").addClass("ui-state-disabled");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
 				
@@ -384,7 +390,7 @@
 									<div>
 										<label for="ListID">Sales Representant:</label>
 									</div>
-									<input type="text" data-theme="b" name="SalesRep" id="SalesRep" value=""/>
+									<input type="text" class="myFormsControl" data-theme="b" name="SalesRep" id="SalesRep" value=""/>
 								</div>
 							</fieldset>    
 							<!-- Identification Info -->
@@ -583,7 +589,7 @@
 								  <div>
 									<label for="Terms" class="select">Terms:</label>
 								  </div>
-								  <select name="Terms" id="Terms" data-theme="a">
+								  <select class="myFormsControl" name="Terms" id="Terms" data-theme="a">
 									<option value="option1">Terms 1</option>
 									<option value="option2">Terms 2</option>
 									<option value="option3">Terms 3</option>
@@ -604,51 +610,51 @@
 							</fieldset> 
 							
 							<!-- Route days info -->
-							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
+							<fieldset class="myFormsControl" data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
 								<legend><h4>Route Info</h4></legend>
 
-                                    <div data-role="fieldcontain">
+                                    <div class="myFormsControl" data-role="fieldcontain" >
                                         <div>
-                                            <label for="routeDay1">Day 1: Sunday</label>
+                                            <label class="myFormsControl" for="routeDay1">Sunday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay1" id="routeDay1" value=""  />
+                                        <input type="checkbox" class="myFormsControl" data-theme="b" name="routeDay1" id="routeDay1" value=""  />
                                     </div>
     
                                     <div data-role="fieldcontain">
                                         <div>
-                                            <label for="routeDay2">Day 2: MonSunday</label>
+                                            <label for="routeDay2">Monday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay2" id="routeDay2" value=""  />
+                                        <input type="checkbox"  class="myFormsControl"   data-theme="b" name="routeDay2" id="routeDay2" value=""  />
                                     </div>                
                                     <div data-role="fieldcontain">
                                         <div>
-                                            <label for="routeDay3">Day 3: TueSunday</label>
+                                            <label for="routeDay3">Tuesday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay3" id="routeDay3" value=""  />
+                                        <input type="checkbox"  class="myFormsControl" data-theme="b" name="routeDay3" id="routeDay3" value=""  />
                                     </div>                
                                     <div data-role="fieldcontain">
                                         <div>
-                                            <label for="routeDay4">Day 4: Wednesday</label>
+                                            <label for="routeDay4">Wednesday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay4" id="routeDay4" value=""  />
+                                        <input type="checkbox"  class="myFormsControl" data-theme="b" name="routeDay4" id="routeDay4" value=""  />
                                     </div>                
                                     <div data-role="fieldcontain">
                                         <div>
-                                            <label for="routeDay5">Day 5: Thursday</label>
+                                            <label for="routeDay5">Thursday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay5" id="routeDay5" value=""  />
+                                        <input type="checkbox"  class="myFormsControl" data-theme="b" name="routeDay5" id="routeDay5" value=""  />
                                     </div>                
                                     <div data-role="fieldcontain">
                                         <div>
-                                            <label for="routeDay6">Day 6: Friday</label>
+                                            <label for="routeDay6">Friday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay6" id="routeDay6" value=""  />
+                                        <input type="checkbox"  class="myFormsControl" data-theme="b" name="routeDay6" id="routeDay6" value=""  />
                                     </div>                
                                     <div data-role="fieldcontain">
                                         <div>
-                                            <label for="routeDay7">Day 7: Saturday</label>
+                                            <label for="routeDay7">Saturday</label>
                                         </div>
-                                        <input type="checkbox" data-theme="b" name="routeDay7" id="routeDay7" value=""  />
+                                        <input type="checkbox"  class="myFormsControl" data-theme="b" name="routeDay7" id="routeDay7" value=""  />
                                     </div> 
 							</fieldset>
 							<!-- Price Level Info -->                       

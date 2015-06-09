@@ -53,12 +53,12 @@ function deleteAllTerms(aErrFunc,successCB){
 
 function doSelectTerm(tx){
 	logZoe("doSelectTerm filterData=" + filterDataTerm);
-	tx.executeSql("SELECT id_term, name, stdDueDays, stdDiscountDays, discountPct FROM terms Where id_term = ?", [filterDataTerm],termLocalReceiveFunction, termErrFunc);
+	tx.executeSql("SELECT id_term, name, stdDueDays, stdDiscountDays, discountPct FROM term Where id_term = ?", [filterDataTerm],termLocalReceiveFunction, termErrFunc);
 }
 
 function doTerms(tx){
 	logZoe("doTerms");
-	tx.executeSql("SELECT id_term,name, stdDueDays, stdDiscountDays, discountPct FROM terms", [],termLocalListReceiveFunction, termErrFunc);
+	tx.executeSql("SELECT id_term,name, stdDueDays, stdDiscountDays, discountPct FROM term", [],termLocalListReceiveFunction, termErrFunc);
 }
 
 function termLocalReceiveFunction(tx,results){
