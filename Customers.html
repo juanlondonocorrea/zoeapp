@@ -17,6 +17,7 @@
 		<script src="js/zoe/customerDAO.js"></script>
         <script src="js/zoe/termDAO.js"></script>
         <script src="js/zoe/pricelevelDAO.js"></script>
+        <script src="js/zoe/invoiceDAO.js"></script>
 		<script> 
 
 			$(document).bind("pagebeforecreate", function(event) {
@@ -40,6 +41,10 @@
 			
 			function errPriceLevel(err){
 				alert("DB Error Price Level: "+JSON.stringify(err));
+			}
+			
+			function errListInvoicesByCustomer(err){
+				alert("DB Error ListInvoicesByCustomer: "+JSON.stringify(err));
 			}
 			// END functions on error case
 			
@@ -210,6 +215,19 @@
 				$('#priceLevel').trigger("chosen:updated");
 			}
 			
+			function listInvoicesByCustomer(arrayListInvoicesByCust){
+				// Build customers' invoices by Customer, list with <ul> <li>
+				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
+				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
+					//htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
+					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="balanceR" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="#">Predet.</a></li>';
+					}
+					htmlString2 += '</ul>';
+					logZoe("htmlString1="+htmlString2);
+					$('#CustomersList').html(htmlString2);
+					$(".linkDetail").click(goDetail);				
+			}
+			
 			function goDetail(event){
 				var index =  event.currentTarget.id;
 				logZoe("goDetail index: "+index)
@@ -273,7 +291,9 @@
 				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
+				listInvoicesByCustomer(listCustomers[index].ListID, aReceiveFunction,errListInvoicesByCustomer):
 			}
+			
 		</script>
 		<style type="text/css">
 			thead {color:black;}
@@ -360,7 +380,7 @@
                         </div>
                         <div class="ui-block-b" style="height:100%">            
                             <div align="right">
-                                <label id="lblOpenBalance1">$ </label>
+                                <label id="lblOpenBalance1"></label>
                                 <label id="lblOpenBalance2">OPEN</label>
                             </div>
                         </div>  
@@ -385,7 +405,7 @@
                         </div>
                         <div class="ui-block-b" style="height:100%">            
                             <div align="right">
-                                <label id="lblOverdueBalance1">$ 177.27</label>
+                                <label id="lblOverdueBalance1"></label>
                                 <label id="lblOverdueBalance2">OVERDUE</label>
                             </div>
                         </div>
@@ -730,7 +750,7 @@
 								</div>
 								<div class="ui-block-b" style="height:100%">            
                                     <div align="right">
-                                        <label id="overdueBal">$ 177.27</label>
+                                        <label id="overdueBal"></label>
                                     </div>
 								</div>  
 							</div>
