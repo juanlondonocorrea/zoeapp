@@ -117,8 +117,8 @@ function inventoryLocalListReceiveFunction(tx,results){
 	var i;
 	var arrayInventories = new Array();
 	for (i=0;i<results.rows.length;i++){
-	logZoe("inventoryLocalListReceiveFunction " + JSON.stringify(results.rows.items(i)));
-		arrayInventories[i] = results.rows.items(i);
+	logZoe("inventoryLocalListReceiveFunction " + JSON.stringify(results.rows.item(i)));
+		arrayInventories[i] = results.rows.item(i);
 	}
 	inventoryReceiveListFunction(arrayInventories);
 }

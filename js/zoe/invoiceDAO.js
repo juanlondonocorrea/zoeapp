@@ -121,8 +121,8 @@ function invoiceLocalListReceiveFunction(tx,results){
 	var i;
 	var arrayInvoices = new Array();
 	for (i=0;i<results.rows.length;i++){
-	logZoe("invoiceLocalListReceiveFunction " + JSON.stringify(results.rows[i]));
-		arrayInvoices[i] = results.rows[i];
+	logZoe("invoiceLocalListReceiveFunction " + JSON.stringify(results.rows.item(i)));
+		arrayInvoices[i] = results.rows.item(i);
 	}
 	invoiceReceiveListFunction(arrayInvoices);
 }
