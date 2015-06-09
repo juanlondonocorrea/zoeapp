@@ -193,14 +193,19 @@
 				logZoe("receivePriceLevel selectedIndex: "+selectedIndex)
 				console.log("priceLevel length="+arrayPriceList.length); 
 				$('#priceLevel').empty();
+				var toSelectIndex = 0;
 				for (var i in arrayPriceList) {
 						console.log("priceLevel ListID: "+arrayPriceList[i].ListID);
 						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[selectedIndex].pricelevel_ListID);
+						if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID){
+							toSelectIndex=i+1;
+						}
 						var option='<option value="'+arrayPriceList[i].ListID+'" ' +
 							((arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID)?'SELECTED':' ') + '>'+arrayPriceList[i].name+'</option>';
 						$('#priceLevel').append(option);
 						console.log("Option: "+option);
 				}
+				$('#priceLevel').selectmenu().selectedIndex = toSelectIndex;
 				$('#priceLevel').trigger("chosen:updated");
 			}
 			
