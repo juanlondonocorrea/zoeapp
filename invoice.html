@@ -33,8 +33,6 @@
 				
 				$('#PONumber').val(generateKey());
 				
-				//bind events
-				$( "#selCustomer" ).change(selCustomerChange );
 				
 			}
 			
@@ -86,7 +84,7 @@ table, th, td {
               <div>
               <label for="selCustomer" class="select">Select a Customer:</label>
               </div>
-              <select name="selCustomer" id="selCustomer">
+              <select name="selCustomer" id="selCustomer" onChange="selCustomerChange()">
                 <option value="option1"></option>
               </select>
             </div>
