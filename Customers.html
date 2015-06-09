@@ -184,16 +184,23 @@
 				console.log("receiveTerms length="+arrayTerms.length); 
 				$('#Terms').empty();
 				for (var i in arrayTerms) {
-					$('#Terms').append('<option>'+arrayTerms[i].name+'</option>');
+					$('#Terms').append('<option value="'+arrayTerms[i].id_term+'">'+arrayTerms[i].name+'</option>');
 					$('#Terms').trigger("chosen:updated");
 				}
 			}
 
 			function receivePriceLevel(arrayPriceList){
+				var index =  event.currentTarget.id;
+				logZoe("receivePriceLevel index: "+index)
 				console.log("priceLevel length="+arrayPriceList.length); 
 				$('#priceLevel').empty();
 				for (var i in arrayPriceList) {
-					$('#priceLevel').append('<option>'+arrayPriceList[i].name+'</option>');
+					if (arrayPriceList[i].ListID == listCustomers[index].pricelevel_ListID) {
+						console.log("priceLevel ListID: "+arrayPriceList.ListID);
+						console.log("pricelevel_ListID CUSTOMER: "istCustomers[index].pricelevel_ListID);
+						$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'" selected>'+arrayPriceList[i].name+'</option>');
+					}
+					$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>');
 					$('#priceLevel').trigger("chosen:updated");
 				}
 			}
@@ -257,6 +264,7 @@
 				$('#routeDay6').val(listCustomers[index].routeDay6);
 				$('#routeDay7').val(listCustomers[index].routeDay7);
 				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
+				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
 			}
