@@ -181,29 +181,29 @@
 			}
 			
 			function receiveTerms(arrayTerms){
-				console.log("receiveTerms length="+arrayTerms.length); 
 				$('#Terms').empty();
+				var toSelectIndex = 0;
 				for (var i in arrayTerms) {
-					$('#Terms').append('<option value="'+arrayTerms[i].id_term+'">'+arrayTerms[i].name+'</option>');
-					$('#Terms').trigger("chosen:updated");
+					if (arrayTerms[i].id_term == listCustomers[selectedIndex].id_term){
+						toSelectIndex=i;
+					}
+					var option='<option value="'+arrayTerms[i].id_term+'">'+arrayTerms[i].name+'</option>'
+					$('#Terms').append(option);					
 				}
+				$('#Terms')[0].selectedIndex = toSelectIndex;
+				$('#Terms').selectmenu('refresh');
+				$('#Terms').trigger("chosen:updated");
 			}
 
 			function receivePriceLevel(arrayPriceList){
-				logZoe("receivePriceLevel selectedIndex: "+selectedIndex)
-				console.log("priceLevel length="+arrayPriceList.length); 
 				$('#priceLevel').empty();
 				var toSelectIndex = 0;
 				for (var i in arrayPriceList) {
-						console.log("priceLevel ListID: "+arrayPriceList[i].ListID);
-						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[selectedIndex].pricelevel_ListID);
-						if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID){
-							toSelectIndex=i;
-						}
-						var option='<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>'
-						$('#priceLevel').append(option);
-						console.log("Option: "+option);
-						console.log("toSelectIndex: "+toSelectIndex);
+					if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID){
+						toSelectIndex=i;
+					}
+					var option='<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>'
+					$('#priceLevel').append(option);
 				}
 				$('#priceLevel')[0].selectedIndex = toSelectIndex;
 				$('#priceLevel').selectmenu('refresh');
