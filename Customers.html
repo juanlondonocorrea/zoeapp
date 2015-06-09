@@ -198,7 +198,7 @@
 						console.log("priceLevel ListID: "+arrayPriceList[i].ListID);
 						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[selectedIndex].pricelevel_ListID);
 						if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID){
-							toSelectIndex=i+1;
+							toSelectIndex=i;
 						}
 						var option='<option value="'+arrayPriceList[i].ListID+'" ' +
 							((arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID)?'SELECTED':' ') + '>'+arrayPriceList[i].name+'</option>';
