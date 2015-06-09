@@ -204,8 +204,10 @@
 							((arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID)?'SELECTED':' ') + '>'+arrayPriceList[i].name+'</option>';
 						$('#priceLevel').append(option);
 						console.log("Option: "+option);
+						console.log("toSelectIndex: "+toSelectIndex);
 				}
-				$('#priceLevel').selectmenu().selectedIndex = toSelectIndex;
+				$('#priceLevel')[0].selectedIndex = toSelectIndex;
+				$('#priceLevel').selectmenu('refresh');
 				$('#priceLevel').trigger("chosen:updated");
 			}
 			
