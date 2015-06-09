@@ -80,8 +80,8 @@ function pricelevelLocalListReceiveFunction(tx,results){
 	var i;
 	var arrayPricelevels = new Array();
 	for (i=0;i<results.rows.length;i++){
-	logZoe("pricelevelLocalListReceiveFunction " + JSON.stringify(results.rows[i]));
-		arrayPricelevels[i] = results.rows[i];
+	logZoe("pricelevelLocalListReceiveFunction " + JSON.stringify(results.rows.item(i)));
+		arrayPricelevels[i] = results.rows.item(i);
 	}
 	pricelevelReceiveListFunction(arrayPricelevels);
 }

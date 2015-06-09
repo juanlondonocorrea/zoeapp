@@ -76,7 +76,7 @@ function termLocalListReceiveFunction(tx,results){
 	var i;
 	var arrayTerms = new Array();
 	for (i=0;i<results.rows.length;i++){
-	logZoe("termLocalListReceiveFunction " + JSON.stringify(results.rows.item(0)));
+	logZoe("termLocalListReceiveFunction " + JSON.stringify(results.rows.item(i)));
 		arrayTerms[i] = results.rows.item(i);
 	}
 	termReceiveListFunction(arrayTerms);
