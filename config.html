@@ -345,11 +345,11 @@ function syncAll(form){
 			logZoe("items[i]=" + JSON.stringify(items[i]));
 			var itemVO = {ListID:items[i].ListID,
 			FullName:items[i].FullName+"",
-			salesDesc:items[i].salesDesc,
+			salesDesc:items[i].SalesDesc,
 			inventorySite_ListID:null,
 			quantityOnHand:null,
 			salesTax_ListID:items[i].SalesTaxCodeRef?items[i].SalesTaxCodeRef.ListID:null,
-			salesPrice:items[i].salesPrice};
+			salesPrice:items[i].SalesPrice};
 			itemListVO[i] = itemVO;
 		}
 			
