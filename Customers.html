@@ -188,6 +188,7 @@
 			}
 			
 			function receiveTerms(arrayTerms){
+				console.log("receiveTerms length="+arrayTerms.length); 
 			 $('#Terms').empty();
 			  for (var i in arrayTerms) {
 				$('#Terms').append('<option>'+arrayTerms[i].name+'</option>');
