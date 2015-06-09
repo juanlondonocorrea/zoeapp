@@ -148,8 +148,8 @@
 			var selectedIndex;
 			function receiveCustomers(arrayCustomers){
 				console.log("receiveCustomers:"+arrayCustomers.length);
-				var arrayCustomers = new Array();
-/*				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
+/*				var arrayCustomers = new Array();
+				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
 				arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
 				arrayCustomers[2] = {ListId:'3',FullName:'Jose', openBalance:'100000.00'};
 				arrayCustomers[3] = {ListId:'4',FullName:'Lisa', openBalance:'1000000.00'};
@@ -165,7 +165,6 @@
 
 				var htmlString1 = '<ol id="custList" data-role="listview" data-filter="true" data-filter-placeholder="Search customers..." data-inset="true">';
 				for(var i=0; i< arrayCustomers.length; i++) {
-					console.log("dentro del ciclo");
 				/*	if (arrayCustomers[i].openBalance < 0) {
 						$("#openB").css("color", "Crimson");
 					}
