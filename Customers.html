@@ -124,8 +124,8 @@
 			}
 
 			function enableEdit(){
-				$(".myFormsControl").prop("disabled",false).removeClass("ui-disabled");
-				$('#SalesRep').textinput('enable');
+				$(".myFormsControl").textinput('enable');
+//				$('#SalesRep').textinput('enable');
 				
 				console.log("enableEdit");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
@@ -138,8 +138,7 @@
 				//'.readonly input:checkbox'
 			}
 			function disableEdit(){
-				$(".myFormsControl").prop("disabled",true).addClass("ui-disabled");
-				$('#SalesRep').textinput('disable');
+				$(".myFormsControl").textinput('disable');
 				console.log("disableEdit");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
