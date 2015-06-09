@@ -201,7 +201,7 @@
 							toSelectIndex=i;
 						}
 						var option='<option value="'+arrayPriceList[i].ListID+'" ' +
-							((arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID)?'SELECTED':' ') + '>'+arrayPriceList[i].name+'</option>';
+							((arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID)?' ':' ') + '>'+arrayPriceList[i].name+'</option>';
 						$('#priceLevel').append(option);
 						console.log("Option: "+option);
 						console.log("toSelectIndex: "+toSelectIndex);
