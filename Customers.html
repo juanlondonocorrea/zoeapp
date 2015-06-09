@@ -223,9 +223,9 @@
 				logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
 
 				// Trae los datos del "registro" del servidor de QuickBooks
-				$('#lblFullName').val(listCustomers[index].FullName);
-				$('#lblOpenBalance1').val(listCustomers[index].openBalance);
-				$('#lblOverdueBalance1').val(listCustomers[index].overdueBalance);
+				$('#lblFullName').text(listCustomers[index].FullName);
+				$('#lblOpenBalance1').text(listCustomers[index].openBalance);
+				$('#lblOverdueBalance1').text(listCustomers[index].overdueBalance);
 				
 				$('#SalesRep').val(listCustomers[index].id_salesrep);
 				$('#ListID').val(listCustomers[index].ListID);
@@ -355,12 +355,12 @@
                     <div class="ui-grid-a" style="height:70px">
                         <div class="ui-block-a" style="height:100%"> 
                             <div align="left">
-                                <label id="lblFullName">Leticia Amezcua</label>
+                                <label id="lblFullName"></label>
                             </div>
                         </div>
                         <div class="ui-block-b" style="height:100%">            
                             <div align="right">
-                                <label id="lblOpenBalance1">$ 177.27</label>
+                                <label id="lblOpenBalance1">$ </label>
                                 <label id="lblOpenBalance2">OPEN</label>
                             </div>
                         </div>  
