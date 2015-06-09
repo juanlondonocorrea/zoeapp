@@ -16,26 +16,20 @@
 		<script src="js/zoe/zoe.js"></script>
 		<script src="js/zoe/customerDAO.js"></script>
         <script src="js/zoe/termDAO.js"></script>
+        <script src="js/zoe/pricelevelDAO.js"></script>
 		<script> 
 
 			$(document).bind("pagebeforecreate", function(event) {
-				console.log("Cargar Clientes");
 				initAnyPage(event.target);
-				
-				if (this.activeElement && this.activeElement.id){ // Customers Details
-				  logZoe("this.activeElement.id: " + this.activeElement.id);
-					/*
-					logZoe("activeElement.id: "+this.activeElement.id)
-					var index =  this.activeElement.id;
-					logZoe("index: "+index)
-					index = index.substring(index.indexOf("_")+1);
-					renderDetail(index);*/
-				}else{ //Customers
-					//receiveCustomers();
-					customerDAO.list(receiveCustomers, errReceiveCustomers);
-				}
+				initThisPage(event);
 			});
 
+			function initThisPage(event){
+				//receiveCustomers();
+				customerDAO.list(receiveCustomers, errReceiveCustomers);
+			}
+			
+			// BEGIN Functions on error case
 			function errReceiveCustomers(err){
 				alert("DB Error customers: "+JSON.stringify(err));
 			}
@@ -44,17 +38,17 @@
 				alert("DB Error terms: "+JSON.stringify(err));
 			}
 			
+			function errPriceLevel(err){
+				alert("DB Error Price Level: "+JSON.stringify(err));
+			}
+			// END functions on error case
+			
 			$(document).bind('pagechange', function() {
-				logZoe("customers on pagechange");
 				$('.ui-page-active .ui-listview').listview('refresh');
 				$('.ui-page-active :jqmData(role=content)').trigger('create');
 			});	
 
-			$( function() {
-			  $( "#the-search-input" ).textinput();
-
-			});
-			
+			// Copy bill fileds to ship fields
 			function BillToShipCopy(){
 				copyState = $('#copyBillToShip').is(':checked');
 				if (copyState == true) { // Copy Bill to Ship
@@ -68,9 +62,7 @@
 				}
 			}
 
-
-/*			
-			$(document).ready(function(){ 
+/*			$(document).ready(function(){ 
 			$("td .ms-vb2").each(function () {
 			   if($(this).val().indexof('-') > -1)
 				{
@@ -104,13 +96,7 @@
 				}
 			}
 
-/*
-			$(document).ready(function(){
-				$("#boton").on("click",function(){
-					$("#parrafo").css("color", "#000000");
-				});
-			});
-	*/		
+			// Toggle Switch state (on - off) to enable/disable edit
 			var state;
 			function ChangeEditState()
 			{
@@ -123,6 +109,7 @@
 					}		
 			}
 
+			// Enable fields
 			function enableEdit(){
 				$(".myFormsControl").textinput('enable');
 				$(".myFormsControl").selectmenu('enable').selectmenu( "refresh" );
@@ -131,7 +118,6 @@
 				
 //				$('#SalesRep').textinput('enable');
 				
-				console.log("enableEdit");
 				//$('#TabCustomerDetails :input').prop('readonly',false);
 				
 				//$('#TabCustomerDetails :checkbox').prop('readonly',false);
@@ -141,12 +127,13 @@
 				//:checkbox[readonly=readonly]
 				//'.readonly input:checkbox'
 			}
+			
+			// Disable fields
 			function disableEdit(){
 				$(".myFormsControl").textinput('disable');
 				$(".myFormsControl").selectmenu('disable').selectmenu("refresh");
 				$(".myFormsControl").checkboxradio('disable').checkboxradio( "refresh" );
-				$("#Terms").selectmenu('disable').selectmenu( "refresh" );
-				console.log("disableEdit");
+
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
 				
@@ -156,10 +143,10 @@
         		//$('.readonly input:checkbox').keydown(function () { return true; });				
 			}
 
+			// Populate Customers list
 			var listCustomers = new Array();
 			var selectedIndex;
 			function receiveCustomers(arrayCustomers){
-				console.log("receiveCustomers:"+arrayCustomers.length);
 /*				var arrayCustomers = new Array();
 				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
 				arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
@@ -173,8 +160,9 @@
 				arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
 				arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
 */			
-				 listCustomers = arrayCustomers;
+				listCustomers = arrayCustomers; // Copy local array to global array
 
+				// Build customers list with <ol> <li>
 				var htmlString1 = '<ol id="custList" data-role="listview" data-filter="true" data-filter-placeholder="Search customers..." data-inset="true">';
 				for(var i=0; i< arrayCustomers.length; i++) {
 				/*	if (arrayCustomers[i].openBalance < 0) {
@@ -190,16 +178,24 @@
 					logZoe("htmlString1="+htmlString1);
 					$('#CustomersList').html(htmlString1);
 					$(".linkDetail").click(goDetail);
-					//$( ".selector" ).listview( "refresh" );
 			}
 			
 			function receiveTerms(arrayTerms){
 				console.log("receiveTerms length="+arrayTerms.length); 
-			 $('#Terms').empty();
-			  for (var i in arrayTerms) {
-				$('#Terms').append('<option>'+arrayTerms[i].name+'</option>');
-				$('#Terms').trigger("chosen:updated");
-			  }
+				$('#Terms').empty();
+				for (var i in arrayTerms) {
+					$('#Terms').append('<option>'+arrayTerms[i].name+'</option>');
+					$('#Terms').trigger("chosen:updated");
+				}
+			}
+			
+			function receivePriceLevel(arrayPriceList){
+				console.log("priceLevel length="+arrayPriceList.length); 
+				$('#priceLevel').empty();
+				for (var i in arrayPriceList) {
+					$('#priceLevel').append('<option>'+arrayPriceList[i].name+'</option>');
+					$('#priceLevel').trigger("chosen:updated");
+				}
 			}
 			
 			function goDetail(event){
@@ -212,9 +208,8 @@
 			function renderDetail(index){
 				logZoe("renderDetail index=" + index);
 				logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
+
 				// Trae los datos del "registro" del servidor de QuickBooks
-				
-				
 				$('#lblFullName').val(listCustomers[index].FullName);
 				$('#lblOpenBalance1').val(listCustomers[index].openBalance);
 				$('#lblOverdueBalance1').val(listCustomers[index].overdueBalance);
@@ -263,7 +258,7 @@
 				$('#routeDay7').val(listCustomers[index].routeDay7);
 				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
 				termDAO.list(receiveTerms,errReceiveTerms);
-
+				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
 			}
 		</script>
 		<style type="text/css">
@@ -583,7 +578,7 @@
 									<div class="ui-block-a" style="height:100%"> 
 										<div data-role="fieldcontain">
 											<div>
-												<label for="openBalance">Open Balance:</label>
+												<label for="openBalance">Open:</label>
 											</div>
 											<input type="text" data-theme="b" name="openBalance" id="openBalance" value=""  onClick="overdueBalanceRed();"/>
 										</div>                    
@@ -591,7 +586,7 @@
 									<div class="ui-block-b" style="height:100%">            
 										<div data-role="fieldcontain">
 											<div>
-												<label for="overdueBalance">Overdue Balance:</label>
+												<label for="overdueBalance">Overdue:</label>
 											</div>
 											<input type="text" data-theme="b" name="overdueBalance" id="overdueBalance" value=""  />
 										</div>                      
@@ -671,16 +666,11 @@
 							<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
 								<div data-role="fieldcontain" id="CustomerPriceLevel">
 								  <div>
-									<label for="pricelevel_ListID" class="select">Price Level:</label>
+									<label for="priceLevel" class="select">Price Level:</label>
 								  </div>
-								  <select name="pricelevel_ListID" id="pricelevel_ListID" data-theme="a">
-									<option value="option1">Price Level 1</option>
-									<option value="option2">Price Level 2</option>
-									<option value="option3">Price Level 3</option>
-									<option value="option4">Price Level 4</option>
-									<option value="option5">Price Level 5</option>
-									<option value="option6">Price Level 6</option>      
-								  </select>
+								  <select name="priceLevel" id="priceLevel" data-theme="a">
+									<option value="option1">Choose a price level</option>
+								  </select> 
 								</div>
 							</fieldset>                                                         
 							<!-- Done and Cancel Buttons -->
