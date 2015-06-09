@@ -204,9 +204,9 @@
 			
 			function goDetail(event){
 				var index =  event.currentTarget.id;
-				selectedIndex = index;
 				logZoe("goDetail index: "+index)
 				index = index.substring(index.indexOf("_")+1);
+				selectedIndex = index;
 				renderDetail(index);
 			}
 			
