@@ -36,7 +36,9 @@
 				
 			}
 			
+			var listCustomers;
 			function receiveCustomers(list){
+				listCustomers = list;
 				console.log("receiveCustomers length="+list.length); 
 				$('#selCustomer').empty();
 				for (var i in list) {
@@ -56,7 +58,7 @@
 			
 			function selCustomerChange(event, ui){
 				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
-				inventoryDAO.listByCustomer(receiveItems,errReceive);
+				inventoryDAO.listByCustomer($( "#selCustomer" ).val(),receiveItems,errReceive);
 			}
 		
 			var listItems = new Array();	
