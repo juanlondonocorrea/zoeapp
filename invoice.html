@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
   <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.structure-1.4.5.min.css" />
 
-<!--  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile-1.4.5.min.css" />  -->
   <script src="js/jquery-mobile/jquery-2.1.4.js"></script>
   <script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
   <script src="js/zoe/zoe.js"></script>
@@ -30,6 +29,9 @@
 			function initThisPage(event){
 				customerDAO.list(receiveCustomers,errReceive);
 				termDAO.list(receiveTerms,errReceive);
+				
+				$('#PONumber').val(generateKey());
+				
 			}
 			
 			function receiveCustomers(list){
@@ -68,9 +70,6 @@ table, th, td {
 <body> 
 
 <div data-role="page" id="invoice" data-theme="a">
- 	<div data-role="header">
-		<h1>Invoice Creation</h1>
-	</div>
     
 	<div data-role="content">	
 		<form id="formulario" >
@@ -79,11 +78,7 @@ table, th, td {
               <label for="selCustomer" class="select">Select a Customer:</label>
               </div>
               <select name="selCustomer" id="selCustomer">
-                <option value="option1">Customer 1</option>
-                <option value="option2">Customer 2</option>
-                <option value="option3">Customer 3</option>
-                <option value="option4">Customer 4</option>
-                <option value="option5">Customer 5</option>                
+                <option value="option1"></option>
               </select>
             </div>
             <div data-role="fieldcontain">
@@ -91,11 +86,7 @@ table, th, td {
               <label for="selTerm" class="select">Select a Term:</label>
               </div>
               <select name="selTerm" id="selTerm">
-                <option value="option1">Terms 1</option>
-                <option value="option2">Terms 2</option>
-                <option value="option3">Terms 3</option>
-                <option value="option4">Terms 4</option>
-                <option value="option5">Terms 5</option>                
+                <option value="option1"></option>
               </select>
             </div>
             <div class="ui-grid-a" style="height:95px">
@@ -304,49 +295,13 @@ table, th, td {
             <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
       </form>		
 	</div>
+
+			<!-- divs de header, menu y footer-->
+			<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+			<div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+			<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+			<!-- fin divs -->    
+
 </div>
- 
- 
- 
- Crear cliente
-1.	Cuando el usuario elige la opción de crear cliente se puede ingresar:
-	Nombre del cliente
-	IsActive
-	
-    Phone
-	CellPhone
-	Fax
-	Email
-
-2.	Billing address 
-
-	address line2
-    address line 3
-    city
-    state
-    zipcode
-    country
-    
-    opción de copy billing to shipping
-
-3. Shiping Address
-	address line2
-    address line 3
-    city
-    state
-    zipcode
-    country
-
-4   Términos de pago
-5    Other Datails
-    
-6.	Días de ruta
-7.	Orden de ruta
-	
-8.	Opción para guardar o descartar
-
-
- 
- 
 </body>
 </html>
