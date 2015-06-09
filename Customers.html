@@ -125,6 +125,8 @@
 
 			function enableEdit(){
 				$(".myFormsControl").textinput('enable');
+				$(".myFormsControl").selectmenu('enable');
+				$(".myFormsControl").checkboxradio('enable');
 //				$('#SalesRep').textinput('enable');
 				
 				console.log("enableEdit");
@@ -139,6 +141,8 @@
 			}
 			function disableEdit(){
 				$(".myFormsControl").textinput('disable');
+				$(".myFormsControl").selectmenu('disable');
+				$(".myFormsControl").checkboxradio('disable');
 				console.log("disableEdit");
 				//$( "li.item-a" ).closest( "#one", listItemII )
 				//$('#TabCustomerDetails :input').prop('readonly',true);
