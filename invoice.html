@@ -55,7 +55,19 @@
 			}
 			
 			function selCustomerChange(event, ui){
-				console.log("selCustomer val=" + $( "#selCustomer" ).val());
+				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
+				inventoryDAO.listByCustomer(receiveItems,errReceive);
+			}
+		
+			var listItems = new Array();	
+			function receiveItems(list){
+				listItems = list;
+				console.log("receiveItems length="+list.length); 
+				$('#selTerm').empty();
+				for (var i in list) {
+					$('#selProduct').append('<option value="' + list[i].ListID +'">'+list[i].salesDesc+'</option>');
+					$('#selProduct').trigger("chosen:updated");
+				}
 			}
 			
 
