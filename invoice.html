@@ -13,6 +13,7 @@
   <script src="js/zoe/zoe.js"></script>
   <script src="js/zoe/salesRepDAO.js"></script>
   <script src="js/zoe/invoiceDAO.js"></script>
+  <script src="js/zoe/inventoryDAO.js"></script>
   <script src="js/zoe/customerDAO.js"></script>
   <script src="js/zoe/termDAO.js"></script>
   <script>
@@ -31,6 +32,9 @@
 				termDAO.list(receiveTerms,errReceive);
 				
 				$('#PONumber').val(generateKey());
+				
+				//bind events
+				$( "#selCustomer" ).on( "selectmenuchange", selCustomerChange );
 				
 			}
 			
@@ -51,6 +55,11 @@
 					$('#selTerm').trigger("chosen:updated");
 				}
 			}
+			
+			function selCustomerChange(event, ui){
+				console.log("selCustomer val=" + $( "#selCustomer" ).val());
+			}
+			
 
 
   </script>
@@ -131,11 +140,7 @@ table, th, td {
 						<label for="selProduct" class="select">Select a Product:</label>
 					</div>
 					<select name="selProduct" id="selProduct">
-						<option value="option1">Product 1</option>
-						<option value="option2">Product 2</option>
-						<option value="option3">Product 3</option>
-						<option value="option4">Product 4</option>
-						<option value="option5">Product 5</option>                        
+						<option value="option1"></option>
 					</select>            	
 				</div>
 

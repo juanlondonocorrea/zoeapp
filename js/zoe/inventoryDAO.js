@@ -1,6 +1,7 @@
 // JavaScript Document
 
 var inventoryDAO = {list:listInventory, 
+				listByCustomer: listInventoryByCustomer,
 				getById:getInventoryById, 
 				store:storeInventory,
 				storeItemSites:storeItemSites,
@@ -30,6 +31,14 @@ function listInventory(aReceiveFunction,aErrFunc){
 	inventoryReceiveListFunction = aReceiveFunction;
 	inventoryErrFunc = aErrFunc;
 	db.transaction(doListInventory, inventoryErrFunc);
+}
+
+function listInventoryByCustomer(aCustomer,aReceiveFunction,aErrFunc){
+	db = openDatabaseZoe();
+	filterDataInventory=aCustomer;
+	inventoryReceiveFunction = aReceiveFunction;
+	inventoryErrFunc = aErrFunc;
+	db.transaction(doListInventoryByCustomer, inventoryErrFunc);
 }
 
 
@@ -83,6 +92,12 @@ function doListInventory(tx){
 	logZoe("doSelectSelesrepInventories");
 	tx.executeSql("SELECT inventory.ListID, FullName, InventorySite_ListID, QuantityOnHand, salesPrice, salesTax_ListID, salesTax.desc FROM inventory, salesTax WHERE salesTax_ListID = salesTax.ListID", [],inventoryLocalListReceiveFunction, inventoryErrFunc);
 }
+
+function doListInventoryByCustomer(tx){
+	logZoe("doListInventoryByCustomer");
+	tx.executeSql("select * from(Select i.*,pli.customprice FROM inventory i LEFT JOIN pricelevel_item pli ON pli.inventory_listid = i.listid LEFT JOIN pricelevel pl ON pl.listid=pli.pricelevel_listid LEFT JOIN customer c ON c.pricelevel_listid = pl.listid WHERE c.listid=? UNION SELECT i.*, null as customprice from inventory i Order by salesdesc) where inventorysite_listid is not null", [filterDataInventory],inventoryLocalListReceiveFunction, inventoryErrFunc);
+}
+
 
 
 function inventoryLocalReceiveFunction(tx,results){
