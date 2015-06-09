@@ -292,7 +292,7 @@
 				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
-				invoiceDAO.list(receiveInvoices, errListInvoicesByCustomer);
+				invoiceDAO.listByCustomer(listCustomers[index].ListID,receiveInvoices, errListInvoicesByCustomer);
 			}
 			
 		</script>
