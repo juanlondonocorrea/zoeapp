@@ -197,7 +197,7 @@
 				for (var i in arrayPriceList) {
 					if (arrayPriceList[i].ListID == listCustomers[index].pricelevel_ListID) {
 						console.log("priceLevel ListID: "+arrayPriceList.ListID);
-						console.log("pricelevel_ListID CUSTOMER: "istCustomers[index].pricelevel_ListID);
+						console.log("pricelevel_ListID CUSTOMER: "+listCustomers[index].pricelevel_ListID);
 						$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'" selected>'+arrayPriceList[i].name+'</option>');
 					}
 					$('#priceLevel').append('<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>');
