@@ -224,7 +224,7 @@
 					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="balanceR" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="#">Predet.</a></li>';
 					}
 					htmlString2 += '</ul>';
-					logZoe("htmlString1="+htmlString2);
+					logZoe("htmlString2="+htmlString2);
 					$('#InvoiceList').html(htmlString2);
 					//$(".linkDetail").click(goDetail);				
 			}
@@ -292,7 +292,6 @@
 				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
-				customerDAO.list(receiveCustomers, errReceiveCustomers);
 				invoiceDAO.list(receiveInvoices, errListInvoicesByCustomer);
 			}
 			
@@ -771,11 +770,9 @@
                             <hr><br/>
 
 
-                            <div data-role="page" id="Invoices" data-theme="a">
                                 <div data-role="content" id="InvoiceList">
                                     <!-- Injection-->
                                 </div>
-                            </div> 
                             <!-- END Invoices List and overdue -->							
 					</fieldset> 
 					</div>
