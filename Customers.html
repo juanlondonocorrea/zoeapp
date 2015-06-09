@@ -15,21 +15,23 @@
 		<script src="js/jqm-inlinetabs/jqm-inlinetabs.min.js"></script>        
 		<script src="js/zoe/zoe.js"></script>
 		<script src="js/zoe/customerDAO.js"></script>
+        <script src="js/zoe/termDAO.js"></script>
 		<script> 
 
 			$(document).bind("pagebeforecreate", function(event) {
 				console.log("Cargar Clientes");
 				initAnyPage(event.target);
 				
-				if (this.activeElement && this.activeElement.id){
+				if (this.activeElement && this.activeElement.id){ // Customers Details
 				  logZoe("this.activeElement.id: " + this.activeElement.id);
+				  termDAO.list(receiveTerms,errReceiveTerms);
 					/*
 					logZoe("activeElement.id: "+this.activeElement.id)
 					var index =  this.activeElement.id;
 					logZoe("index: "+index)
 					index = index.substring(index.indexOf("_")+1);
 					renderDetail(index);*/
-				}else{
+				}else{ //Customers
 					//receiveCustomers();
 					customerDAO.list(receiveCustomers, errReceiveCustomers);
 				}
@@ -37,6 +39,10 @@
 
 			function errReceiveCustomers(err){
 				alert("DB Error customers: "+JSON.stringify(err));
+			}
+			
+			function errReceiveTerms(err){
+				alert("DB Error terms: "+JSON.stringify(err));
 			}
 			
 			$(document).bind('pagechange', function() {
@@ -179,6 +185,14 @@
 					$('#CustomersList').html(htmlString1);
 					$(".linkDetail").click(goDetail);
 					//$( ".selector" ).listview( "refresh" );
+			}
+			
+			function receiveTerms(arrayTerms){
+			 $('#Terms').empty();
+			  for (var i in arrayTerms) {
+				$('#Terms').append('<option>'+arrayTerms[i].name+'</option>');
+				$('#Terms').trigger("chosen:updated");
+			  }
 			}
 			
 			function goDetail(event){
@@ -582,12 +596,7 @@
 									<label for="Terms" class="select">Terms:</label>
 								  </div>
 								  <select name="Terms" id="Terms" data-theme="a">
-									<option value="option1">Terms 1</option>
-									<option value="option2">Terms 2</option>
-									<option value="option3">Terms 3</option>
-									<option value="option4">Terms 4</option>
-									<option value="option5">Terms 5</option>
-									<option value="option6">Terms 6</option>      
+									<option value="option1">Choose a term</option>
 								  </select>
 								</div>
 							</fieldset> 
