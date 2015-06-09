@@ -164,7 +164,7 @@
 			
 				 listCustomers = arrayCustomers;
 
-				var htmlString1 = '<ol id="custList" data-role="listview" data-inset="true">';
+				var htmlString1 = '<ol id="custList" data-role="listview" data-filter="true" data-filter-placeholder="Search customers..." data-inset="true">';
 				for(var i=0; i< arrayCustomers.length; i++) {
 					logZoe("ArrayCustomer: "+ JSON.stringify(arrayCustomers[i]));
 					if (arrayCustomers[i].openBalance < 0) {
@@ -173,7 +173,7 @@
 					else {
 						$("#openB").css("color", "black");
 					}
-					htmlString1 += '<li><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
+					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
 					
 					}
 					htmlString1 += '</ol>';
@@ -308,10 +308,6 @@
 
         <!-- CUSTOMERS LIST (ALPHABETIC BY NAME AND OVERDUE BALANCE IN RED) -->
 		<div data-role="page" id="Customers" data-theme="a">
-			<div data-role="content" id="SearchCustomer">
-			<label for="search-basic">Search Customer:</label>
-				<input id="the-search-input" type="text" data-type="search">
-			</div>
 			<div data-role="content" id="CustomersList">
 				<!-- Injection-->
 			</div>
