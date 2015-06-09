@@ -13,17 +13,32 @@
   <script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
   <script src="js/zoe/zoe.js"></script>
   <script src="js/zoe/salesRepDAO.js"></script>
+  <script src="js/zoe/invoiceDAO.js"></script>
+  <script src="js/zoe/customerDAO.js"></script>
   <script>
-	function localpageinit(){
-		console.log("en localpageinit Login.html");
-		$('#login').val(window.localStorage.getItem("salesRepName"));	
-		$('#btnLogin').click(submitLogin);	
-	}
-	function submitLogin(){
-		salesRepDAO.get(function receive(salesRepVO){
-			logZoe(salesRepVO.name);
-		});
-	}
+			$(document).bind("pagebeforecreate", function(event) {
+				console.log("Cargar Clientes");
+				initAnyPage(event.target);
+				initThisPage(event);
+			});
+			
+			function errReceive(err){
+				alert("Error " + JSON.stringify(err));
+			}
+			
+			function initThisPage(event){
+				customerDAO.list(receiveCustomers,errReceive);
+			}
+			
+			function receiveCustomers(list){
+				console.log("receiveCustomers length="+list.length); 
+				$('#selCustomer').empty();
+				for (var i in arrayTerms) {
+					$('#selCustomer').append('<option value="' + list[i].ListID +'">'+list[i].fullName+'</option>');
+					$('#selCustomer').trigger("chosen:updated");
+				}
+			}
+
   </script>
 <style type="text/css">
 thead {color:black;}
@@ -41,9 +56,6 @@ table, th, td {
 <body> 
 
 <div data-role="page" id="invoice" data-theme="a">
- 	<div data-role="header">
-		<h1>Invoice Creation</h1>
-	</div>
     
 	<div data-role="content">	
 		<form id="formulario" >
@@ -277,6 +289,11 @@ table, th, td {
             <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
       </form>		
 	</div>
+			<!-- divs de header, menu y footer-->
+			<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+			<div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+			<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+			<!-- fin divs -->    
 </div>
  
  
