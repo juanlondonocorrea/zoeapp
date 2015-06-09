@@ -24,7 +24,6 @@
 				
 				if (this.activeElement && this.activeElement.id){ // Customers Details
 				  logZoe("this.activeElement.id: " + this.activeElement.id);
-				  termDAO.list(receiveTerms,errReceiveTerms);
 					/*
 					logZoe("activeElement.id: "+this.activeElement.id)
 					var index =  this.activeElement.id;
@@ -198,7 +197,7 @@
 			
 			function goDetail(event){
 				var index =  event.currentTarget.id;
-				logZoe("index: "+index)
+				logZoe("goDetail index: "+index)
 				index = index.substring(index.indexOf("_")+1);
 				renderDetail(index);
 			}
@@ -256,6 +255,8 @@
 				$('#routeDay6').val(listCustomers[index].routeDay6);
 				$('#routeDay7').val(listCustomers[index].routeDay7);
 				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
+				termDAO.list(receiveTerms,errReceiveTerms);
+
 			}
 		</script>
 		<style type="text/css">
