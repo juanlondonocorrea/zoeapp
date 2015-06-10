@@ -97,7 +97,7 @@
 			var customerSelectedIndex;
 			function selCustomerChange(event, ui){
 				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
-				customerSelectedIndex = $( "#selCustomer" )[0].selectedIndex;
+				customerSelectedIndex = $( "#selCustomer" )[0].selectedIndex-1;
 				console.log("selCustomerChange custseleccionado=" + JSON.stringify(listCustomers[customerSelectedIndex]));
 				inventoryDAO.listByCustomer($( "#selCustomer" ).val(),receiveItems,errReceive);
 				$("#selTerm").val(listCustomers[customerSelectedIndex].id_term).selectmenu("refresh");
@@ -121,7 +121,7 @@
 			var productSelectedIndex;
 			function selProductChange(event, ui){
 				console.log("selProductChange val=" + $( "#selProduct" ).val());
-				productSelectedIndex = $( "#selProduct" )[0].selectedIndex;
+				productSelectedIndex = $( "#selProduct" )[0].selectedIndex-1;
 				console.log("selProductChange productSelectedIndex=" + productSelectedIndex);
 				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customprice);
 				console.log("selProductChange salesPrice=" + listItems[productSelectedIndex].salesPrice);
@@ -217,11 +217,13 @@
 			}
 			
 			function selTermChange(event){
-				termSelectedIndex = $("#selTerm")[0].selectedIndex;
+				termSelectedIndex = $("#selTerm")[0].selectedIndex-1;
 
 				console.log("selTermChange #Date=" + $("#Date").val());
+				
+				var dateParts = $("#Date").val().split("-");
 
-				var due = new Date($("#Date").val());
+				var due = new Date(dateParts[0],dateParts[1]-1,dateParts[2]);
 				console.log("selTermChange due=" + due);
 
 				console.log("selTermChange listTerms[termSelectedIndex]=" + JSON.stringify(listTerms[termSelectedIndex]));
@@ -238,7 +240,7 @@
 			}
 
 			function selTaxChange(event){
-				taxSelectedIndex = $("#selTax")[0].selectedIndex;
+				taxSelectedIndex = $("#selTax")[0].selectedIndex-1;
 			}
 
   </script>
