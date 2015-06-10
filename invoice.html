@@ -37,7 +37,7 @@
 			var salesrepVO;
 			function receiveSalesrep(obj){
 				salesrepVO = obj;
-				console.log("salesRep=" + JSON.stringify(salesrepVO));
+				console.log("salesRep=" + JSON.stringify(obj));
 				
 				$('#PONumber').val( salesrepVO.Initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
