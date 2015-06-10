@@ -221,7 +221,7 @@
 				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
 					//htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
-					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="Invoice">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</label><a class="linkDetail" href="#">'+arrayListInvoicesByCust[i].appliedAmount+'span id="balanceR">BR: '+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="#">Predet.</a></li>';
+					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><span class="invoice"><a class="linkDetail" href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></span>><br/><span class="invoice">Amount: '+arrayListInvoicesByCust[i].appliedAmount+'</span><br/><span class="invoice">Balance Remaining: '+arrayListInvoicesByCust[i].balanceRemaining+'</span><a href="#">Predet.</a></li>';
 					
 					
 					
@@ -353,7 +353,7 @@
 			#lblOpenBalance2 {color:grey; font-weight:bolder; font-size:medium;}
 			#lblOverdueBalance1 {color:Crimson; font-weight:bolder; font-size:large;}
 			#lblOverdueBalance2 {color:grey; font-weight:bolder; font-size:medium;}
-			#Invoice {color:black; font-weight:bolder; font-size:large;}
+			.Invoice {color:black; font-weight:bolder; font-size:medium;}
 			#overdueBal {color:Crimson; font-weight:bolder; font-size:large;}
 			#OberdueBy {color:white; font-weight:bolder; background-color:Crimson; font-size:medium;}
 			#AddedMonthsAgo {color:grey; font-size:medium;}
