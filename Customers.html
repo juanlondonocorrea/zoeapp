@@ -157,9 +157,11 @@
 			 var aFecha2 = f2.split('-');
 			 console.log("aFecha1: "+aFecha1);
 			 console.log("aFecha2: "+aFecha2);			  
-			 var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
-			 var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]);
-			 
+			// var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
+			// var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]);
+			 var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
+			 var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]);
+			 			 
 			 console.log("aFecha1[2]: "+aFecha1[2]+" aFecha1[1]-1: "+(aFecha1[1]-1)+" aFecha1[0]: "+aFecha1[0]);
 			 console.log("aFecha2[2]: "+aFecha2[2]+" aFecha2[1]-1: "+(aFecha2[1]-1)+" aFecha2[0]: "+aFecha2[0]);
 			 console.log("fFecha2: "+fFecha1);
