@@ -41,7 +41,7 @@
 				
 				$('#PONumber').val( salesrepVO.initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
-				var currDate = Date.now();
+				var currDate = new Date();
 				$("#Date").val((currDate.getMonth()+1) +  "/" + currDate.getDate() + "/" + currDate.getYear());
 
 			}
@@ -247,7 +247,7 @@ table, th, td {
               <div>
               <label for="SalesRep">Sales Rep:</label>
               </div>
-              <input type="text" name="SalesRep" id="SalesRep" readonly="true"  />              
+              <input type="text" name="SalesRep" id="SalesRep" readonly  />              
             </div>
 
 
