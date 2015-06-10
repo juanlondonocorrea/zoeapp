@@ -41,7 +41,8 @@
 				
 				$('#PONumber').val( salesrepVO.initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
-				$("#Date").val(Date.now());
+				var currDate = Date.now();
+				$("#Date").val((currDate.getMonth()+1) +  "/" + currDate.getDate() + "/" + currDate.getYear());
 
 			}
 			
