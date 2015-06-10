@@ -227,7 +227,7 @@
 				console.log("selTermChange due=" + due);
 
 				console.log("selTermChange listTerms[termSelectedIndex]=" + JSON.stringify(listTerms[termSelectedIndex]));
-				due.setDate(due+listTerms[termSelectedIndex].stdDueDays);
+				due.setDate(due.getTime()+(listTerms[termSelectedIndex].stdDueDays*24*60*60*1000));
 				console.log("selTermChange due+term=" + due);
 				
 				var day = ("0" + due.getDate()).slice(-2);
