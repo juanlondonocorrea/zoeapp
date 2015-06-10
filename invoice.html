@@ -217,11 +217,13 @@
 			
 			function selTermChange(event){
 				termSelectedIndex = $("#selTerm")[0].selectedIndex;
-				var due = new Date($("#Due").val());
-
-				console.log("selTermChange listTerms[termSelectedIndex]=" + listTerms[termSelectedIndex]);
+				var due = new Date($("#Date").val());
 				console.log("selTermChange due=" + due);
+
+				console.log("selTermChange listTerms[termSelectedIndex]=" + JSON.stringify(listTerms[termSelectedIndex]));
 				due.setDate(due+listTerms[termSelectedIndex].stdDueDays);
+				console.log("selTermChange due+term=" + due);
+				
 				var day = ("0" + due.getDate()).slice(-2);
 				var month = ("0" + (due.getMonth() + 1)).slice(-2);
 				var strDue = due.getFullYear()+"-"+(month)+"-"+(day) ;
