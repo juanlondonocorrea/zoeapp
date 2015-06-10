@@ -141,7 +141,7 @@
 				for (var i in currentItems){
 					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
 					html += "<tr>\n";
-					html +=  "<td><a class='ui-icon-delete rmItem' id='"+ i+  "'  data-role='button' data-icon='delete' data-iconpos='notext'></a></td>\n";
+					html +=  "<td><a class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all rmItem' id='"+ i+  "'></a></td>\n";
 					html +=  "<td>"+currentItems[i].Desc+"</td>\n";
 					html += "<td>"+currentItems[i].Quantity+"</td>\n";
 					html += "<td>$"+parseFloat(currentItems[i].Rate).toFixed(2)+"</td>\n";
