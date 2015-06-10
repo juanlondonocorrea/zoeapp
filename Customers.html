@@ -188,7 +188,7 @@
 					else {
 						$("#openB").css("color", "black");
 					} */
-					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
+					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
 					
 					}
 					htmlString1 += '</ol>';
@@ -759,35 +759,9 @@
 							</div>
 							<br/><hr>
                             <!-- BEGIN Invoices List and overdue -->
-                            <div class="ui-grid-a" style="height:30px">
-								<div class="ui-block-a" style="height:100%"> 
-                                    <div align="left">
-                                        <label id="Invoice">Invoice # 240</label>
-                                    </div>
-								</div>
-								<div class="ui-block-b" style="height:100%">            
-                                    <div align="right">
-                                        <label id="overdueBal"></label>
-                                    </div>
-								</div>  
-							</div>
-							<div class="ui-grid-a" style="height:30px">
-								<div class="ui-block-a" style="height:100%"> 
-                                    <div align="left">
-                                        <label id="OberdueBy">Overdue by 240 days</label>
-                                    </div>
-								</div>
-								<div class="ui-block-b" style="height:100%">            
-                                    <div align="right">
-                                        <label id="AddedMonthsAgo">Added 8 months ago</label>
-                                    </div>
-								</div>  
-							</div>
-                            <hr><br/>
-
-                                <div data-role="content" id="InvoiceList">
-                                    <!-- Injection-->
-                                </div>
+                            <div data-role="content" id="InvoiceList">
+                                <!-- Injection-->
+                            </div>
                             <!-- END Invoices List and overdue -->							
 					</fieldset> 
 					</div>
