@@ -30,11 +30,19 @@
 			function initThisPage(event){
 				customerDAO.list(receiveCustomers,errReceive);
 				termDAO.list(receiveTerms,errReceive);
+				salesRepDAO.getByName(window.localStorage.getItem("salesRepName"),receiveSalesrep,errReceive);
 				
-				$('#PONumber').val(generateKey());
+			}
+			
+			var salesrepVO;
+			function receiveSalesrep(obj){
+				salesrepVO = obj;
+				console.log("salesRep=" + JSON.stringify(salesrepVO));
+				
+				$('#PONumber').val( salesrepVO.Initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
-				
-				
+				$("#Date").val(Date.now());
+
 			}
 			
 			var listCustomers;
