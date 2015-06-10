@@ -42,7 +42,7 @@
 				$('#PONumber').val( salesrepVO.initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
 				var currDate = new Date();
-				var currDate = currDate.getYear() + "-" + (currDate.getMonth()+1) +  "-" + currDate.getDate();
+				var currDate = (currDate.getYear()+1900) + "-" + (currDate.getMonth()+1) +  "-" + currDate.getDate();
 				$("#Date").val(currDate);
 				console.log("currDate=" + currDate);
 
