@@ -94,8 +94,6 @@
 			function calcItem(event){
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
 				$('#Amount').val(parseFloat(amount).toFixed(2));
-	//			$("#Amount").trigger("change");
-				console.log("Amount=" + $("#Amount").val());
 			}
 			
 			var currentItems= new Array();
@@ -108,37 +106,50 @@
 					"Desc": listItems[productSelectedIndex-1].salesDesc,
 					"Quantity": $("#Quantity").val(),
 					"Rate": parseFloat($("#RatePrice").val()).toFixed(2),
-					"Amount": parseFloat($("#Amount").val()).toFixed(2)
+					"Amount": parseFloat($("#Amount").val()).toFixed(2),
+					"position":currentItems.length
 				}
 				
 				console.log("addItem aItem=" + JSON.stringify(aItem)) 
 				currentItems[currentItems.length] = aItem;
+				clearItem();
 				renderItems();
 				return false;
 			}
 			
+			function clearItem(){
+				$("#Quantity").val("");
+				$("#RatePrice").val("");
+				$("#Amount").val("");
+				$( "#selProduct" )[0].selectedIndex =0;
+				$( "#selProduct" ).selectmenu("refresh");
+				$("#addItem").collapsible("collapse");
+			}
+			
+			var totalQuantity=0;
+			var totalAmount=0;
 			function renderItems(){
 				$("#tableBodyItems").html("");
 				var html="";
-				var totalQuantity=0;
-				var totalAmount=0;
+				totalQuantity=0;
+				totalAmount=0;
 				for (var i in currentItems){
 					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
 					html += "<tr>\n";
-					html +=  "<td>"+currentItems[i].Desc+"</th>\n";
+					html +=  "<td>"+currentItems[i].Desc+"</td>\n";
 					html += "<td>"+currentItems[i].Quantity+"</td>\n";
 					html += "<td>$"+parseFloat(currentItems[i].Rate).toFixed(2)+"</td>\n";
 					html += "<td>$"+parseFloat(currentItems[i].Amount).toFixed(2)+"</td>\n";
 					html +=  "</tr>\n";
-					totalQuantity += currentItems[i].Quantity;
-					totalAmount += currentItems[i].Amount;
+					totalQuantity += currentItems[i].Quantity*1;
+					totalAmount += currentItems[i].Amount*1;
 				}
 				$("#tableBodyItems").html(html);
 				
 				html = "<tr><td>Totals</td>";
-                html += "<td><div align='right'>" + parseFloat(totalQuantity).toFixed(2) + "</div></td>";      
+                html += "<td><div align='right'>$" + parseFloat(totalQuantity).toFixed(2) + "</div></td>";      
                 html += "<td><div align='right'></div></td>";      
-                html += "<td><div align='right'>" + parseFloat(totalAmount).toFixed(2) + "</div></td>";      
+                html += "<td><div align='right'>$" + parseFloat(totalAmount).toFixed(2) + "</div></td>";      
                 html += "</tr>";
 				
 				$("#tableFoot").html(html);
@@ -215,7 +226,7 @@ table, th, td {
 
         <!--    <a href="#" data-role="button" data-icon="plus" data-iconpos="left"><div align="left">Add Item</div></a> -->
 <!-- BEGIN ADD ITEM -->
-            <div data-role="collapsible">
+            <div data-role="collapsible" id="addItem">
                 <h4>Add Item</h4>
                 <p>Add items to the invoice one by one.</p>
 				<div data-role="fieldcontain">					
@@ -261,8 +272,8 @@ table, th, td {
                 </div>
     
                 <fieldset class="ui-grid-a">
-                    <div class="ui-block-a"><button type="button" id="submit" data-theme="c">Cancel</button></div>
-                    <div class="ui-block-b"><button type="button" id="cancel" data-theme="b" onClick="addItem()">Add</button></div>	   
+                    <div class="ui-block-a"><button type="button" id="cancel" data-theme="c" onClick=="clearItem()">Cancel</button></div>
+                    <div class="ui-block-b"><button type="button" id="add" data-theme="b" onClick="addItem()">Add</button></div>	   
                 </fieldset> 
             </div>
 <!-- END   ADD ITEM -->
@@ -285,13 +296,6 @@ table, th, td {
                   <tbody id="tableBodyItems">
                   </tbody>
                 </table> 
-<!-- scrolling of the table body -->
-                <div class="ui-block-a" style="height:100%">
-                  <label>Subtotal:</label>
-                </div>
-                <div class="ui-block-b" style="height:100%" align="right">
-                  <label>$0.00</label>
-                </div>
             </div>
 
              <div class="ui-grid-a" style="height:95px">
