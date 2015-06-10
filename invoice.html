@@ -80,11 +80,10 @@
 				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customprice);
 				console.log("selProductChange salesPrice=" + listItems[productSelectedIndex].salesPrice);
 				if (listItems[productSelectedIndex].customprice){
-					$("#RatePrice").val(listItems[productSelectedIndex].customprice);
+					$("#RatePrice").val(listItems[productSelectedIndex].customprice).textinput("refresh");
 				}else{
-					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
+					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice).textinput("refresh");
 				}
-				$('#RatePrice').textinput("refresh");
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
 			}
