@@ -77,9 +77,12 @@
 			function selCustomerChange(event, ui){
 				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
 				customerSelectedIndex = $( "#selCustomer" )[0].selectedIndex;
+				console.log("selCustomerChange custseleccionado=" + JSON.stringify(listCustomer[customerSelectedIndex]));
 				inventoryDAO.listByCustomer($( "#selCustomer" ).val(),receiveItems,errReceive);
-				$("#selTerm").val(listCustomers[custemerSelectedIndex].id_term);
-				$("#selTerm").selectmenu("refresh");
+				$("#selTerm").val(listCustomers[custemerSelectedIndex].id_term).selectmenu("refresh");
+				console.log("listCustomers[custemerSelectedIndex].id_term=" + listCustomers[custemerSelectedIndex].id_term);
+				console.log("$('#selTerm').val()" + $('#selTerm').val());
+				console.log("$('#selTerm')[0].selectedIndex" + $('#selTerm')[0].selectedIndex);
 			}
 		
 			var listItems = new Array();	
