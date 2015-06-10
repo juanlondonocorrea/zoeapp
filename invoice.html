@@ -203,6 +203,9 @@
                 html += "</tr>";
 				
 				$("#tableFoot").html(html);
+				
+				calcInvoice();
+				
 				$(".rmItem").click(function(e) {
 					var index =  event.currentTarget.id;
 					logZoe("rm index: "+index)
@@ -210,6 +213,12 @@
                     removeItem(index);
                 }); 
 
+			}
+			
+			var total;
+			function calcInvoice(){
+				total = totalAmount + (totalAmount*tax);
+				$("#total").html("<strong>$" + totalAmount.toFixed(2) + "</strong>"); 
 			}
 			
 			function removeItem(index){
@@ -240,8 +249,10 @@
 				$("#Due").val(strDue);
 			}
 
+			var tax=0;
 			function selTaxChange(event){
 				taxSelectedIndex = $("#selTax")[0].selectedIndex-1;
+				calcInvoice();
 			}
 
   </script>
@@ -284,7 +295,7 @@ table, th, td {
                   <div>
                   <label for="Date">Date:</label>
                   </div>
-                  <input type="date" name="Date" id="Date" value=""  />
+                  <input type="date" name="Date" id="Date" value="" readonly="true" />
                 </div>
               </div>
             <div class="ui-block-b" style="height:100%">
@@ -292,7 +303,7 @@ table, th, td {
                 <div>
                 <label for="Due">Due:</label>
                 </div>
-                <input type="date" name="Due" id="Due" value=""  />
+                <input type="date" name="Due" id="Due" value="" readonly="true" />
               </div>
 			</div>
            </div>
@@ -397,7 +408,7 @@ table, th, td {
                 </div>
                 <div class="ui-block-b" style="height:100%" align="right">
                     <br><br><br>
-                    <label id="taxValue">$0.00</label>
+                    <label id="tax">$0.00</label>
                 </div>
              </div>
             <div class="ui-grid-a" style="height:65px">                
@@ -407,7 +418,7 @@ table, th, td {
                 </div>
                 <div class="ui-block-b" style="height: 100%; font-size: 2em;" align="right">
                   <br>
-                  <label><strong>$0.00</strong></label>
+                  <label id="total"><strong>$0.00</strong></label>
                 </div>
             </div>
             <div class="ui-grid-a" style="height:45px">                
