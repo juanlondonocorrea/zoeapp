@@ -84,14 +84,14 @@
 				}else{
 					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
 				}
-				$('#RatePrice').trigger("chosen:updated");
+				$('#RatePrice').val().textinput("refresh");
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
 			}
 			
 			function calcItem(event){
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
-				$('#Amount').val(amount);
+				$('#Amount').val(amount).textinput("refresh");
 				$('#Amount').trigger("chosen:updated");
 			}
 
