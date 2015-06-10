@@ -84,6 +84,7 @@
 				}else{
 					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice.replace(",","."));
 				}
+				$("#RatePrice").trigger("change");
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
 			}
@@ -91,6 +92,7 @@
 			function calcItem(event){
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
 				$('#Amount').val(amount);
+				$("#Amount").trigger("change");
 				console.log("Amount=" + $("#Amount").val());
 			}
 
