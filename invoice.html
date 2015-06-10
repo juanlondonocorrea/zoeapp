@@ -119,16 +119,17 @@
 			
 			function renderItems(){
 				$("#tableBodyItems").html("");
+				var html="";
 				for (var i in currentItems){
 					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
-					$("#tableBodyItems").append($("<tr>\n")
-					 .append("<td>"+currentItems[i].Desc+"</th>\n")
-					 .append("<td>"+currentItems[i].Quantity+"</td>\n")
-					 .append("<td>$"+currentItems[i].Rate+"</td>\n")
-					 .append("<td>$"+currentItems[i].Amount+"</td>\n")
-					 .append("</tr>"));
+					html += "<tr>\n";
+					html +=  "<td>"+currentItems[i].Desc+"</th>\n";
+					html += "<td>"+currentItems[i].Quantity+"</td>\n";
+					html += "<td>$"+currentItems[i].Rate+"</td>\n";
+					html += "<td>$"+currentItems[i].Amount+"</td>\n";
+					html +=  "</tr>\n";
 				}
-				$("#tableItems").table("refresh");
+				$("#tableBodyItems").html(html);
 				console.log("renderItems este es el html=" + $("#tableBodyItems").html());
 			}
 
