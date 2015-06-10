@@ -101,11 +101,11 @@
 			var currentItems= new Array();
 			function addItem(){
 				console.log("addItem listCustomers[customerSelectedIndex]=" + JSON.stringify(listCustomers[customerSelectedIndex]));
-				console.log("addItem listItems[productSelectedIndex+1]=" + JSON.stringify(listItems[productSelectedIndex+1]));
+				console.log("addItem listItems[productSelectedIndex-1]=" + JSON.stringify(listItems[productSelectedIndex-1]));
 				var aItem = {"lineID":generateKey(), 
 					"id_invoice": listCustomers[customerSelectedIndex].id_invoice,
-					"inventory_ListID": listItems[productSelectedIndex+1].ListID,
-					"Desc": listItems[productSelectedIndex+1].salesDesc,
+					"inventory_ListID": listItems[productSelectedIndex-1].ListID,
+					"Desc": listItems[productSelectedIndex-1].salesDesc,
 					"Quantity": $("#Quantity").val(),
 					"Rate": $("#RatePrice").val(),
 					"Amount": $("#Amount").val()
@@ -115,7 +115,18 @@
 				currentItems[currentItems.length] = aItem;
 				renderItems();
 				return false;
-					
+			}
+			
+			function renderItems(){
+				$("#tableBodyItems tbody").html("");
+				for (var i in currentItems){
+					$("#tableBodyItems tbody").append($("<tr>\n")
+					 .append("<td>"+currentItems[i].Desc+"</th>\n")
+					 .append("<td>"+currentItems[i].Quantity+"</td>\n")
+					 .append("<td>$"+currentItems[i].Rate+"</td>\n")
+					 .append("<td>$"+currentItems[i].Amount+"</td>\n")
+					 .append("</tr>"));
+				}
 			}
 
 
@@ -257,14 +268,7 @@ table, th, td {
                       <td><div align="right"></div></td>      
                     </tr>
                   </tfoot>
-                  <tbody>
-                    <tr>
-                      <td>Rice</td>
-                      <td><div align="right">100.00</div></td>
-                      <td><div align="right">50.20</div></td>
-                      <td><div align="right">5020.00</div></td>
-                      <td>Class 1</td>                  
-                    </tr>
+                  <tbody id="tableBodyItems">
                   </tbody>
                 </table> 
             </div>
