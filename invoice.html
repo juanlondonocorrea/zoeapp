@@ -72,6 +72,16 @@
 				}
 			}
 			
+			var productSelectedIndex;
+			function selProductChange(event, ui){
+				productSelectedIndex = $( "#selProduct" )[0].selectedIndex;
+				console.log("selProductChange val=" + $( "#selProduct" ).val());
+				if (listItems[productSelectedIndex].customPrice){
+					$("#RatePrice").val(listItems[productSelectedIndex].customPrice);
+				}else{
+					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
+				}
+			}
 
 
   </script>
@@ -151,7 +161,7 @@ table, th, td {
                     <div>
 						<label for="selProduct" class="select">Select a Product:</label>
 					</div>
-					<select name="selProduct" id="selProduct">
+					<select name="selProduct" id="selProduct" onChange="selProductChange">
 						<option value="option1"></option>
 					</select>            	
 				</div>
@@ -174,7 +184,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" name="RatePrice" id="RatePrice" align="right">
+                    <input type="number" name="RatePrice" id="RatePrice" align="right" readonly="true">
                   </div>
                 </div>
                 
