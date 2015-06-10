@@ -16,6 +16,7 @@
   <script src="js/zoe/inventoryDAO.js"></script>
   <script src="js/zoe/customerDAO.js"></script>
   <script src="js/zoe/termDAO.js"></script>
+  <script src="js/zoe/taxDAO.js"></script>
   <script>
 			$(document).bind("pagebeforecreate", function(event) {
 				console.log("Cargar Clientes");
@@ -30,6 +31,7 @@
 			function initThisPage(event){
 				customerDAO.list(receiveCustomers,errReceive);
 				termDAO.list(receiveTerms,errReceive);
+				taxDAO.list(receiveTaxes,errReceive);
 				salesRepDAO.getByName(window.localStorage.getItem("salesRepName"),receiveSalesrep,errReceive);
 				
 			}
@@ -41,12 +43,12 @@
 				
 				$('#PONumber').val( salesrepVO.initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
+
 				var now = new Date();
-				
 				var day = ("0" + now.getDate()).slice(-2);
 				var month = ("0" + (now.getMonth() + 1)).slice(-2);
-				
 				var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
 				$("#Date").val(today);
 				console.log("currDate=" + today);
 
@@ -57,15 +59,20 @@
 				listCustomers = list;
 				console.log("receiveCustomers length="+list.length); 
 				$('#selCustomer').empty();
+				$('#selCustomer').append('<option value="choose-one" data-placeholder="true">Choose one...</option>');
 				for (var i in list) {
 					$('#selCustomer').append('<option value="' + list[i].ListID +'">'+list[i].FullName+'</option>');
 				}
 				$('#selCustomer').trigger("chosen:updated");
 			}
-
+			
+			var listTerms;
+			var termSelectedIndex;
 			function receiveTerms(list){
+				listTerms = list;
 				console.log("receiveTerms length="+list.length); 
 				$('#selTerm').empty();
+				$('#selTerm').append('<option value="choose-one" data-placeholder="true">Choose one...</option>');
 				for (var i in list) {
 					console.log("term =" + JSON.stringify(list[i]));
 					$('#selTerm').append('<option value="' + list[i].id_term +'">'+list[i].name+'</option>');
@@ -73,6 +80,20 @@
 				$('#selTerm').trigger("chosen:updated");
 			}
 			
+			var listTaxes;
+			var taxSelectedIndex;
+			function receiveTaxes(list){
+				listTaxes = list;
+				console.log("receiveTaxes length="+list.length); 
+				$('#selTax').empty();
+				$('#selTax').append('<option value="choose-one" data-placeholder="true">Choose one...</option>');				
+				for (var i in list) {
+										console.log("tax =" + JSON.stringify(list[i]));
+					$('#selTax').append('<option value="' + list[i].ListID +'">'+list[i].Name+'</option>');
+				}
+				$('#selTax').trigger("chosen:updated");
+			}
+
 			var customerSelectedIndex;
 			function selCustomerChange(event, ui){
 				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
@@ -193,7 +214,26 @@
 				currentItems.splice(index,1);
 				renderItems();
 			}
+			
+			function selTermChange(event){
+				termSelectedIndex = $("#selTerm")[0].selectedIndex;
+				var due = new Date($("#Due").val());
 
+				console.log("selTermChange listTerms[termSelectedIndex]=" + listTerms[termSelectedIndex]);
+				console.log("selTermChange due=" + due);
+				due.setDate(due+listTerms[termSelectedIndex].stdDueDays);
+				var day = ("0" + due.getDate()).slice(-2);
+				var month = ("0" + (due.getMonth() + 1)).slice(-2);
+				var strDue = due.getFullYear()+"-"+(month)+"-"+(day) ;
+				
+				console.log("strDue=" + strDue);
+				
+				$("#Due").val(strDue);
+			}
+
+			function selTaxChange(event){
+				taxSelectedIndex = $("#selTax")[0].selectedIndex;
+			}
 
   </script>
 <style type="text/css">
@@ -226,7 +266,7 @@ table, th, td {
               <div>
               <label for="selTerm" class="select">Select a Term:</label>
               </div>
-              <select name="selTerm" id="selTerm">
+              <select name="selTerm" id="selTerm" onChange="selTermChange()">
               </select>
             </div>
             <div class="ui-grid-a" style="height:95px">
@@ -340,22 +380,15 @@ table, th, td {
                 <div class="ui-block-a" style="height:100%">           
                 <div data-role="fieldcontain">
                   <div>
-                  <label for="selAddSalesTax" class="select">Add Sales Tax:</label>
+                  <label for="selTax" class="select">Sales Tax:</label>
                   </div>
-                  <select name="selAddSalesTax" id="selAddSalesTax">
-                    <option value="option1">All export (0%)</option>
-                    <option value="option2">Livestock Rate (4.8%)</option>
-                    <option value="option3">Flat-rate compensation percentage for Farmers (5.2%)</option>
-                    <option value="option4">Second Reduced Rate (9%)</option>
-                    <option value="option5">Reduced Rate (13.5%)</option>                    
-                    <option value="option6">Standard Rate (23%)</option>                    
+                  <select name="selTax" id="selTax" onChange="selTaxChange()">
                   </select>
                 </div>
                 </div>
                 <div class="ui-block-b" style="height:100%" align="right">
                     <br><br><br>
-                    <label >
-                    $0.00</label>
+                    <label id="taxValue">$0.00</label>
                 </div>
              </div>
             <div class="ui-grid-a" style="height:65px">                
