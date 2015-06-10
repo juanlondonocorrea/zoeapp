@@ -328,10 +328,11 @@
 				var AddressMap = MapAddress+Address
 				logZoe("MapAddress:======> "+MapAddress);
 				logZoe("Address:======> "+Address);
-				logZoe("AddressMap:======> "+$('AddressMap').val());
+				logZoe("AddressMap:======> "+AddressMap;
 				//$('#AddressMap').val(MapAddress+Address);
 				// http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322
-				
+				$('#AddressMap').prop("href", AddressMap)
+				logZoe("AddressMap:======> "+$('#AddressMap').val();
 			}
 			
 		</script>
@@ -391,30 +392,6 @@
 			#overdueBal {color:Crimson; font-weight:bolder; font-size:medium;}
 			#OberdueBy {color:white; font-weight:bolder; background-color:Crimson; font-size:medium;}
 			#AddedMonthsAgo {color:grey; font-size:medium;}
-			
-			a.tooltip::before {
-				content: attr(data-tip) ;   
-				 
-				font-size: 10px;
-				position:absolute;
-				z-index: 999;
-				white-space:nowrap;
-				bottom:9999px;
-				left: 50%;
-				background:#000;
-				color:#e0e0e0;
-				padding:0px 7px;
-				line-height: 24px;
-				height: 24px;
-				 
-				opacity: 0;  
-				transition:opacity 0.4s ease-out; 
-				}
-				 
-			a.tooltip:hover::before {
-				opacity: 1;
-				bottom:-35px;
-				}			
 		</style> 
 	</head>
 
@@ -461,7 +438,7 @@
                                     </div>
                                     <div class="ui-block-c">
                                         <address>
-											<a id="AddressMap" href="" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location tooltip " data-tip="this is the tip!" onClick="ShowDir();"></a>
+											<a id="AddressMap" href="" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location" onClick="ShowDir();"></a>
                                         </address>
                                     </div>
                                 </div><!-- /grid-b -->
