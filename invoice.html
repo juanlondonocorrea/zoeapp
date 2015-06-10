@@ -90,8 +90,7 @@
 			
 			function calcItem(event){
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
-				$('#Amount').val(amount).textinput("refresh");
-				$('#Amount').trigger("chosen:updated");
+				$('#Amount').val(amount);
 				console.log("Amount=" + $("#Amount").val());
 			}
 
@@ -196,7 +195,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" name="RatePrice" id="RatePrice" align="right" readonly="true">
+                    <input type="number" name="RatePrice" id="RatePrice" align="right" >
                   </div>
                 </div>
                 
@@ -207,7 +206,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" name="Amount" id="Amount" align="right" readonly="true">
+                    <input type="number" name="Amount" id="Amount" align="right">
                   </div>
                 </div>
     
