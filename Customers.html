@@ -159,8 +159,12 @@
 			 console.log("aFecha2: "+aFecha2);			  
 			 var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
 			 var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]);
-			 console.log("aFecha1[2]: "+aFecha1[2]+" aFecha1[1]-1: "+aFecha1[1]-1+" aFecha1[0]: "+aFecha1[0]);
-			 console.log("aFecha2[2]: "+aFecha2[2]+" aFecha2[1]-1: "+aFecha2[1]-1+" aFecha2[0]: "+aFecha2[0]);
+			 
+			 console.log("aFecha1[2]: "+aFecha1[2]+" aFecha1[1]-1: "+(aFecha1[1]-1)+" aFecha1[0]: "+aFecha1[0]);
+			 console.log("aFecha2[2]: "+aFecha2[2]+" aFecha2[1]-1: "+(aFecha2[1]-1)+" aFecha2[0]: "+aFecha2[0]);
+			 console.log("fFecha2: "+fFecha1);
+			 console.log("fFecha2: "+fFecha2);
+			 
 			 var dif = fFecha2 - fFecha1;
 			 console.log("dif: "+dif);
 			 var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
