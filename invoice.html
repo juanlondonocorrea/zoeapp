@@ -77,13 +77,14 @@
 				console.log("selProductChange val=" + $( "#selProduct" ).val());
 				productSelectedIndex = $( "#selProduct" )[0].selectedIndex;
 				console.log("selProductChange productSelectedIndex=" + productSelectedIndex);
-				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customPrice);
+				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customprice);
 				console.log("selProductChange salesPrice=" + listItems[productSelectedIndex].salesPrice);
-				if (listItems[productSelectedIndex].customPrice){
-					$("#RatePrice").val(listItems[productSelectedIndex].customPrice);
+				if (listItems[productSelectedIndex].customprice){
+					$("#RatePrice").val(listItems[productSelectedIndex].customprice);
 				}else{
 					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
 				}
+				console.log("RatePrice=" + $("#RatePrice").val());
 			}
 
 
