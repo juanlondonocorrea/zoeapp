@@ -237,7 +237,7 @@
 					var hoy=Date.now(); // Fecha actual en milisegundos
 					var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy);
 					var monsthsAgo = dueDays/30;
-					monsthsAgo = addResult(monsthsAgo.toFixed(2));
+					monsthsAgo = monsthsAgo.toFixed(2);
 					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a href="#">Predet.</a></li>';
 					
 					
