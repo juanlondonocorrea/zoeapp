@@ -107,8 +107,8 @@
 					"inventory_ListID": listItems[productSelectedIndex-1].ListID,
 					"Desc": listItems[productSelectedIndex-1].salesDesc,
 					"Quantity": $("#Quantity").val(),
-					"Rate": $("#RatePrice").val(),
-					"Amount": $("#Amount").val()
+					"Rate": parseFloat($("#RatePrice").val()).toFixed(2),
+					"Amount": parseFloat($("#Amount").val()).toFixed(2)
 				}
 				
 				console.log("addItem aItem=" + JSON.stringify(aItem)) 
@@ -136,9 +136,9 @@
 				$("#tableBodyItems").html(html);
 				
 				html = "<tr><td>Totals</td>";
-                html += "<td><div align='right'>" + totalQuantity.toFixed(2) + "</div></td>";      
+                html += "<td><div align='right'>" + parseFloat(totalQuantity).toFixed(2) + "</div></td>";      
                 html += "<td><div align='right'></div></td>";      
-                html += "<td><div align='right'>" + totalAmount.toFixed(2) + "</div></td>";      
+                html += "<td><div align='right'>" + parseFloat(totalAmount).toFixed(2) + "</div></td>";      
                 html += "</tr>";
 				
 				$("#tableFoot").html(html);
