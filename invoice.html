@@ -93,7 +93,7 @@
 			
 			function calcItem(event){
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
-				$('#Amount').val(amount);
+				$('#Amount').val(parseFlota(amount).toFixed(2));
 	//			$("#Amount").trigger("change");
 				console.log("Amount=" + $("#Amount").val());
 			}
