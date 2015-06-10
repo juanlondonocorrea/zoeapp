@@ -43,8 +43,8 @@
 				$('#selCustomer').empty();
 				for (var i in list) {
 					$('#selCustomer').append('<option value="' + list[i].ListID +'">'+list[i].FullName+'</option>');
-					$('#selCustomer').trigger("chosen:updated");
 				}
+				$('#selCustomer').trigger("chosen:updated");
 			}
 
 			function receiveTerms(list){
@@ -52,8 +52,8 @@
 				$('#selTerm').empty();
 				for (var i in list) {
 					$('#selTerm').append('<option value="' + list[i].id_term +'">'+list[i].name+'</option>');
-					$('#selTerm').trigger("chosen:updated");
 				}
+				$('#selTerm').trigger("chosen:updated");
 			}
 			
 			function selCustomerChange(event, ui){
@@ -68,8 +68,8 @@
 				$('#selTerm').empty();
 				for (var i in list) {
 					$('#selProduct').append('<option value="' + list[i].ListID +'">'+list[i].salesDesc+'</option>');
-					$('#selProduct').trigger("chosen:updated");
 				}
+				$('#selProduct').trigger("chosen:updated");
 			}
 			
 			var productSelectedIndex;
@@ -84,7 +84,15 @@
 				}else{
 					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
 				}
+				$('#RatePrice').trigger("chosen:updated");
+				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
+			}
+			
+			function calcItem(event){
+				var amount =  $('#RatePrice').val() * $('#Quantity').val();
+				$('#Amount').val(amount);
+				$('#Amount').trigger("chosen:updated");
 			}
 
 
@@ -177,7 +185,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%" align="right">
-                    <input type="number" name="Quantity" id="Quantity" align="right" onChange="calcItem">
+                    <input type="number" name="Quantity" id="Quantity" align="right" onChange="calcItem(event)">
                   </div>
                 </div>
                 
