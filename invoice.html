@@ -32,6 +32,7 @@
 				termDAO.list(receiveTerms,errReceive);
 				
 				$('#PONumber').val(generateKey());
+				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
 				
 				
 			}
@@ -48,9 +49,10 @@
 			}
 
 			function receiveTerms(list){
-				console.log("receiveCustomers length="+list.length); 
+				console.log("receiveTerms length="+list.length); 
 				$('#selTerm').empty();
 				for (var i in list) {
+					console.log("term =" + JSON.stringify(list[i]));
 					$('#selTerm').append('<option value="' + list[i].id_term +'">'+list[i].name+'</option>');
 				}
 				$('#selTerm').trigger("chosen:updated");
@@ -236,7 +238,7 @@ table, th, td {
               <div>
               <label for="SalesRep">Sales Rep:</label>
               </div>
-              <input type="text" name="SalesRep" id="SalesRep" value=""  />              
+              <input type="text" name="SalesRep" id="SalesRep" readonly="true"  />              
             </div>
 
 
