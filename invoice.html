@@ -86,6 +86,9 @@
 				}else{
 					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice.replace(",","."));
 				}
+				if ($("#Quantity").val() == ""){
+					$("#Quantity").val("1");
+				}
 //				$("#RatePrice").trigger("change");
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
@@ -136,6 +139,7 @@
 				for (var i in currentItems){
 					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
 					html += "<tr>\n";
+					html +=  "<th><a class='rmItem' id='"+ i+  "'  data-role='button' data-icon='delete' data-iconpos='notext'></td>\n";
 					html +=  "<td>"+currentItems[i].Desc+"</td>\n";
 					html += "<td>"+currentItems[i].Quantity+"</td>\n";
 					html += "<td>$"+parseFloat(currentItems[i].Rate).toFixed(2)+"</td>\n";
@@ -153,6 +157,18 @@
                 html += "</tr>";
 				
 				$("#tableFoot").html(html);
+				$(".rmItem").click(function(e) {
+					var index =  event.currentTarget.id;
+					logZoe("rm index: "+index)
+					index = index.substring(index.indexOf("_")+1);
+                    removeItem(index);
+                }); 
+
+			}
+			
+			function removeItem(index){
+				currentItems.splice(index,1);
+				renderItems();
 			}
 
 
