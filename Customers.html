@@ -262,6 +262,7 @@
 			}			
 			
 			var Address='';
+			var MapAddress='';
 			function renderDetail(index){
 				logZoe("renderDetail index=" + index);
 				logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
@@ -314,18 +315,23 @@
 				$('#routeDay6').val(listCustomers[index].routeDay6);
 				$('#routeDay7').val(listCustomers[index].routeDay7);
 				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
-				
-				var MapAddress = 'http://maps.google.com/maps?q=';
+
 				Address = listCustomers[index].billAddress2+', '+listCustomers[index].billAddresCity+', '+listCustomers[index].billAddressState;
-				$('#AddressMap').val(MapAddress+Address);
-				console.log("MapAddress: "+MapAddress);
-				console.log("Address: "+Address);
-				console.log("AddressMap: "+$('#AddressMap').val());
-				// http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322
-				
+
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
 				invoiceDAO.listByCustomer(listCustomers[index].ListID,receiveInvoices, errListInvoicesByCustomer);
+			}
+			
+			function ShowDir(){
+				MapAddress = 'http://maps.google.com/maps?q=';
+				var AddressMap = MapAddress+Address
+				logZoe("MapAddress:======> "+MapAddress);
+				logZoe("Address:======> "+Address);
+				logZoe("AddressMap:======> "+$('AddressMap').val());
+				//$('#AddressMap').val(MapAddress+Address);
+				// http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322
+				
 			}
 			
 		</script>
@@ -455,7 +461,7 @@
                                     </div>
                                     <div class="ui-block-c">
                                         <address>
-											<a id="AddressMap" href="" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location tooltip " data-tip="this is the tip!"></a>
+											<a id="AddressMap" href="" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location tooltip " data-tip="this is the tip!" onClick="ShowDir();"></a>
                                         </address>
                                     </div>
                                 </div><!-- /grid-b -->
