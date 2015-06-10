@@ -318,6 +318,9 @@
 				var MapAddress = 'http://maps.google.com/maps?q=';
 				Address = listCustomers[index].billAddress2+', '+listCustomers[index].billAddresCity+', '+listCustomers[index].billAddressState;
 				$('#AddressMap').val(MapAddress+Address);
+				console.log("MapAddress: "+MapAddress);
+				console.log("Address: "+Address);
+				console.log("AddressMap: "+$('#AddressMap').val());
 				// http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322
 				
 				termDAO.list(receiveTerms,errReceiveTerms);
