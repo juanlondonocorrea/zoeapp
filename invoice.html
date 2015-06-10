@@ -78,13 +78,15 @@
 				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
 				customerSelectedIndex = $( "#selCustomer" )[0].selectedIndex;
 				inventoryDAO.listByCustomer($( "#selCustomer" ).val(),receiveItems,errReceive);
+				$("#selTerm").val(listCustomers[custemerSelectedIndex].id_term);
+				$("#selTerm").selectmenu("refresh");
 			}
 		
 			var listItems = new Array();	
 			function receiveItems(list){
 				listItems = list;
 				console.log("receiveItems length="+list.length); 
-				$('#selTerm').empty();
+				$('#selProduct').empty();
 				for (var i in list) {
 					$('#selProduct').append('<option value="' + list[i].ListID +'">'+list[i].salesDesc+'</option>');
 				}
@@ -215,7 +217,6 @@ table, th, td {
               <label for="selCustomer" class="select">Select a Customer:</label>
               </div>
               <select name="selCustomer" id="selCustomer" onChange="selCustomerChange()">
-                <option value="option1"></option>
               </select>
             </div>
             <div data-role="fieldcontain">
@@ -223,7 +224,6 @@ table, th, td {
               <label for="selTerm" class="select">Select a Term:</label>
               </div>
               <select name="selTerm" id="selTerm">
-                <option value="option1"></option>
               </select>
             </div>
             <div class="ui-grid-a" style="height:95px">
