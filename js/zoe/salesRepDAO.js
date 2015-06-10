@@ -13,7 +13,7 @@ function getSalesRepByName(aName,aReceiveFunction,aErrFunc){
 	filterData=aName;
 	salesRepReceiveFunction = aReceiveFunction;
 	salesRepErrFunc = aErrFunc;
-	db.transaction(doSelectSalesRep, salesRepErrFunc, salesRepReceiveFunction);
+	db.transaction(doSelectSalesRep, salesRepErrFunc);
 }
 function storeSalesRep(record,aErrFunc,successCB){
 	db = openDatabaseZoe();
