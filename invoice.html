@@ -84,9 +84,9 @@
 				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customprice);
 				console.log("selProductChange salesPrice=" + listItems[productSelectedIndex].salesPrice);
 				if (listItems[productSelectedIndex].customprice){
-					$("#RatePrice").val(listItems[productSelectedIndex].customprice.replace(",","."));
+					$("#RatePrice").val((listItems[productSelectedIndex].customprice+"").replace(",","."));
 				}else{
-					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice.replace(",","."));
+					$("#RatePrice").val((listItems[productSelectedIndex].salesPrice+"").replace(",","."));
 				}
 				if ($("#Quantity").val() == ""){
 					$("#Quantity").val("1");
