@@ -56,8 +56,10 @@
 				$('#selTerm').trigger("chosen:updated");
 			}
 			
+			var customerSelectedIndex;
 			function selCustomerChange(event, ui){
 				console.log("selCustomerChange val=" + $( "#selCustomer" ).val());
+				customerSelectedIndex = $( "#selCustomer" )[0].selectedIndex;
 				inventoryDAO.listByCustomer($( "#selCustomer" ).val(),receiveItems,errReceive);
 			}
 		
@@ -84,7 +86,7 @@
 				}else{
 					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice.replace(",","."));
 				}
-				$("#RatePrice").trigger("change");
+//				$("#RatePrice").trigger("change");
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
 			}
@@ -92,8 +94,26 @@
 			function calcItem(event){
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
 				$('#Amount').val(amount);
-				$("#Amount").trigger("change");
+	//			$("#Amount").trigger("change");
 				console.log("Amount=" + $("#Amount").val());
+			}
+			
+			var currentItems= new Array();
+			function addItem(){
+				console.log("addItem listCustomer[customerSelectedIndex]=" + JSON.stringify(listCustomer[customerSelectedIndex]));
+				console.log("addItem listItems[productSelectedIndex]=" + JSON.stringify(listItems[productSelectedIndex]));
+				var aItem = {"lineID":generateKey(), 
+					"id_invoice": listCustomer[customerSelectedIndex].id_invoice,
+					"inventory_ListID": listItems[productSelectedIndex].ListID,
+					"Desc": listItems[productSelectedIndex].salesDesc,
+					"Quantity": $("#Quantity").val(),
+					"Rate": $("#RatePrice").val(),
+					"Amount": $("#Amount").val()
+				}
+				
+				console.log("addItem aItem=" + JSON.stringify(aItem)) 
+				currentItems[currentItems.length] = aItem;
+					
 			}
 
 
@@ -197,7 +217,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" step="0.01" name="RatePrice" id="RatePrice" align="right" >
+                    <input type="number" step="0.01" name="RatePrice" id="RatePrice" align="right" readonly="true">
                   </div>
                 </div>
                 
@@ -208,22 +228,10 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" step="0.01" name="Amount" id="Amount" align="right">
+                    <input type="number" step="0.01" name="Amount" id="Amount" align="right" readonly="true">
                   </div>
                 </div>
     
-                <div data-role="fieldcontain">			
-					<div>
-						<label for="selClass" class="select">Select a Class:</label>
-					</div>
-					<select name="selClass" id="selClass"> 
-						<option value="option1">Class 1</option>
-						<option value="option2">Class 2</option>
-						<option value="option3">Class 3</option>
-						<option value="option4">Class 4</option>
-						<option value="option5">Class 5</option>                        
-					</select>
-               </div>                
                 <fieldset class="ui-grid-a">
                     <div class="ui-block-a"><button type="submit" id="submit" data-theme="c">Cancel</button></div>
                     <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Add</button></div>	   
