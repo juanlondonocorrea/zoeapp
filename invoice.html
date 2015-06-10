@@ -148,6 +148,7 @@
 					totalQuantity += currentItems[i].Quantity*1;
 					totalAmount += currentItems[i].Amount*1;
 				}
+				console.log("html=" + html);
 				$("#tableBodyItems").html(html);
 				
 				html = "<tr><td></td><td>Totals</td>";
@@ -301,7 +302,7 @@ table, th, td {
                 <table class="ui-table" width="100%" border="0" cellspacing="" cellpadding="0" align="center" id="tableItems">
                   <thead class="ui-page-theme-a">
                     <tr>
-                      <th>Pos</th>
+                      <th>RM</th>
                       <th>Product</th>
                       <th>Qty</th>
                       <th>Price</th>
