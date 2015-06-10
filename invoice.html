@@ -139,7 +139,7 @@
 				for (var i in currentItems){
 					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
 					html += "<tr>\n";
-					html +=  "<th><a class='rmItem' id='"+ i+  "'  data-role='button' data-icon='delete' data-iconpos='notext'></td>\n";
+					html +=  "<th><a class='rmItem' id='"+ i+  "'  data-role='button' data-icon='delete' data-iconpos='notext'></a></th>\n";
 					html +=  "<td>"+currentItems[i].Desc+"</td>\n";
 					html += "<td>"+currentItems[i].Quantity+"</td>\n";
 					html += "<td>$"+parseFloat(currentItems[i].Rate).toFixed(2)+"</td>\n";
@@ -150,7 +150,7 @@
 				}
 				$("#tableBodyItems").html(html);
 				
-				html = "<tr><td>Totals</td>";
+				html = "<tr><td></td><td>Totals</td>";
                 html += "<td><div align='right'>$" + parseFloat(totalQuantity).toFixed(2) + "</div></td>";      
                 html += "<td><div align='right'></div></td>";      
                 html += "<td><div align='right'>$" + parseFloat(totalAmount).toFixed(2) + "</div></td>";      
@@ -301,6 +301,7 @@ table, th, td {
                 <table class="ui-table" width="100%" border="0" cellspacing="" cellpadding="0" align="center" id="tableItems">
                   <thead class="ui-page-theme-a">
                     <tr>
+                      <th>Pos</th>
                       <th>Product</th>
                       <th>Qty</th>
                       <th>Price</th>
