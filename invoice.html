@@ -127,8 +127,8 @@
 					html += "<tr>\n";
 					html +=  "<td>"+currentItems[i].Desc+"</th>\n";
 					html += "<td>"+currentItems[i].Quantity+"</td>\n";
-					html += "<td>$"+currentItems[i].Rate+"</td>\n";
-					html += "<td>$"+currentItems[i].Amount+"</td>\n";
+					html += "<td>$"+currentItems[i].Rate.toPrecision(2)+"</td>\n";
+					html += "<td>$"+currentItems[i].Amount.toPrecision(2)+"</td>\n";
 					html +=  "</tr>\n";
 					totalQuantity += currentItems[i].Quantity;
 					totalAmount += currentItems[i].Amount;
@@ -136,9 +136,9 @@
 				$("#tableBodyItems").html(html);
 				
 				html = "<tr><td>Totals</td>";
-                html += "<td><div align='right'>" + totalQuantity + "</div></td>";      
+                html += "<td><div align='right'>" + totalQuantity.toPrecision(2) + "</div></td>";      
                 html += "<td><div align='right'></div></td>";      
-                html += "<td><div align='right'>" + totalAmount + "</div></td>";      
+                html += "<td><div align='right'>" + totalAmount.toPrecision(2) + "</div></td>";      
                 html += "</tr>";
 				
 				$("#tableFoot").html(html);
