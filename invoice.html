@@ -118,9 +118,10 @@
 			}
 			
 			function renderItems(){
-				$("#tableBodyItems tbody").html("");
+				$("#tableBodyItems").html("");
 				for (var i in currentItems){
-					$("#tableBodyItems tbody").append($("<tr>\n")
+					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
+					$("#tableBodyItems").append($("<tr>\n")
 					 .append("<td>"+currentItems[i].Desc+"</th>\n")
 					 .append("<td>"+currentItems[i].Quantity+"</td>\n")
 					 .append("<td>$"+currentItems[i].Rate+"</td>\n")
@@ -128,6 +129,7 @@
 					 .append("</tr>"));
 				}
 				$("#tableItems").table("refresh");
+				console.log("renderItems este es el html=" + $("#tableBodyItems").html());
 			}
 
 
