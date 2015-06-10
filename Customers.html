@@ -236,7 +236,7 @@
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
 						var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy); // Date in format yyyy-mm--dd
 						var monsthsAgo = dueDays/30;
-						monsthsAgo = monsthsAgo.toFixed(1); // Calc months with 1 decimal
+						monsthsAgo = monsthsAgo.toFixed(1); // Calc months with 1 decimal number
 						htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a href="#">Predet.</a></li>';
 						logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
 					}
