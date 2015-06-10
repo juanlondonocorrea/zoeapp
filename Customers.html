@@ -151,27 +151,13 @@
 			// Función para calcular los días transcurridos entre dos fechas
 			restaFechas = function(f1,f2)
 			 {
-			 console.log("f1: "+f1);
-			 console.log("f2: "+f2);			  
-			 var aFecha1 = f1.split('-'); 
-			 var aFecha2 = f2.split('-');
-			 console.log("aFecha1: "+aFecha1);
-			 console.log("aFecha2: "+aFecha2);			  
-			// var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
-			// var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]);
-			 var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
-			 var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]);
-			 			 
-			 console.log("aFecha1[2]: "+aFecha1[2]+" aFecha1[1]-1: "+(aFecha1[1]-1)+" aFecha1[0]: "+aFecha1[0]);
-			 console.log("aFecha2[2]: "+aFecha2[2]+" aFecha2[1]-1: "+(aFecha2[1]-1)+" aFecha2[0]: "+aFecha2[0]);
-			 console.log("fFecha2: "+fFecha1);
-			 console.log("fFecha2: "+fFecha2);
-			 
-			 var dif = fFecha2 - fFecha1;
-			 console.log("dif: "+dif);
-			 var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-			 console.log("dias: "+dias);
-			 return dias;
+				 var aFecha1 = f1.split('-'); 
+				 //var aFecha2 = f2.split('-');
+				 var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
+				 var fFecha2 = f2; //Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]);
+				 var dif = fFecha2 - fFecha1;
+				 var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+				 return dias;
 			 }			
 
 			// Populate Customers list
@@ -247,9 +233,9 @@
 				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
 					//htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
-					var f1 = arrayListInvoicesByCust[i].dueDate;
-					var f2='2015-06-09';
-					var dueDays = restaFechas(f1,f2);
+					//var f2='2015-06-09';
+					var hoy=Date.now(); // Fecha actual en milisegundos
+					var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy);
 					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy"> '+f1+' Overdue by '+dueDays+' days</span><a href="#">Predet.</a></li>';
 					
 					
