@@ -79,8 +79,8 @@
 				customerSelectedIndex = $( "#selCustomer" )[0].selectedIndex;
 				console.log("selCustomerChange custseleccionado=" + JSON.stringify(listCustomers[customerSelectedIndex]));
 				inventoryDAO.listByCustomer($( "#selCustomer" ).val(),receiveItems,errReceive);
-				$("#selTerm").val(listCustomers[custemerSelectedIndex].id_term).selectmenu("refresh");
-				console.log("listCustomers[custemerSelectedIndex].id_term=" + listCustomers[custemerSelectedIndex].id_term);
+				$("#selTerm").val(listCustomers[customerSelectedIndex].id_term).selectmenu("refresh");
+				console.log("listCustomers[customerSelectedIndex].id_term=" + listCustomers[customerSelectedIndex].id_term);
 				console.log("$('#selTerm').val()" + $('#selTerm').val());
 				console.log("$('#selTerm')[0].selectedIndex" + $('#selTerm')[0].selectedIndex);
 			}
@@ -124,11 +124,11 @@
 			var currentItems= new Array();
 			function addItem(){
 				console.log("addItem listCustomers[customerSelectedIndex]=" + JSON.stringify(listCustomers[customerSelectedIndex]));
-				console.log("addItem listItems[productSelectedIndex-1]=" + JSON.stringify(listItems[productSelectedIndex-1]));
+				console.log("addItem listItems[productSelectedIndex]=" + JSON.stringify(listItems[productSelectedIndex]));
 				var aItem = {"lineID":generateKey(), 
 					"id_invoice": listCustomers[customerSelectedIndex].id_invoice,
-					"inventory_ListID": listItems[productSelectedIndex-1].ListID,
-					"Desc": listItems[productSelectedIndex-1].salesDesc,
+					"inventory_ListID": listItems[productSelectedIndex].ListID,
+					"Desc": listItems[productSelectedIndex].salesDesc,
 					"Quantity": $("#Quantity").val(),
 					"Rate": parseFloat($("#RatePrice").val()).toFixed(2),
 					"Amount": parseFloat($("#Amount").val()).toFixed(2),
