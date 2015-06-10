@@ -127,8 +127,8 @@
 					html += "<tr>\n";
 					html +=  "<td>"+currentItems[i].Desc+"</th>\n";
 					html += "<td>"+currentItems[i].Quantity+"</td>\n";
-					html += "<td>$"+currentItems[i].Rate.toFixed(2)+"</td>\n";
-					html += "<td>$"+currentItems[i].Amount.toFixed(2)+"</td>\n";
+					html += "<td>$"+parseFloat(currentItems[i].Rate).toFixed(2)+"</td>\n";
+					html += "<td>$"+parseFloat(currentItems[i].Amount).toFixed(2)+"</td>\n";
 					html +=  "</tr>\n";
 					totalQuantity += currentItems[i].Quantity;
 					totalAmount += currentItems[i].Amount;
