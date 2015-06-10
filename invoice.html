@@ -80,9 +80,9 @@
 				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customprice);
 				console.log("selProductChange salesPrice=" + listItems[productSelectedIndex].salesPrice);
 				if (listItems[productSelectedIndex].customprice){
-					$("#RatePrice").val(listItems[productSelectedIndex].customprice).textinput("refresh");
+					$("#RatePrice").val(listItems[productSelectedIndex].customprice);
 				}else{
-					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice).textinput("refresh");
+					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
 				}
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
@@ -92,6 +92,7 @@
 				var amount =  $('#RatePrice').val() * $('#Quantity').val();
 				$('#Amount').val(amount).textinput("refresh");
 				$('#Amount').trigger("chosen:updated");
+				console.log("Amount=" + $("#Amount").val());
 			}
 
 
