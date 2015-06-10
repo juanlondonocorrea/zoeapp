@@ -236,7 +236,7 @@
 					//var f2='2015-06-09';
 					var hoy=Date.now(); // Fecha actual en milisegundos
 					var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy);
-					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy"> '+f1+' Overdue by '+dueDays+' days</span><a href="#">Predet.</a></li>';
+					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><a href="#">Predet.</a></li>';
 					
 					
 					logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
