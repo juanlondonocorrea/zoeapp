@@ -80,9 +80,9 @@
 				console.log("selProductChange customPrice=" + listItems[productSelectedIndex].customprice);
 				console.log("selProductChange salesPrice=" + listItems[productSelectedIndex].salesPrice);
 				if (listItems[productSelectedIndex].customprice){
-					$("#RatePrice").val(listItems[productSelectedIndex].customprice);
+					$("#RatePrice").val(listItems[productSelectedIndex].customprice.replace(",","."));
 				}else{
-					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice);
+					$("#RatePrice").val(listItems[productSelectedIndex].salesPrice.replace(",","."));
 				}
 				calcItem(event);
 				console.log("RatePrice=" + $("#RatePrice").val());
@@ -195,7 +195,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" name="RatePrice" id="RatePrice" align="right" >
+                    <input type="number" step="0.01" name="RatePrice" id="RatePrice" align="right" >
                   </div>
                 </div>
                 
@@ -206,7 +206,7 @@ table, th, td {
                     </div>
                   </div>
                   <div class="ui-block-b" style="height:100%">
-                    <input type="number" name="Amount" id="Amount" align="right">
+                    <input type="number" step="0.01" name="Amount" id="Amount" align="right">
                   </div>
                 </div>
     
