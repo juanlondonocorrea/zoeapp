@@ -231,20 +231,16 @@
 			function receiveInvoices(arrayListInvoicesByCust){
 				// Build customers' invoices by Customer, list with <ul> <li>
 				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
+				var hoy=Date.now(); // Current date in milliseconds
+				
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
-					//htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayListInvoicesByCust[i].appliedAmount+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayListInvoicesByCust[i].balanceRemaining+'</span></a><a href="CustomersDetails.html">Predet.</a></li>';
-					//var f2='2015-06-09';
-					var hoy=Date.now(); // Fecha actual en milisegundos
-					var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy);
-					var monsthsAgo = dueDays/30;
-					monsthsAgo = monsthsAgo.toFixed(2);
-					htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a href="#">Predet.</a></li>';
-					
-					
-					logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
+						var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy); // Date in format yyyy-mm--dd
+						var monsthsAgo = dueDays/30;
+						monsthsAgo = monsthsAgo.toFixed(1); // Calc months with 1 decimal
+						htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a href="#">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a href="#">Predet.</a></li>';
+						logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
 					}
 					htmlString2 += '</ul>';
-					logZoe("htmlString2="+htmlString2);
 					$('#InvoiceList').html(htmlString2);
 					//$(".linkDetail").click(goDetail);				
 			}
