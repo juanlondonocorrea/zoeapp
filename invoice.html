@@ -41,10 +41,14 @@
 				
 				$('#PONumber').val( salesrepVO.initial + "-" +  generateKey());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
-				var currDate = new Date();
-				var currDate = (currDate.getYear()+1900) + "-" + (currDate.getMonth()+1) +  "-" + currDate.getDate();
-				$("#Date").val(currDate);
-				console.log("currDate=" + currDate);
+				var now = new Date();
+				
+				var day = ("0" + now.getDate()).slice(-2);
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				
+				var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+				$("#Date").val(today);
+				console.log("currDate=" + today);
 
 			}
 			
