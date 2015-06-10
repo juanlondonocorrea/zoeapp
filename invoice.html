@@ -120,6 +120,8 @@
 			function renderItems(){
 				$("#tableBodyItems").html("");
 				var html="";
+				var totalQuantity=0;
+				var totalAmount=0;
 				for (var i in currentItems){
 					console.log("renderItems currentItems[i]=" + JSON.stringify(currentItems[i]));
 					html += "<tr>\n";
@@ -128,9 +130,16 @@
 					html += "<td>$"+currentItems[i].Rate+"</td>\n";
 					html += "<td>$"+currentItems[i].Amount+"</td>\n";
 					html +=  "</tr>\n";
+					totalQuantity += currentItems[i].Quantity;
+					totalAmount += currentItems[i].Amount;
 				}
 				$("#tableBodyItems").html(html);
-				console.log("renderItems este es el html=" + $("#tableBodyItems").html());
+				html = "<tr><td>Totals</td>";
+                html += "<td><div align='right'>" + totalQuantity "</div></td>";      
+                html += "<td><div align='right'></div></td>";      
+                html += "<td><div align='right'>" + totalAmount "</div></td>";      
+                html += "</tr>";
+				$("#tableFoot").html(html);
 			}
 
 
@@ -257,20 +266,12 @@ table, th, td {
                   <thead class="ui-page-theme-a">
                     <tr>
                       <th>Product</th>
-                      <th>Quantity</th>
-                      <th>Price US$</th>
-                      <th>Amount US$</th>
-                      <th>Class</th>      
+                      <th>Qty</th>
+                      <th>Price</th>
+                      <th>Amount</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <td>Totals</td>
-                      <td><div align="right">180.00</div></td>
-                      <td <div align="right">100.00</div></td>
-                      <td><div align="right">1080.00</div></td>
-                      <td><div align="right"></div></td>      
-                    </tr>
+                  <tfoot id="tableFoot">
                   </tfoot>
                   <tbody id="tableBodyItems">
                   </tbody>
