@@ -127,6 +127,7 @@
 					 .append("<td>$"+currentItems[i].Amount+"</td>\n")
 					 .append("</tr>"));
 				}
+				$("#tableItems").table("refresh");
 			}
 
 
@@ -249,7 +250,7 @@ table, th, td {
                     <div class="ui-block-a"><button type="button" id="submit" data-theme="c">Cancel</button></div>
                     <div class="ui-block-b"><button type="button" id="cancel" data-theme="b" onClick="addItem()">Add</button></div>	   
                 </fieldset> 
-                <table class="ui-table" width="100%" border="0" cellspacing="" cellpadding="0" align="center">
+                <table class="ui-table" width="100%" border="0" cellspacing="" cellpadding="0" align="center" id="tableItems">
                   <thead class="ui-page-theme-a">
                     <tr>
                       <th>Product</th>
