@@ -261,6 +261,7 @@
 				//renderDetail(index);
 			}			
 			
+			var Address='';
 			function renderDetail(index){
 				logZoe("renderDetail index=" + index);
 				logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
@@ -313,6 +314,11 @@
 				$('#routeDay6').val(listCustomers[index].routeDay6);
 				$('#routeDay7').val(listCustomers[index].routeDay7);
 				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
+				
+				var MapAddress = 'http://maps.google.com/maps?q=';
+				Address = listCustomers[index].billAddress2+', '+listCustomers[index].billAddresCity+', '+listCustomers[index].billAddressState;
+				$('#AddressMap').val(MapAddress+Address);
+				// http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322
 				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
@@ -376,6 +382,30 @@
 			#overdueBal {color:Crimson; font-weight:bolder; font-size:medium;}
 			#OberdueBy {color:white; font-weight:bolder; background-color:Crimson; font-size:medium;}
 			#AddedMonthsAgo {color:grey; font-size:medium;}
+			
+			a.tooltip::before {
+				content: attr(data-tip) ;   
+				 
+				font-size: 10px;
+				position:absolute;
+				z-index: 999;
+				white-space:nowrap;
+				bottom:9999px;
+				left: 50%;
+				background:#000;
+				color:#e0e0e0;
+				padding:0px 7px;
+				line-height: 24px;
+				height: 24px;
+				 
+				opacity: 0;  
+				transition:opacity 0.4s ease-out; 
+				}
+				 
+			a.tooltip:hover::before {
+				opacity: 1;
+				bottom:-35px;
+				}			
 		</style> 
 	</head>
 
@@ -422,8 +452,8 @@
                                     </div>
                                     <div class="ui-block-c">
                                         <address>
-											<a href="http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location"></a>
-                                        </address>                                       
+											<a id="AddressMap" href="" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location tooltip " data-tip="this is the tip!"></a>
+                                        </address>
                                     </div>
                                 </div><!-- /grid-b -->
                             </div>
