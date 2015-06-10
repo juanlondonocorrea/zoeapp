@@ -101,11 +101,11 @@
 			var currentItems= new Array();
 			function addItem(){
 				console.log("addItem listCustomers[customerSelectedIndex]=" + JSON.stringify(listCustomers[customerSelectedIndex]));
-				console.log("addItem listItems[productSelectedIndex]=" + JSON.stringify(listItems[productSelectedIndex]));
+				console.log("addItem listItems[productSelectedIndex+1]=" + JSON.stringify(listItems[productSelectedIndex+1]));
 				var aItem = {"lineID":generateKey(), 
 					"id_invoice": listCustomers[customerSelectedIndex].id_invoice,
-					"inventory_ListID": listItems[productSelectedIndex].ListID,
-					"Desc": listItems[productSelectedIndex].salesDesc,
+					"inventory_ListID": listItems[productSelectedIndex+1].ListID,
+					"Desc": listItems[productSelectedIndex+1].salesDesc,
 					"Quantity": $("#Quantity").val(),
 					"Rate": $("#RatePrice").val(),
 					"Amount": $("#Amount").val()
@@ -113,6 +113,7 @@
 				
 				console.log("addItem aItem=" + JSON.stringify(aItem)) 
 				currentItems[currentItems.length] = aItem;
+				renderItems();
 				return false;
 					
 			}
