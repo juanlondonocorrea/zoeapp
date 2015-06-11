@@ -117,7 +117,7 @@ function openDatabaseZoe(){
 	}
 
 	function doNeedToSync(tx) {
-	var	sql = 'select sum(cnt) as needCount FROM(Select count(*) as cnt FROM invoice WHERE needToSync=1 UNION Select count(*) as cnt FROM customer WHERE needToSync=1)';
+	var	sql = 'select sum(cnt) as needCount FROM(Select count(*) as cnt FROM invoice WHERE needSync=1 UNION Select count(*) as cnt FROM customer WHERE needSync=1)';
 		tx.executeSql(sql,[],receiveCheckNeedToSync,errorHandler);
 	}
 
