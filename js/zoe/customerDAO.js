@@ -7,7 +7,7 @@ var customerReceiveListFunction;
 var customerErrFunc;
 var customerVO;
 var recordCustomer;
-var originCustomer;
+var customerOrigin;
 //----------------------
 //metodos hacia afuera
 //----------------------
@@ -32,9 +32,9 @@ function storeCustomer(records,aErrFunc,successCB,origin){
 	db = openDatabaseZoe();
 	logZoe("storeCustomer db=" + db);
 	recordCustomer = records;
-	originCustomer = origin;
+	customerOrigin = origin;
 	customerErrFunc = aErrFunc;
-	db.transaction(doStoreCustomer, errorCB, successCB, origin);
+	db.transaction(doStoreCustomer, errorCB, successCB);
 }
 
 function deleteAllCustomer(aErrFunc,successCB){

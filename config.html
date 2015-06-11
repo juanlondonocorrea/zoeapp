@@ -198,7 +198,7 @@ function syncAll(form){
 			cellPhone:customers[i].AltPhone,
 			email:customers[i].Email,
 			Fax:customers[i].Fax,
-			id_salesrep:customers[i].SalesRepRef.ListID,
+			id_salesrep:customers[i].SalesRepRef?customers[i].SalesRepRef.ListID:null,
 			routeDay1:routeDay.indexOf("SUN")>-1?1:0,
 			routeDay2:routeDay.indexOf("MON")>-1?1:0,
 			routeDay3:routeDay.indexOf("TUE")>-1?1:0,

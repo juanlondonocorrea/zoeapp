@@ -102,5 +102,5 @@ function doStoreOneTax(tx, rec){
 }
 
 function doDeleteAllTaxes(tx){
-	tx.executeSql('DELETE FROM tax',[]);
+	tx.executeSql('DELETE FROM salesTax',[]);
 }
