@@ -404,17 +404,18 @@
 			}
 
 			function successCustomerUpdate(){
-				if (synchronizingAll){
-					syncInventoryItems();
-				}else{
-					alert("Success customer update");
-				}
+					customerDAO.markToSync($('#ListID').val(), errCustomermarkToSync);
+					alert("Customer was successful updated");
 			}
 			
 			function errCustomerUpdate(err){
 				alert("DB Error on update customers: "+JSON.stringify(err));
 			}
-					
+			
+			function errCustomermarkToSync(err){
+				alert("DB Error on mark to Sync update customers: "+JSON.stringify(err));
+			}
+	
 		</script>
 		<style type="text/css">
 			thead {color:black;}
