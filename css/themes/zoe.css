@@ -908,4 +908,16 @@ button[disabled],
 	outline-width: 1px;
 	outline-style: auto;
 }
+
+.ui-icon-sync:after {
+    background-image: url("images/sync.png") !important;
+    /* Make your icon fit */
+    background-size: 18px 18px;
+}
+
+.ui-icon-nosync:after {
+    background-image: url("images/nosync.png") !important;
+    /* Make your icon fit */
+    background-size: 18px 18px;
+}
 						

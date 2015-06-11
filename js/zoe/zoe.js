@@ -2,7 +2,7 @@
 	function initAnyPage(target){
 			logZoe("en initAnyPage");
 			$('.app-header').load("header.html", function() {
-				$("#zoeTitle").html("<font size=2>ZOE</font><font size=1> " +  extractTitleFromTarget(target) + "</font>");
+				$("#zoeTitle").html("<font size=2>ZOE</font><font size=1> " +  extractTitleFromTarget(target) + "</font><span id=''>");
 				$(this).trigger('create');
 		});
 			$('.app-footer').load("footer.html", function() {
@@ -14,11 +14,12 @@
 
 			
 
-
 		  var toPage = target.id;
 		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
 			//checkSession();
 		  }
+
+		  checkNeedToSync();
 		};
 
 		function extractTitleFromTarget(target){
@@ -107,6 +108,31 @@ function openDatabaseZoe(){
 	var	sql = 'DROP TABLE salesrep';
 		tx.executeSql(sql,[],nullHandler,errorHandler);
 	}
+
+	var itemsToSync;
+	function checkNeedToSync(){
+		itemsToSync=0;
+		db = openDatabaseZoe();
+		db.transaction(doNeedToSync, errorCB, successDropDB);
+	}
+
+	function doNeedToSync(tx) {
+	var	sql = 'select sum(cnt) as needCount FROM(Select count(*) as cnt FROM invoice WHERE needToSync=1 UNION Select count(*) as cnt FROM customer WHERE needToSync=1)';
+		tx.executeSql(sql,[],receiveCheckNeedToSync,errorHandler);
+	}
+
+	function receiveCheckNeedToSync(results){
+		if (results.rows){
+			itemsToSync = results.rows.item(0).needCount;
+			console.log("needToSync itemsToSync=" + itemsToSync);
+			if (itemsToSync>0){
+				$("#iconSync").html("<a class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-icon-nosync"></a>")
+			}else{
+				$("#iconSync").html("<a class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-icon-sync"></a>")
+			}
+		}
+	}
+
 
 	function errorHandler(transaction, error) {
 		alert('Fatal error executing transaction: ' + JSON.stringify(error));
