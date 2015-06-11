@@ -334,22 +334,22 @@
 				$('#AddressMap').prop("href", AddressMap1);
 			}
 			
-			function SendEmal(){
+			function SendEmail(){
 				var EmailP = '"mailto:';
 				var Email1 = EmailP+CustomerEmail;
 				$('#EmailAddress').prop("href", Email1);
-				LogZoe("EmailP: =====> "+EmailP);
-				LogZoe("CustomerEmail: =====> "+CustomerEmail);
-				LogZoe("Email1: =====> "+Email1);				
+				logZoe("EmailP: =====> "+EmailP);
+				logZoe("CustomerEmail: =====> "+CustomerEmail);
+				logZoe("Email1: =====> "+Email1);				
 			}
 			
 			function CallPhone(){
 				var PhoneP = 'tel:';
 				var Phone1 = PhoneP+CustomerPhone;
 				$('#PhoneCall').prop("href", Phone1);
-				LogZoe("PhoneP: =====> "+PhoneP);
-				LogZoe("CustomerPhone: =====> "+CustomerPhone);
-				LogZoe("Phone1: =====> "+Phone1);
+				logZoe("PhoneP: =====> "+PhoneP);
+				logZoe("CustomerPhone: =====> "+CustomerPhone);
+				logZoe("Phone1: =====> "+Phone1);
 			}			
 			
 		</script>
@@ -451,7 +451,7 @@
                                         <a id="PhoneCall" href="#" class="ui-btn ui-btn-icon-notext ui-icon-phone" onClick="CallPhone();"></a>
                                     </div>
                                     <div class="ui-block-b">
-                                        <a id="EmailAddress" href="#" class="ui-btn ui-btn-icon-notext ui-icon-mail" onClick="SendEmal();"></a> 
+                                        <a id="EmailAddress" href="#" class="ui-btn ui-btn-icon-notext ui-icon-mail" onClick="SendEmail();"></a> 
                                     </div>
                                     <div class="ui-block-c">
                                         <address>
