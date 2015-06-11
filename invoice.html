@@ -42,6 +42,7 @@
 				console.log("salesRep=" + JSON.stringify(salesrepVO));
 				
 				$('#PONumber').val( salesrepVO.initial + "-" +  generateKey());
+				$('#refNumber').val($('#PONumber').val());
 				$("#SalesRep").val(window.localStorage.getItem("salesRepName"));
 
 				var now = new Date();
@@ -254,6 +255,61 @@
 				taxSelectedIndex = $("#selTax")[0].selectedIndex-1;
 				calcInvoice();
 			}
+			
+			function storeInvoice(){
+			var invoiceVO = {
+				id_invoice:$('#refNumber').val(),
+				ListID:listCustomers[customerSelectedIndex].ListID,
+				po_number:,
+				dueDate:,
+				appliedAmount:,
+				balanceRemaining:,
+				billAddress_addr1:,
+				billAddress_addr2:,
+				billAddress_addr3:,
+				billAddress_city:,
+				billAddress_state:,
+				billAddress_postalcode:,
+				shipAddress_addr1:,
+				shipAddress_addr2:,
+				shipAddress_addr3:,
+				shipAddress_city:,
+				shipAddress_state:,
+				shipAddress_postalcode:,
+				isPaid:,
+				isPending:,
+				refNumber:,
+				TaxPercentage:,
+				salesTaxTotal:,
+				shipDate:,
+				subtotal:,
+				id_term:,
+				items: new Array()
+			}
+			
+			invoicesVO[i] = invoiceVO;
+			invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert);
+
+			/*
+			if (invoices[i].InvoiceLineRet){
+				for (j=0;j<invoices[i].InvoiceLineRet.length;j++){
+					var line = invoices[i].InvoiceLineRet[j];
+					var itemVO = {
+							LineID:line.TxnLineID,
+							id_invoice:invoiceVO.id_invoice,
+							Inventory_ListID:line.ItemRef.ListID,
+							Desc:line.Desc,
+							Quantity:line.Quantity,
+							Rate:line.Rate,
+							Amount:line.Amount,
+							SalesTax_ListID:line.SalesTaxCodeRef.ListID
+					}
+					invoiceVO.items[j] = itemVO;
+				}
+			}*/
+				
+		}
+			
 
   </script>
 <style type="text/css">
@@ -295,7 +351,7 @@ table, th, td {
                   <div>
                   <label for="Date">Date:</label>
                   </div>
-                  <input type="date" name="Date" id="Date" value="" readonly="true" />
+                  <input type="date" name="Date" id="Date" value="" readonly />
                 </div>
               </div>
             <div class="ui-block-b" style="height:100%">
@@ -303,7 +359,7 @@ table, th, td {
                 <div>
                 <label for="Due">Due:</label>
                 </div>
-                <input type="date" name="Due" id="Due" value="" readonly="true" />
+                <input type="date" name="Due" id="Due" value="" readonly />
               </div>
 			</div>
            </div>
@@ -312,6 +368,7 @@ table, th, td {
               <div>
               <label for="PONumber">P.O. Number:</label>
               </div>
+              <input type="hidden" name="refNumber" id="refNumber" value=""  />
               <input type="text" name="PONumber" id="PONumber" value=""  />
               <div>
               <label for="SalesRep">Sales Rep:</label>
@@ -444,11 +501,11 @@ table, th, td {
                         
                              
             <fieldset class="ui-grid-a">
-                <div class="ui-block-a"><button type="submit" id="submit" data-theme="c">Cancel</button></div>
-                <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Done</button></div>	   
+                <div class="ui-block-a"><button type="submit" id="submit" data-theme="c"onClick="storeInvoice()">Done</button></div>
+                <div class="ui-block-b"><button type="submit" id="cancel" data-theme="b">Cancel</button></div>	   
             </fieldset>              
               
-            <a href="config.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-gear" >Config</a>
+
       </form>		
 	</div>
 
