@@ -261,8 +261,10 @@
 				//renderDetail(index);
 			}			
 			
-			var Address='';
-			var MapAddress='';
+			var CustomerAddress='';
+			var CustomerEmail='';
+			var CustomerPhone='';
+			
 			function renderDetail(index){
 				logZoe("renderDetail index=" + index);
 				logZoe("renderDetail =" + JSON.stringify(listCustomers[index]));
@@ -316,24 +318,33 @@
 				$('#routeDay7').val(listCustomers[index].routeDay7);
 				$('#pricelevel_ListID').val(listCustomers[index].pricelevel_ListID);
 
-				Address = listCustomers[index].billAddress2+', '+listCustomers[index].billAddresCity+', '+listCustomers[index].billAddressState;
-
+				// Address for LocateAddress function
+				CustomerAddress = listCustomers[index].billAddress2+', '+listCustomers[index].billAddresCity+', '+listCustomers[index].billAddressState;
+				CustomerEmail = listCustomers[index].email;
+				CustomerPhone = listCustomers[index].workPhone;
+				
 				termDAO.list(receiveTerms,errReceiveTerms);
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
 				invoiceDAO.listByCustomer(listCustomers[index].ListID,receiveInvoices, errListInvoicesByCustomer);
 			}
 			
-			function ShowDir(){
-				MapAddress = 'http://maps.google.com/maps?q=';
-				var AddressMap1 = MapAddress+Address;
-				logZoe("MapAddress:======> "+MapAddress);
-				logZoe("Address:======> "+Address);
-				logZoe("AddressMap1:======> "+AddressMap1);
-				//$('#AddressMap').val(MapAddress+Address);
-				// http://maps.google.com/maps?q=11555%20Bellerive%20Dr%20Houston%20TX%2077072-1322
+			function LocateAddress(){
+				var MapAddress = 'http://maps.google.com/maps?q=';
+				var AddressMap1 = MapAddress+CustomerAddress;
 				$('#AddressMap').prop("href", AddressMap1);
-				logZoe("AddressMap:======> "+$('#AddressMap').val());
 			}
+			
+			function SendEmal(){
+				var EmailP = '"mailto:';
+				var Email1 = EmailP1+CustomerEmail;
+				$('#EmailAddress').prop("href", Email1);
+			}
+			
+			function CallPhone(){
+				var PhoneP = 'tel:';
+				var Phone1 = PhoneP+CustomerPhone;
+				$('#PhoneCall').prop("href", Phone1);
+			}			
 			
 		</script>
 		<style type="text/css">
@@ -431,14 +442,14 @@
                             <div align="left">
                                 <div class="ui-grid-b">
                                     <div class="ui-block-a">
-                                        <a href="tel:+496170961709" class="ui-btn ui-btn-icon-notext ui-icon-phone"></a>
+                                        <a id="PhoneCall" href="#" class="ui-btn ui-btn-icon-notext ui-icon-phone" onClick="CallPhone();"></a>
                                     </div>
                                     <div class="ui-block-b">
-                                        <a href="mailto:webmaster@example.com" class="ui-btn ui-btn-icon-notext ui-icon-mail"></a> 
+                                        <a id="EmailAddress" href="#" class="ui-btn ui-btn-icon-notext ui-icon-mail" onClick="SendEmal();"></a> 
                                     </div>
                                     <div class="ui-block-c">
                                         <address>
-											<a id="AddressMap" href="#" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location" onClick="ShowDir();"></a>
+											<a id="AddressMap" href="#" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location" onClick="LocateAddress();"></a>
                                         </address>
                                     </div>
                                 </div><!-- /grid-b -->
