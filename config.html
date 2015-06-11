@@ -381,7 +381,7 @@ function syncAll(form){
 		for (i=0;i<inventory.length;i++){
 			logZoe("inventory[i]=" + JSON.stringify(inventory[i]));
 			var inventoryVO = {ListID:inventory[i].ItemInventoryRef.ListID,
-			InventorySite_ListID:inventory[i].InventorySiteRef.ListID,
+			InventorySite_ListID:inventory[i].InventorySiteRef?inventory[i].InventorySiteRef.ListID:null,
 			QuantityOnHand:inventory[i].QuantityOnHand};
 			logZoe("inventoryVO=" + JSON.stringify(inventoryVO));
 			inventoryListVO[i] = inventoryVO;
