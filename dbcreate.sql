@@ -1,6 +1,6 @@
 ﻿/*
 Created: 29/04/2015
-Modified: 08/06/2015
+Modified: 11/06/2015
 Model: RE SQLite 3.7
 Database: SQLite 3.7
 */
@@ -18,11 +18,13 @@ DROP INDEX IF EXISTS IX_Relationship1;
 DROP INDEX IF EXISTS IX_Relationship2;
 DROP INDEX IF EXISTS IX_invoice_custumer;
 DROP INDEX IF EXISTS IX_invoice_terms;
+DROP INDEX IF EXISTS IX_INVOICE_SYNC;
 DROP INDEX IF EXISTS customer_idx1;
 DROP INDEX IF EXISTS IX_sales_rep_customer;
 DROP INDEX IF EXISTS IX_Relationship3;
 DROP INDEX IF EXISTS IX_Customer_Name;
 DROP INDEX IF EXISTS IX_Relationship7;
+DROP INDEX IF EXISTS IX_CUSTOMER_SYNC;
 DROP INDEX IF EXISTS idx_salesrep_1;
 
 -- Drop tables section ---------------------------------------------------
@@ -142,6 +144,7 @@ CREATE TABLE customer
   zoeSyncDate INTEGER,
   needSync INTEGER,
   pricelevel_ListID TEXT,
+  origin TEXT,
   CONSTRAINT Key3 PRIMARY KEY (ListID),
   CONSTRAINT sales_rep_customer FOREIGN KEY (id_salesrep) REFERENCES salesrep (id_salesrep),
   CONSTRAINT Relationship3 FOREIGN KEY (id_term) REFERENCES term (id_term),
@@ -157,6 +160,8 @@ CREATE INDEX IX_Relationship3 ON customer (id_term);
 CREATE INDEX IX_Customer_Name ON customer (FullName);
 
 CREATE INDEX IX_Relationship7 ON customer (pricelevel_ListID);
+
+CREATE INDEX IX_CUSTOMER_SYNC ON customer (needSync);
 
 -- Table invoice
 
@@ -190,6 +195,8 @@ CREATE TABLE invoice
   shipAddress_addr3 TEXT,
   zoeUpdateDate INTEGER,
   zoeSycDate INTEGER,
+  needSync INTEGER,
+  origin TEXT,
   CONSTRAINT Key4 PRIMARY KEY (id_invoice),
   CONSTRAINT invoice_custumer FOREIGN KEY (ListID) REFERENCES customer (ListID),
   CONSTRAINT invoice_terms FOREIGN KEY (id_term) REFERENCES term (id_term)
@@ -198,6 +205,8 @@ CREATE TABLE invoice
 CREATE INDEX IX_invoice_custumer ON invoice (ListID);
 
 CREATE INDEX IX_invoice_terms ON invoice (id_term);
+
+CREATE INDEX IX_INVOICE_SYNC ON invoice (needSync);
 
 -- Table invoice_item
 
