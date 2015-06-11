@@ -113,15 +113,16 @@ function openDatabaseZoe(){
 	function checkNeedToSync(){
 		itemsToSync=0;
 		db = openDatabaseZoe();
-		db.transaction(doNeedToSync, errorCB, successDropDB);
+		db.transaction(doNeedToSync);
 	}
 
 	function doNeedToSync(tx) {
 	var	sql = 'select sum(cnt) as needCount FROM(Select count(*) as cnt FROM invoice WHERE needSync=1 UNION Select count(*) as cnt FROM customer WHERE needSync=1)';
-		tx.executeSql(sql,[],receiveCheckNeedToSync,errorHandler);
+		tx.executeSql(sql,[],receiveCheckNeedToSync);
 	}
 
 	function receiveCheckNeedToSync(results){
+		console.log("receiveCheckNeedToSync results.rows=" + results.rows);
 		if (results.rows){
 			itemsToSync = results.rows.item(0).needCount;
 			console.log("needToSync itemsToSync=" + itemsToSync);
