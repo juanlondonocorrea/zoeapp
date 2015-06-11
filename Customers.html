@@ -234,11 +234,13 @@
 				var hoy=Date.now(); // Current date in milliseconds
 				
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
-						var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy); // Date in format yyyy-mm--dd
+						var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy); // Date in format yyyy-mm-dd
 						var monsthsAgo = dueDays/30;
 						monsthsAgo = monsthsAgo.toFixed(1); // Calc months with 1 decimal number
 						htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice +' == '+ arrayListInvoicesByCust[i].refNumber + '"><label id="invoice"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Invoice #<br/>' + arrayListInvoicesByCust[i].id_invoice + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Predet.</a></li>';
-						logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
+						logZoe("id_invoice: ======> "++ arrayListInvoicesByCust[i].id_invoice);
+						logZoe("refNumber: =======> "+arrayListInvoicesByCust[i].refNumber);
+						//logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
 					}
 					htmlString2 += '</ul>';
 					$('#InvoiceList').html(htmlString2);
@@ -491,7 +493,7 @@
 		</div> 
 
 		<!-- BEGIN CUSTOMERS DETAILS-->
-		<div data-role="page" id="CustomersDetails"  data-title=="Customers' Details' Detail" data-theme="a">
+		<div data-role="page" id="CustomersDetails"  data-title="Customers Detail" data-theme="a">
 			<div data-role="content" >
 				<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
                     <div class="ui-grid-a" style="height:70px">
