@@ -237,9 +237,7 @@
 						var dueDays = restaFechas(arrayListInvoicesByCust[i].dueDate,hoy); // Date in format yyyy-mm-dd
 						var monsthsAgo = dueDays/30;
 						monsthsAgo = monsthsAgo.toFixed(1); // Calc months with 1 decimal number
-						htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Invoice #<br/>' + arrayListInvoicesByCust[i].refNumber + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Predet.</a></li>';
-						logZoe("id_invoice: ======> "+ arrayListInvoicesByCust[i].id_invoice);
-						logZoe("refNumber: =======> "+arrayListInvoicesByCust[i].refNumber);
+						htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Invoice #' + arrayListInvoicesByCust[i].refNumber + '</a></label><br/>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Predet.</a></li>';
 						logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
 					}
 					htmlString2 += '</ul>';
