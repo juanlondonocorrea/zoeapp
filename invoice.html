@@ -258,6 +258,7 @@
 			}
 			
 			function storeInvoice(){
+				console.log("storeInvoice");
 				var customer = listCustomers[customerSelectedIndex];
 			var invoiceVO = {
 				id_invoice:$('#refNumber').val(),
@@ -290,6 +291,7 @@
 			}
 			
 			invoiceVO.items = currentItems;
+			console.log("storeInvoice invoiceVO=" + JSON.stringify(invoiceVO));
 			var invoicesVO = [invoiceVO];
 			invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert,'local');
 		}
