@@ -230,7 +230,7 @@
 			// List Invoices by Customer 
 			function receiveInvoices(arrayListInvoicesByCust){
 				// Build customers' invoices by Customer, list with <ul> <li>
-				var htmlString2 = '<ul id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
+				var htmlString2 = '<ol id="listInvoiceByCust" data-role="listview" data-filter="true" data-filter-placeholder="Search invoice..." data-inset="true">';
 				var hoy=Date.now(); // Current date in milliseconds
 				
 				for(var i=0; i< arrayListInvoicesByCust.length; i++) {
@@ -240,7 +240,7 @@
 						htmlString2 += '<li data-filtertext="' + arrayListInvoicesByCust[i].id_invoice + '"><label id="invoice"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Invoice #' + arrayListInvoicesByCust[i].refNumber + '</a></label>Amount: <span id="overdueBal">'+arrayListInvoicesByCust[i].appliedAmount+'</span><br/>Balance Remaining:<span> '+arrayListInvoicesByCust[i].balanceRemaining+'</span><br/><span id="OberdueBy">Overdue by '+dueDays+' days</span><br/><span id="AddedMonthsAgo">Added '+monsthsAgo+' months ago</span><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link2_' + i + '">Predet.</a></li>';
 						logZoe("htmlString2 =" + JSON.stringify(arrayListInvoicesByCust[i]));
 					}
-					htmlString2 += '</ul>';
+					htmlString2 += '</ol>';
 					$('#InvoiceList').html(htmlString2);
 					//$(".linkDetail").click(goDetailInvoice);
 			}
