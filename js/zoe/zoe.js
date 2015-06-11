@@ -2,22 +2,33 @@
 	function initAnyPage(target){
 			logZoe("en initAnyPage");
 			$('.app-header').load("header.html", function() {
+				$("#zoeTitle").html("<font size=2>ZOE</font><font size=1> " +  extractTitleFromTarget(target) + "</font>");
 				$(this).trigger('create');
-			});
+		});
 			$('.app-footer').load("footer.html", function() {
 				$(this).trigger('create');
 			});
 			$('.app-menu').load("menu.html", function() {
 				$(this).trigger('create');
 			});
+
 			
 
+
 		  var toPage = target.id;
-		  logZoe("initAnyPage toPage=" + toPage);
 		  if(!toPage || toPage.indexOf("Login") < 0  && toPage.indexOf("config")<0) {
 			//checkSession();
 		  }
 		};
+
+		function extractTitleFromTarget(target){
+			if (target.attributes && target.attributes["data-title"]){
+				return target.attributes["data-title"].nodeValue;
+			}
+			if (typeof target.id  == 'string'){
+				return target.id;
+			}
+		}
 
 
 			function checkSession(){

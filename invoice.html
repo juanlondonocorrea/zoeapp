@@ -260,35 +260,35 @@
 			function storeInvoice(){
 				console.log("storeInvoice");
 				var customer = listCustomers[customerSelectedIndex];
-			var invoiceVO = {
-				id_invoice:$('#refNumber').val(),
-				ListID:customer.ListID,
-				po_number:$('#PONumber').val(),
-				dueDate:$('#Due').val(),
-				appliedAmount:0,
-				balanceRemaining:totalAmount,
-				billAddress_addr1:customer.billAddress1,
-				billAddress_addr2:customer.billAddress2,
-				billAddress_addr3:customer.billAddress3,
-				billAddress_city:customer.billAddresCity,
-				billAddress_state:customer.billAddresState,
-				billAddress_postalcode:customer.billAddresZipCode,
-				shipAddress_addr1:customer.shipAddress1,
-				shipAddress_addr2:customer.shipAddress1,
-				shipAddress_addr3:customer.shipAddress1,
-				shipAddress_city:customer.shipAddressCity,
-				shipAddress_state:customer.shipAddressState,
-				shipAddress_postalcode:customer.shipAddressZipcode,
-				isPaid:false,
-				isPending:true,
-				refNumber:$('#refNumber').val(),
-				TaxPercentage:0,
-				salesTaxTotal:0,
-				shipDate:$("#Date").val(),
-				subtotal:totalAmount,
-				id_term:$("#selTerm").val(),
-				items: new Array()
-			}
+				var invoiceVO = {
+					id_invoice:$('#refNumber').val(),
+					ListID:customer.ListID,
+					po_number:$('#PONumber').val(),
+					dueDate:$('#Due').val(),
+					appliedAmount:0,
+					balanceRemaining:totalAmount,
+					billAddress_addr1:customer.billAddress1,
+					billAddress_addr2:customer.billAddress2,
+					billAddress_addr3:customer.billAddress3,
+					billAddress_city:customer.billAddresCity,
+					billAddress_state:customer.billAddresState,
+					billAddress_postalcode:customer.billAddresZipCode,
+					shipAddress_addr1:customer.shipAddress1,
+					shipAddress_addr2:customer.shipAddress1,
+					shipAddress_addr3:customer.shipAddress1,
+					shipAddress_city:customer.shipAddressCity,
+					shipAddress_state:customer.shipAddressState,
+					shipAddress_postalcode:customer.shipAddressZipcode,
+					isPaid:false,
+					isPending:true,
+					refNumber:$('#refNumber').val(),
+					TaxPercentage:0,
+					salesTaxTotal:0,
+					shipDate:$("#Date").val(),
+					subtotal:totalAmount,
+					id_term:$("#selTerm").val(),
+					items: new Array()
+				}
 			
 			invoiceVO.items = currentItems;
 			console.log("storeInvoice invoiceVO=" + JSON.stringify(invoiceVO));
@@ -326,7 +326,7 @@ table, th, td {
  
 <body> 
 
-<div data-role="page" id="invoice" data-theme="a">
+<div data-role="page" id="invoice" data-theme="a" data-title="Invoice new">
     
 	<div data-role="content">	
 		<form id="formulario" >
