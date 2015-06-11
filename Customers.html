@@ -29,7 +29,7 @@
 				//receiveCustomers();
 				customerDAO.list(receiveCustomers, errReceiveCustomers);
 			}
-			
+
 			// BEGIN Functions on error case
 			function errReceiveCustomers(err){
 				alert("DB Error customers: "+JSON.stringify(err));
@@ -338,20 +338,80 @@
 				var EmailP = 'mailto:';
 				var Email1 = EmailP+CustomerEmail;
 				$('#EmailAddress').prop("href", Email1);
-				logZoe("EmailP: =====> "+EmailP);
-				logZoe("CustomerEmail: =====> "+CustomerEmail);
-				logZoe("Email1: =====> "+Email1);				
 			}
 			
 			function CallPhone(){
 				var PhoneP = 'tel:';
 				var Phone1 = PhoneP+CustomerPhone;
 				$('#PhoneCall').prop("href", Phone1);
-				logZoe("PhoneP: =====> "+PhoneP);
-				logZoe("CustomerPhone: =====> "+CustomerPhone);
-				logZoe("Phone1: =====> "+Phone1);
-			}			
+			}	
 			
+			function UpdateCustomer(){
+				var customersVO = [];
+								
+				var customerVO = {
+					id_salesrep:$('#SalesRep').val(),
+
+					ListID:$('#ListID').val(),
+					IsActive:$('#IsActive').val(),
+					FullName:$('#FullName').val(),
+					name:$('#Name').val(),
+					companyName:$('#CompanyName').val(),
+
+					workPhone:$('#Phone').val(),
+					cellPhone:$('#Cell').val(),
+					Fax:$('#Fax').val(),
+					email:$('#Email').val(),
+
+					billAddress1:$('#billAddress1').val(),
+					billAddress2:$('#billAddress2').val(),
+					billAddress3:$('#billAddress3').val(),
+					billAddresCity:$('#billCity').val(),
+					billAddressState:$('#billState').val(),
+					billAddresZipcode:$('#billZipCode').val(),
+					billAddressCountry:$('#billCountry').val(),
+
+					shipAddress1:$('#shipAddress1').val(),
+					shipAddress2:$('#shipAddress2').val(),
+					shipAddress3:$('#shipAddress3').val(),
+					shipAddressCity:$('#shipCity').val(),
+					shipAddressState:$('#shipState').val(),
+					shipAddressZipcode:$('#shipZipCode').val(),
+					shipAddressCountry:$('#shipCountry').val(),
+			
+					openBalance:$('#openBalance').val(),
+					overdueBalance:$('#overdueBalance').val(),
+
+					id_term:$('#Terms').val(listCustomers[index].id_term),
+					otherDetails:$('#OtherDetails').val(listCustomers[index].otherDetails),
+
+					routeDay1:$('#routeDay1').val(listCustomers[index].routeDay1),
+					routeDay2:$('#routeDay2').val(listCustomers[index].routeDay2),
+					routeDay3:$('#routeDay3').val(listCustomers[index].routeDay3),
+					routeDay4:$('#routeDay4').val(listCustomers[index].routeDay4),
+					routeDay5:$('#routeDay5').val(listCustomers[index].routeDay5),
+					routeDay6:$('#routeDay6').val(listCustomers[index].routeDay6),
+					routeDay7:$('#routeDay7').val(listCustomers[index].routeDay7),
+
+					pricelevel_ListID:$('#pricelevel_ListID').val()
+				};
+				logZoe("customerVO=" + JSON.stringify(customerVO));
+				customersVO[0] = customerVO;
+				customerDAO.store(customersVO, errCustomerUpdate, successCustomerUpdate);
+			}
+
+			function successCustomerUpdate(){
+				if (synchronizingAll){
+					syncInventoryItems();
+				}else{
+					alert("Success customer update");
+				}
+			}
+			
+			function errCustomerUpdate(err){
+				alert("DB Error on update customers: "+JSON.stringify(err));
+			}
+					
 		</script>
 		<style type="text/css">
 			thead {color:black;}
@@ -769,7 +829,7 @@
                             <fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px;">
                                 <div class="ui-grid-a" style="height:45px">
                                     <div class="ui-block-a ui-btn ui-corner-all ui-shadow" style="height:100%"><button id="cancel" data-add-back-btn="true" data-theme="b">Cancel</button></div>
-                                    <div class="ui-block-b ui-btn ui-corner-all ui-shadow" style="height:100%"><button id="submit" data-theme="c">Done</button></div>	
+                                    <div class="ui-block-b ui-btn ui-corner-all ui-shadow" style="height:100%"><button id="btnUpdateCustomer"  onClick="UpdateCustomer()";"data-theme="c">Done</button></div>	
                                 </div>
                             </fieldset>
 						</form>		
