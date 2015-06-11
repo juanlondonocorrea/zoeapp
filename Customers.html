@@ -338,12 +338,18 @@
 				var EmailP = '"mailto:';
 				var Email1 = EmailP+CustomerEmail;
 				$('#EmailAddress').prop("href", Email1);
+				LogZoe("EmailP: =====> "+EmailP);
+				LogZoe("CustomerEmail: =====> "+CustomerEmail);
+				LogZoe("Email1: =====> "+Email1);				
 			}
 			
 			function CallPhone(){
 				var PhoneP = 'tel:';
 				var Phone1 = PhoneP+CustomerPhone;
 				$('#PhoneCall').prop("href", Phone1);
+				LogZoe("PhoneP: =====> "+PhoneP);
+				LogZoe("CustomerPhone: =====> "+CustomerPhone);
+				LogZoe("Phone1: =====> "+Phone1);
 			}			
 			
 		</script>
