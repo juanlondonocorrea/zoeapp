@@ -294,11 +294,15 @@
 			console.log("storeInvoice invoiceVO=" + JSON.stringify(invoiceVO));
 			var invoicesVO = [invoiceVO];
 			invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert,'local');
+			return false;
 		}
 		
 		function successInvoiceInsert(){
-			invoiceDAO.markToSync(invoiceVO.id_invoice, errInvoiceInsert);
-			alert("Success update invoice");
+			invoiceDAO.markToSync(invoiceVO.id_invoice, successInvoiceInsertMark,errInvoiceInsert);
+		}
+		
+		function successInvoiceInsertMark(){
+			alert("Success in Invoice store");
 		}
 
 		function errInvoiceInsert(err){
