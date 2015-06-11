@@ -215,7 +215,7 @@ function syncAll(form){
 		}
 			
 		customerDAO.deleteAll(errCustomerInsert);
-		customerDAO.store(customersVO, errCustomerInsert, successCustomerInsert);
+		customerDAO.store(customersVO, errCustomerInsert, successCustomerInsert,'remote');
 		
 	}
 
@@ -308,7 +308,7 @@ function syncAll(form){
 		}
 			
 		invoiceDAO.deleteAll(errCustomerInsert);
-		invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert);
+		invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert,'remote');
 	}
 
 

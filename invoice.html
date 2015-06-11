@@ -149,14 +149,15 @@
 			function addItem(){
 				console.log("addItem listCustomers[customerSelectedIndex]=" + JSON.stringify(listCustomers[customerSelectedIndex]));
 				console.log("addItem listItems[productSelectedIndex]=" + JSON.stringify(listItems[productSelectedIndex]));
-				var aItem = {"lineID":generateKey(), 
+				var aItem = {"LineID":generateKey(), 
 					"id_invoice": listCustomers[customerSelectedIndex].id_invoice,
 					"inventory_ListID": listItems[productSelectedIndex].ListID,
 					"Desc": listItems[productSelectedIndex].salesDesc,
 					"Quantity": $("#Quantity").val(),
 					"Rate": parseFloat($("#RatePrice").val()).toFixed(2),
 					"Amount": parseFloat($("#Amount").val()).toFixed(2),
-					"position":currentItems.length
+					"position":currentItems.length,
+					"salesTax_ListID":null
 				}
 				
 				console.log("addItem aItem=" + JSON.stringify(aItem)) 
@@ -257,57 +258,49 @@
 			}
 			
 			function storeInvoice(){
+				var customer = listCustomers[customerSelectedIndex];
 			var invoiceVO = {
 				id_invoice:$('#refNumber').val(),
-				ListID:listCustomers[customerSelectedIndex].ListID,
-				po_number:,
-				dueDate:,
-				appliedAmount:,
-				balanceRemaining:,
-				billAddress_addr1:,
-				billAddress_addr2:,
-				billAddress_addr3:,
-				billAddress_city:,
-				billAddress_state:,
-				billAddress_postalcode:,
-				shipAddress_addr1:,
-				shipAddress_addr2:,
-				shipAddress_addr3:,
-				shipAddress_city:,
-				shipAddress_state:,
-				shipAddress_postalcode:,
-				isPaid:,
-				isPending:,
-				refNumber:,
-				TaxPercentage:,
-				salesTaxTotal:,
-				shipDate:,
-				subtotal:,
-				id_term:,
+				ListID:customer.ListID,
+				po_number:$('#PONumber').val(),
+				dueDate:$('#Due').val(),
+				appliedAmount:0,
+				balanceRemaining:totalAmount,
+				billAddress_addr1:customer.billAddress1,
+				billAddress_addr2:customer.billAddress2,
+				billAddress_addr3:customer.billAddress3,
+				billAddress_city:customer.billAddresCity,
+				billAddress_state:customer.billAddresState,
+				billAddress_postalcode:customer.billAddresZipCode,
+				shipAddress_addr1:customer.shipAddress1,
+				shipAddress_addr2:customer.shipAddress1,
+				shipAddress_addr3:customer.shipAddress1,
+				shipAddress_city:customer.shipAddressCity,
+				shipAddress_state:customer.shipAddressState,
+				shipAddress_postalcode:customer.shipAddressZipcode,
+				isPaid:false,
+				isPending:true,
+				refNumber:$('#refNumber').val(),
+				TaxPercentage:0,
+				salesTaxTotal:0,
+				shipDate:$("#Date").val(),
+				subtotal:totalAmount,
+				id_term:$("#selTerm").val(),
 				items: new Array()
 			}
 			
-			invoicesVO[i] = invoiceVO;
-			invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert);
+			invoiceVO.items = currentItems;
+			var invoicesVO = [invoiceVO];
+			invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert,'local');
+		}
+		
+		function successInvoiceInsert(){
+			invoiceDAO.markToSync(invoiceVO.id_invoice, errInvoiceInsert);
+			alert("Success update invoice");
+		}
 
-			/*
-			if (invoices[i].InvoiceLineRet){
-				for (j=0;j<invoices[i].InvoiceLineRet.length;j++){
-					var line = invoices[i].InvoiceLineRet[j];
-					var itemVO = {
-							LineID:line.TxnLineID,
-							id_invoice:invoiceVO.id_invoice,
-							Inventory_ListID:line.ItemRef.ListID,
-							Desc:line.Desc,
-							Quantity:line.Quantity,
-							Rate:line.Rate,
-							Amount:line.Amount,
-							SalesTax_ListID:line.SalesTaxCodeRef.ListID
-					}
-					invoiceVO.items[j] = itemVO;
-				}
-			}*/
-				
+		function errInvoiceInsert(err){
+			alert("Fail to update invoice:" + JSON.stringify(err));
 		}
 			
 
