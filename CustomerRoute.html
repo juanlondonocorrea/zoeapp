@@ -24,7 +24,7 @@
 			});
 
 			function initThisPage(event){
-				listCustomersByRouteDay(Day, receiveCustomersByRoutDay,errReceiveCustomersByRouteDay)
+				listCustomersByRouteDay('1', receiveCustomersByRoutDay,errReceiveCustomersByRouteDay)
 			}
 
 			// BEGIN Functions on error case
@@ -78,7 +78,7 @@
 					$(".linkDetail").click(goDetail);
 			}
 	
-	
+
 		</script>
 		<style type="text/css">
 			thead {color:black;}
@@ -104,7 +104,7 @@
 
 	<body>
         <!-- CUSTOMERS LIST (ALPHABETIC BY NAME AND OVERDUE BALANCE IN RED) -->
-		<div data-role="page" id="Customers" data-theme="a" data-title="Customers">
+		<div data-role="page" id="CustomerRoute" data-theme="a" data-title="Customers">
 			<div data-role="content" id="CustomersList">
 				<!-- Injection-->
 			</div>
