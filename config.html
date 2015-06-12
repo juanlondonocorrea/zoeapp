@@ -155,18 +155,18 @@ function syncAll(form){
 			logZoe("customers[i]=" + JSON.stringify(customers[i]));
 			logZoe("customers[i].TermsRef=" + JSON.stringify(customers[i].TermsRef));
 			if (customers[i].TermsRef){
-				logZoe("customers[i].TermsRef.ListID=" + JSON.stringify(customers[i].TermsRef.ListID));					
+				logZoe("customers[i].TermsRef.ListID=" + JSON.stringify(customers[i].TermsRef));					
 			}
 			var routeDay = "";
 
-			logZoe("customers[i].DataExtRet" + customers[i].DataExtRet);
+			logZoe("customers[i].DataExtRet" + JSON.stringify(customers[i].DataExtRet));
 			if (customers[i].DataExtRet){
 				logZoe("customers[i].DataExtRet.length" + customers[i].DataExtRet.length);
 			}
 			if (customers[i].DataExtRet && customers[i].DataExtRet.length>0){
 				for (var j = 0; j< customers[i].DataExtRet.length; j++){
 					logZoe("customers[i].DataExtRet[j].DataExtName=" + customers[i].DataExtRet[j].DataExtName);
-					if ("RouteDay" == customers[i].DataExtRet[j].DataExtName){
+					if ("ROUTEDAY" == customers[i].DataExtRet[j].DataExtName.toUpperCase){
 						routeDay = customers[i].DataExtRet[j].DataExtValue;
 					}
 				}
