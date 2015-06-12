@@ -123,7 +123,7 @@ function openDatabaseZoe(){
 
 	function receiveCheckNeedToSync(results){
 		console.log("receiveCheckNeedToSync results=" + results);
-		console.log("receiveCheckNeedToSync results JSON" + JSON.stringify(results.rows));
+		console.log("receiveCheckNeedToSync results JSON" + JSON.stringify(results));
 		if (results){
 			itemsToSync = results.needCount;
 			console.log("needToSync itemsToSync=" + itemsToSync);
@@ -136,10 +136,6 @@ function openDatabaseZoe(){
 	}
 
 
-	function errorHandler(transaction, error) {
-		alert('Fatal error executing transaction: ' + JSON.stringify(error));
-	}
-            
 	function nullHandler(tx, results){
 		logZoe("sqlExecuted. " + JSON.stringify(results));
 	};
