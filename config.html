@@ -170,7 +170,7 @@ function syncAll(form){
 						routeDay = customers[i].DataExtRet[j].DataExtValue;
 					}
 				}
-			}else if (customers[i].DataExtRet && customers[i].DataExtRet.DataExtName.toUpperCase=="ROUTEDAY"){
+			}else if (customers[i].DataExtRet && customers[i].DataExtRet.DataExtName.toUpperCase()=="ROUTEDAY"){
 						routeDay = customers[i].DataExtRet.DataExtValue;
 			}
 			routeDay = routeDay.toUpperCase();
