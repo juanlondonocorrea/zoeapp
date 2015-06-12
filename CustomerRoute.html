@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Customers</title>
+
+		<link rel="stylesheet" href="css/themes/zoe.min.css" />
+		<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.structure-1.4.5.min.css" />
+		<link rel="stylesheet" href="js/jqm-inlinetabs/jqm-inlinetabs.min.css" />
+
+		<!--  <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile-1.4.5.min.css" />  -->
+		<script src="js/jquery-mobile/jquery-2.1.4.js"></script>
+		<script src="js/jquery-mobile/jquery.mobile-1.4.5.min.js"></script>
+		<script src="js/jqm-inlinetabs/jqm-inlinetabs.min.js"></script>        
+		<script src="js/zoe/zoe.js"></script>
+		<script src="js/zoe/customerDAO.js"></script>
+        <script src="js/zoe/invoiceDAO.js"></script>
+		<script> 
+
+			$(document).bind("pagebeforecreate", function(event) {
+				initAnyPage(event.target);
+				initThisPage(event);
+			});
+
+			function initThisPage(event){
+				listCustomersByRouteDay(Day, receiveCustomersByRoutDay,errReceiveCustomersByRouteDay)
+			}
+
+			// BEGIN Functions on error case
+			function errReceiveCustomersByRouteDay(err){
+				alert("DB Error customers by route day: "+JSON.stringify(err));
+			}
+			// END functions on error case
+			
+			$(document).bind('pagechange', function() {
+				$('.ui-page-active .ui-listview').listview('refresh');
+				$('.ui-page-active :jqmData(role=content)').trigger('create');
+			});	
+
+			$(document).ready(function(){ 
+			$("#custList .li").each(function () {
+			   if($(this).val().indexof('-') > -1)
+				{
+				  $(this).css("color", "Crimson");
+				}
+			})  
+			});			
+
+			// Populate Customers list
+			var listCustomers = new Array();
+			var selectedIndex;
+			function receiveCustomersByRoutDay(arrayCustomers){
+/*				var arrayCustomers = new Array();
+				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
+				arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
+				arrayCustomers[2] = {ListId:'3',FullName:'Jose', openBalance:'100000.00'};
+				arrayCustomers[3] = {ListId:'4',FullName:'Lisa', openBalance:'1000000.00'};
+				arrayCustomers[4] = {ListId:'5',FullName:'Cris', openBalance:'10000000.00'};
+				arrayCustomers[5] = {ListId:'6',FullName:'Isa',  openBalance:'-100000000.00'};
+				arrayCustomers[6] = {ListId:'7',FullName:'Ana',  openBalance:'1000000000.00'};
+				arrayCustomers[7] = {ListId:'8',FullName:'Tati', openBalance:'10000000000.00'};
+				arrayCustomers[8] = {ListId:'9',FullName:'Yeny', openBalance:'100000000000.00'};
+				arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
+				arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
+*/			
+				listCustomers = arrayCustomers; // Copy local array to global array
+
+				// Build customers list with <ol> <li>
+				var htmlString1 = '<ol id="custList" data-role="listview" data-filter="true" data-filter-placeholder="Search customers..." data-inset="true">';
+				for(var i=0; i< arrayCustomers.length; i++) {
+					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
+					
+					}
+					htmlString1 += '</ol>';
+					logZoe("htmlString1="+htmlString1);
+					$('#CustomersList').html(htmlString1);
+					$(".linkDetail").click(goDetail);
+			}
+	
+	
+		</script>
+		<style type="text/css">
+			thead {color:black;}
+			tbody {color:gray;}
+			tfoot {
+				color:#ff770f;
+				font-weight:bolder;
+			}
+			table, th, td {
+				border: 1px solid black;
+			}
+			.control-group {
+				margin-bottom: 9px;
+				background-color:#FFFFFF;
+				border-color:#000000;
+				border-width:medium;
+				border:thick;
+			
+				box-shadow: inset 2px 2px 1px 1px rgba(50, 50, 50, 0.75);
+			}
+		</style> 
+	</head>
+
+	<body>
+        <!-- CUSTOMERS LIST (ALPHABETIC BY NAME AND OVERDUE BALANCE IN RED) -->
+		<div data-role="page" id="Customers" data-theme="a" data-title="Customers">
+			<div data-role="content" id="CustomersList">
+				<!-- Injection-->
+			</div>
+			<!-- divs de header, menu y footer-->
+			<div data-role="header" data-position="fixed" data-id="theheader" class="app-header"></div>
+			<div data-role="panel" data-display="overlay" data-position="left" id="menu" class="app-menu"></div>
+			<div data-role="footer" data-position="fixed" data-id="thefooter" class="app-footer"></div>
+		<!-- fin divs -->
+		</div> 
+	</body>
+</html>
