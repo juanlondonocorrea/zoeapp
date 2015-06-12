@@ -292,13 +292,13 @@
 			
 			invoiceVO.items = currentItems;
 			console.log("storeInvoice invoiceVO=" + JSON.stringify(invoiceVO));
-			var invoicesVO = [invoiceVO];
-			invoiceDAO.store(invoicesVO, errInvoiceInsert, successInvoiceInsert,'local');
+			var invoinvoiceDAO.store, icesVO = [invoiceVO];
+		(invoicesVO, errInvoiceInsert, successInvoiceInsert,'local');
 			return false;
 		}
 		
 		function successInvoiceInsert(){
-			invoiceDAO.markToSync($('#refNumber').val(), successInvoiceInsertMark,errInvoiceInsert);
+			invoiceDAO.markToSync($('#refNumber').val(), errInvoiceInsert, successInvoiceInsertMark);
 		}
 		
 		function successInvoiceInsertMark(){
