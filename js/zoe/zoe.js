@@ -124,7 +124,7 @@ function openDatabaseZoe(){
 	function receiveCheckNeedToSync(tx, results){
 		console.log("receiveCheckNeedToSync results=" + results);
 		if (results.rows){
-			itemsToSync = results.rows[0].needCount;
+			itemsToSync = results.rows.item(0).needCount;
 			console.log("needToSync itemsToSync=" + itemsToSync);
 			if (itemsToSync>0){
 				$("#iconSync").html('<a class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-icon-nosync"></a>');
