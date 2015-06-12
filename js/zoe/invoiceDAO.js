@@ -176,7 +176,7 @@ function doStoreOneInvoice(tx, rec){
 }
 
 function doDeleteAllInvoices(tx){
-	tx.executeSql('DELETE FROM invoice_items',[]);
+	tx.executeSql('DELETE FROM invoice_item',[]);
 	tx.executeSql('DELETE FROM invoice',[]);
 }
 
