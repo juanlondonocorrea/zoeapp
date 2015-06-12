@@ -123,7 +123,6 @@ function openDatabaseZoe(){
 
 	function receiveCheckNeedToSync(tx, results){
 		console.log("receiveCheckNeedToSync results=" + results);
-		console.log("receiveCheckNeedToSync results JSON" + JSON.stringify(results));
 		if (results.rows){
 			itemsToSync = results.rows[0].needCount;
 			console.log("needToSync itemsToSync=" + itemsToSync);
