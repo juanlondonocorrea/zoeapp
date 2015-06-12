@@ -181,6 +181,7 @@ function doDeleteAllInvoices(tx){
 }
 
 function doMarkToSyncInvoice(tx){
+	logZoe ("doMarkToSyncInvoice datafiler=" + filterDataInvoice);
 	tx.executeSql("UPDATE invoice SET needSync=1, zoeUpdateDate=datetime('now', 'localtime') where id_invoice = ?",[filterDataInvoice]);
 }
 
