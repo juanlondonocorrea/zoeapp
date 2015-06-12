@@ -1,6 +1,12 @@
 // JavaScript Document
 
-var customerDAO = {list:listCustomers, getById:getCustomerById, store:storeCustomer, deleteAll:deleteAllCustomer, markToSync:markToSyncCustomer, markSynchronized:doMarkSynchorinizedCustomer};
+var customerDAO = {list:listCustomers, 
+		listByRouteDay:listCustomersByRouteDay,
+		getById:getCustomerById, 
+		store:storeCustomer, 
+		deleteAll:deleteAllCustomer, 
+		markToSync:markToSyncCustomer, 
+		markSynchronized:doMarkSynchorinizedCustomer};
 var filterDataCustomer;
 var customerReceiveFunction;
 var customerReceiveListFunction;
@@ -27,6 +33,16 @@ function listCustomers(aReceiveFunction,aErrFunc){
 	customerErrFunc = aErrFunc;
 	db.transaction(doSelectAllCustomer, customerErrFunc);
 }
+
+function listCustomersByRouteDay(aDay, aReceiveFunction,aErrFunc){
+	db = openDatabaseZoe();
+	logZoe("listCustomers db=" + db);
+	customerReceiveListFunction = aReceiveFunction;
+	customerErrFunc = aErrFunc;
+	filterDataCustomer = aDay;
+	db.transaction(doListCustomersByRouteDay, customerErrFunc);
+}
+
 
 function storeCustomer(records,aErrFunc,successCB,origin){
 	db = openDatabaseZoe();
@@ -72,9 +88,15 @@ function doSelectCustomer(tx){
 
 function doSelectAllCustomer(tx){
 	logZoe("doSelectAllCustomer")
-	print_call_stack();
 	tx.executeSql("SELECT ListID, FullName, IsActive, billAddress1, billAddress2, shipAddress1, shipAddress2, openBalance, overdueBalance, workPhone, cellPhone, email, shipAddressZipcode, billAddresZipcode, billAddresCity, billAddressState, billAddressCountry, shipAddressCity, shipAddressState, shipAddressCountry, id_salesrep, routeDay1, routeDay2, routeDay3, routeDay4, routeDay5, routeDay6, routeDay7, Fax, billAddress3, shipAddress3, name, companyName, otherDetails, id_term, pricelevel_ListID FROM customer ORDER BY FullName", [],customerLocalListReceiveFunction, customerErrFunc);
 }
+
+function doListCustomersByRouteDay(tx){
+	logZoe("doListCustomersByRouteDay")
+	tx.executeSql("SELECT ListID, FullName, IsActive, billAddress1, billAddress2, shipAddress1, shipAddress2, openBalance, overdueBalance, workPhone, cellPhone, email, shipAddressZipcode, billAddresZipcode, billAddresCity, billAddressState, billAddressCountry, shipAddressCity, shipAddressState, shipAddressCountry, id_salesrep, routeDay1, routeDay2, routeDay3, routeDay4, routeDay5, routeDay6, routeDay7, Fax, billAddress3, shipAddress3, name, companyName, otherDetails, id_term, pricelevel_ListID FROM customer"
+		+" WHERE routeDay" + filterDataCustomer + "=1", [],customerLocalListReceiveFunction, customerErrFunc);
+}
+
 
 function customerLocalReceiveFunction(tx,results){
 	logZoe("customerLocalReceiveFunction results.length=" + results.rows.length);
