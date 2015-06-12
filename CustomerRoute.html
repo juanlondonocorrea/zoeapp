@@ -24,7 +24,8 @@
 			});
 
 			function initThisPage(event){
-				listCustomersByRouteDay(1, receiveCustomersByRoutDay,errReceiveCustomersByRouteDay)
+				//customerDAO.listCustomersByRouteDay(1, receiveCustomersByRouteDay,errReceiveCustomersByRouteDay);
+				customerDAO.list(receiveCustomersByRouteDay,errReceiveCustomersByRouteDay);
 			}
 
 			// BEGIN Functions on error case
@@ -50,7 +51,7 @@
 			// Populate Customers list
 			var listCustomers = new Array();
 			var selectedIndex;
-			function receiveCustomersByRoutDay(arrayCustomers){
+			function receiveCustomersByRouteDay(arrayCustomers){
 /*				var arrayCustomers = new Array();
 				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
 				arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
