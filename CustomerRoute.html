@@ -26,6 +26,7 @@
 			function initThisPage(event){
 				//customerDAO.listCustomersByRouteDay(1, receiveCustomersByRouteDay,errReceiveCustomersByRouteDay);
 				customerDAO.list(receiveCustomersByRouteDay,errReceiveCustomersByRouteDay);
+				logZoe("Llamó ========== customerDAO");
 			}
 
 			// BEGIN Functions on error case
@@ -66,16 +67,19 @@
 				arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
 */			
 				listCustomers = arrayCustomers; // Copy local array to global array
-
+				logZoe("arrayCustomers ========== "+JSON.stringify(arrayCustomers));
+				
 				// Build customers list with <ol> <li>
 				var htmlString1 = '<ol id="custList" data-role="listview" data-filter="true" data-filter-placeholder="Search customers..." data-inset="true">';
+				logZoe("INICIO htmlString1 ========== "+htmlString1));
 				for(var i=0; i< arrayCustomers.length; i++) {
 					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
 					
 					}
 					htmlString1 += '</ol>';
+					logZoe("FIN htmlString1 ========== "+htmlString1));
 					logZoe("htmlString1="+htmlString1);
-					$('#CustomersList').html(htmlString1);
+					$('#CustomersListByDay').html(htmlString1);
 					//$(".linkDetail").click(goDetail);
 			}
 	
@@ -106,7 +110,7 @@
 	<body>
         <!-- CUSTOMERS LIST (ALPHABETIC BY NAME AND OVERDUE BALANCE IN RED) -->
 		<div data-role="page" id="CustomerRoute" data-theme="a" data-title="Customers">
-			<div data-role="content" id="CustomersList">
+			<div data-role="content" id="CustomersListByDay">
 				<!-- Injection-->
 			</div>
 			<!-- divs de header, menu y footer-->
