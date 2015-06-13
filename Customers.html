@@ -30,6 +30,7 @@
 				//receiveCustomers();
 				type="";
 				if (event && event.currentTarget && event.currentTarget.URL){
+					console.log("event.currentTarget.URL: "+event.currentTarget.URL);
 					type = event.currentTarget.URL.split("?type=")[1];
 				}
 
