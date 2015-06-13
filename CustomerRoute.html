@@ -34,18 +34,6 @@
 			function errReceiveCustomers(err){
 				alert("DB Error customers: "+JSON.stringify(err));
 			}
-			
-			function errReceiveTerms(err){
-				alert("DB Error terms: "+JSON.stringify(err));
-			}
-			
-			function errPriceLevel(err){
-				alert("DB Error Price Level: "+JSON.stringify(err));
-			}
-			
-			function errListInvoicesByCustomer(err){
-				alert("DB Error ListInvoicesByCustomer: "+JSON.stringify(err));
-			}
 			// END functions on error case
 			
 			$(document).bind('pagechange', function() {
@@ -53,29 +41,6 @@
 				$('.ui-page-active :jqmData(role=content)').trigger('create');
 			});	
 
-			// Copy bill fileds to ship fields
-			function BillToShipCopy(){
-				copyState = $('#copyBillToShip').is(':checked');
-				if (copyState == true) { // Copy Bill to Ship
-					$('#shipAddress1').val($('#billAddress1').val());
-					$('#shipAddress2').val($('#billAddress2').val());
-					$('#shipAddress3').val($('#billAddress3').val());
-					$('#shipCity').val($('#billCity').val());
-					$('#shipState').val($('#billState').val());
-					$('#shipZipCode').val($('#billZipCode').val());
-					$('#shipCountry').val($('#billCountry').val());
-				}
-			}
-
-/*			$(document).ready(function(){ 
-			$("td .ms-vb2").each(function () {
-			   if($(this).val().indexof('-') > -1)
-				{
-				  $(this).css("color", "Crimson");
-				}
-			})  
-			});			
-*/
 			$(document).ready(function(){ 
 			$("#custList .li").each(function () {
 			   if($(this).val().indexof('-') > -1)
@@ -85,109 +50,15 @@
 			})  
 			});			
 
-			function openBalanceRed(){ // Colocar valor en rojo para openBalance en la lista
-				if ($('#openBalance').val() < 0) {
-					$("#openBalance").css("color", "Crimson");
-				} else {
-					$("#openBalance").css("color", "black");
-				}
-			}
-			
-			function overdueBalanceRed(){ // Colocar valor en rojo para overdueBalance en Customers Details
-				if ($('#openBalance').val() < 0) {
-					$("#openBalance").css("color", "Crimson");
-				} else {
-					$("#openBalance").css("color", "black");
-				}
-			}
-
-			// Toggle Switch state (on - off) to enable/disable edit
-			var state;
-			function ChangeEditState()
-			{
-				state = $('#FlipSwithEdit').is(':checked');
-				if (state == true) { // Enable Edit
-						enableEdit()
-					}
-					else if (state == false){ // Disable Edit
-						disableEdit() 
-					}		
-			}
-
-			// Enable fields
-			function enableEdit(){
-				$(".myFormsControl").textinput('enable');
-				$(".myFormsControl").selectmenu('enable').selectmenu( "refresh" );
-				$(".myFormsControl").checkboxradio('enable').checkboxradio( "refresh" );
-				$("#Terms").selectmenu('enable').selectmenu( "refresh" );
-				
-//				$('#SalesRep').textinput('enable');
-				
-				//$('#TabCustomerDetails :input').prop('readonly',false);
-				
-				//$('#TabCustomerDetails :checkbox').prop('readonly',false);
-				//$('#routeDays *').prop('disabled',false);
-				//$('.readonly input:checkbox').click(function(){return false;});
-        		//$('.readonly input:checkbox').keydown(function () { return false; });
-				//:checkbox[readonly=readonly]
-				//'.readonly input:checkbox'
-			}
-			
-			// Disable fields
-			function disableEdit(){
-				$(".myFormsControl").textinput('disable');
-				$(".myFormsControl").selectmenu('disable').selectmenu("refresh");
-				$(".myFormsControl").checkboxradio('disable').checkboxradio( "refresh" );
-
-				//$( "li.item-a" ).closest( "#one", listItemII )
-				//$('#TabCustomerDetails :input').prop('readonly',true);
-				
-				//$('#TabCustomerDetails input:checkbox').prop('checked',true);
-				//$('#routeDays *').prop('disabled',true);
-				//$('.readonly input:checkbox').click(function(){return true;});
-        		//$('.readonly input:checkbox').keydown(function () { return true; });				
-			}
-			
-			// Función para calcular los días transcurridos entre dos fechas
-			restaFechas = function(f1,f2)
-			 {
-				 var aFecha1 = f1.split('-'); 
-				 //var aFecha2 = f2.split('-');
-				 var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
-				 var fFecha2 = f2; //Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]);
-				 var dif = fFecha2 - fFecha1;
-				 var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-				 return dias;
-			 }			
-
 			// Populate Customers list
 			var listCustomers = new Array();
 			var selectedIndex;
 			function receiveCustomers(arrayCustomers){
-/*				var arrayCustomers = new Array();
-				arrayCustomers[0] = {ListId:'1',FullName:'Juan', openBalance:'1000.00'};
-				arrayCustomers[1] = {ListId:'2',FullName:'Lina', openBalance:'10000.00'};
-				arrayCustomers[2] = {ListId:'3',FullName:'Jose', openBalance:'100000.00'};
-				arrayCustomers[3] = {ListId:'4',FullName:'Lisa', openBalance:'1000000.00'};
-				arrayCustomers[4] = {ListId:'5',FullName:'Cris', openBalance:'10000000.00'};
-				arrayCustomers[5] = {ListId:'6',FullName:'Isa',  openBalance:'-100000000.00'};
-				arrayCustomers[6] = {ListId:'7',FullName:'Ana',  openBalance:'1000000000.00'};
-				arrayCustomers[7] = {ListId:'8',FullName:'Tati', openBalance:'10000000000.00'};
-				arrayCustomers[8] = {ListId:'9',FullName:'Yeny', openBalance:'100000000000.00'};
-				arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
-				arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
-*/			
 				listCustomers = arrayCustomers; // Copy local array to global array
 
 				// Build customers list with <ol> <li>
 				var htmlString1 = '<ol id="custList" data-role="listview" data-filter="true" data-filter-placeholder="Search customers..." data-inset="true">';
 				for(var i=0; i< arrayCustomers.length; i++) {
-				/*	if (arrayCustomers[i].openBalance < 0) {
-						$("#openB").css("color", "Crimson");
-					}
-					else {
-						$("#openB").css("color", "black");
-					} */
 					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
 					
 					}
@@ -195,36 +66,6 @@
 					logZoe("htmlString1="+htmlString1);
 					$('#CustomersList').html(htmlString1);
 					$(".linkDetail").click(goDetail);
-			}
-			
-			function receiveTerms(arrayTerms){
-				$('#Terms').empty();
-				var toSelectIndex = 0;
-				for (var i in arrayTerms) {
-					if (arrayTerms[i].id_term == listCustomers[selectedIndex].id_term){
-						toSelectIndex=i;
-					}
-					var option='<option value="'+arrayTerms[i].id_term+'">'+arrayTerms[i].name+'</option>'
-					$('#Terms').append(option);					
-				}
-				$('#Terms')[0].selectedIndex = toSelectIndex;
-				$('#Terms').selectmenu('refresh');
-				$('#Terms').trigger("chosen:updated");
-			}
-
-			function receivePriceLevel(arrayPriceList){
-				$('#priceLevel').empty();
-				var toSelectIndex = 0;
-				for (var i in arrayPriceList) {
-					if (arrayPriceList[i].ListID == listCustomers[selectedIndex].pricelevel_ListID){
-						toSelectIndex=i;
-					}
-					var option='<option value="'+arrayPriceList[i].ListID+'">'+arrayPriceList[i].name+'</option>'
-					$('#priceLevel').append(option);
-				}
-				$('#priceLevel')[0].selectedIndex = toSelectIndex;
-				$('#priceLevel').selectmenu('refresh');
-				$('#priceLevel').trigger("chosen:updated");
 			}
 			
 			// List Invoices by Customer 
@@ -252,15 +93,7 @@
 				selectedIndex = index;
 				renderDetail(index);
 			}
-			
-			function goDetailInvoice(event){
-				var index =  event.currentTarget.id;
-				logZoe("goDetail2 index: "+index)
-				index = index.substring(index.indexOf("_")+1);
-				selectedIndex = index;
-				//renderDetail(index);
-			}			
-			
+	
 			var CustomerAddress='';
 			var CustomerEmail='';
 			var CustomerPhone='';
@@ -327,95 +160,6 @@
 				pricelevelDAO.list(receivePriceLevel,errPriceLevel);
 				invoiceDAO.listByCustomer(listCustomers[index].ListID,receiveInvoices, errListInvoicesByCustomer);
 			}
-			
-			function LocateAddress(){
-				var MapAddress = 'http://maps.google.com/maps?q=';
-				var AddressMap1 = MapAddress+CustomerAddress;
-				$('#AddressMap').prop("href", AddressMap1);
-			}
-			
-			function SendEmail(){
-				var EmailP = 'mailto:';
-				var Email1 = EmailP+CustomerEmail;
-				$('#EmailAddress').prop("href", Email1);
-			}
-			
-			function CallPhone(){
-				var PhoneP = 'tel:';
-				var Phone1 = PhoneP+CustomerPhone;
-				$('#PhoneCall').prop("href", Phone1);
-			}	
-			
-			function UpdateCustomer(){
-				var customersVO = [];
-								
-				var customerVO = {
-					id_salesrep:$('#SalesRep').val(),
-
-					ListID:$('#ListID').val(),
-					IsActive:$('#IsActive').val(),
-					FullName:$('#FullName').val(),
-					name:$('#Name').val(),
-					companyName:$('#CompanyName').val(),
-
-					workPhone:$('#Phone').val(),
-					cellPhone:$('#Cell').val(),
-					Fax:$('#Fax').val(),
-					email:$('#Email').val(),
-
-					billAddress1:$('#billAddress1').val(),
-					billAddress2:$('#billAddress2').val(),
-					billAddress3:$('#billAddress3').val(),
-					billAddresCity:$('#billCity').val(),
-					billAddressState:$('#billState').val(),
-					billAddresZipcode:$('#billZipCode').val(),
-					billAddressCountry:$('#billCountry').val(),
-
-					shipAddress1:$('#shipAddress1').val(),
-					shipAddress2:$('#shipAddress2').val(),
-					shipAddress3:$('#shipAddress3').val(),
-					shipAddressCity:$('#shipCity').val(),
-					shipAddressState:$('#shipState').val(),
-					shipAddressZipcode:$('#shipZipCode').val(),
-					shipAddressCountry:$('#shipCountry').val(),
-			
-					openBalance:$('#openBalance').val(),
-					overdueBalance:$('#overdueBalance').val(),
-
-					id_term:$('#Terms').val(),
-					otherDetails:$('#OtherDetails').val(),
-
-					routeDay1:$('#routeDay1').val(),
-					routeDay2:$('#routeDay2').val(),
-					routeDay3:$('#routeDay3').val(),
-					routeDay4:$('#routeDay4').val(),
-					routeDay5:$('#routeDay5').val(),
-					routeDay6:$('#routeDay6').val(),
-					routeDay7:$('#routeDay7').val(),
-
-					pricelevel_ListID:$('#pricelevel_ListID').val()
-				};
-				logZoe("ListID ========> " +$('#ListID').val());
-				logZoe("FullName ========> " +$('#FullName').val());
-				logZoe("Phone ========> " +$('#Phone').val());				
-				logZoe("customerVO ========> " + JSON.stringify(customerVO));
-				customersVO[0] = customerVO;
-				customerDAO.store(customersVO, errCustomerUpdate, successCustomerUpdate, "local");
-			}
-
-			function successCustomerUpdate(){
-					customerDAO.markToSync($('#ListID').val(), errCustomermarkToSync);
-					alert("Customer was successful updated");
-			}
-			
-			function errCustomerUpdate(err){
-				alert("DB Error on update customers: "+JSON.stringify(err));
-			}
-			
-			function errCustomermarkToSync(err){
-				alert("DB Error on mark to Sync update customers: "+JSON.stringify(err));
-			}
-	
 		</script>
 		<style type="text/css">
 			thead {color:black;}
@@ -476,7 +220,7 @@
 		</style> 
 	</head>
 
-	<body onLoad="disableEdit();">
+	<body>
 
         <!-- CUSTOMERS LIST (ALPHABETIC BY NAME AND OVERDUE BALANCE IN RED) -->
 		<div data-role="page" id="Customers" data-theme="a" data-title="Customers">
@@ -493,68 +237,14 @@
 		<!-- BEGIN CUSTOMERS DETAILS-->
 		<div data-role="page" id="CustomersDetails"  data-title="Customers Detail" data-theme="a">
 			<div data-role="content" >
-				<fieldset data-role="controlgroup" data-type="vertical" class="control-group" style="padding:15px">
-                    <div class="ui-grid-a" style="height:70px">
-                        <div class="ui-block-a" style="height:100%"> 
-                            <div align="left">
-                                <label id="lblFullName"></label>
-                            </div>
-                        </div>
-                        <div class="ui-block-b" style="height:100%">            
-                            <div align="right">
-                                <label id="lblOpenBalance1"></label>
-                                <label id="lblOpenBalance2">OPEN</label>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="ui-grid-a" style="height:80px">
-                        <div class="ui-block-a" style="height:100%"> 
-                            <div align="left">
-                                <div class="ui-grid-b">
-                                    <div class="ui-block-a">
-                                        <a id="PhoneCall" href="#" class="ui-btn ui-btn-icon-notext ui-icon-phone" onClick="CallPhone();"></a>
-                                    </div>
-                                    <div class="ui-block-b">
-                                        <a id="EmailAddress" href="#" class="ui-btn ui-btn-icon-notext ui-icon-mail" onClick="SendEmail();"></a> 
-                                    </div>
-                                    <div class="ui-block-c">
-                                        <address>
-											<a id="AddressMap" href="#" target="_blank" class="ui-btn ui-btn-icon-notext ui-icon-location" onClick="LocateAddress();"></a>
-                                        </address>
-                                    </div>
-                                </div><!-- /grid-b -->
-                            </div>
-                        </div>
-                        <div class="ui-block-b" style="height:100%">            
-                            <div align="right">
-                                <label id="lblOverdueBalance1"></label>
-                                <label id="lblOverdueBalance2">OVERDUE</label>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
+
 				<!-- CUSTOMERS DETAILS (LIST DETAILS, EDIT, ADD/ACTIVITIES) -->
 				<div data-role="inlinetabs"  data-theme="a" > <!-- inlinetabs -->
 					<ul>
 						<li data-tab="1">Details</li>
 						<li data-tab="2">Activities</li>
 					</ul>
-					<!-- CUSTOMERS DETAILS CONTENT  - TAB 1 -->
-					<div data-tab="1" id="TabCustomerDetails">
-						<div data-role="fieldcontain">
-							<div>
-								<label for="FlipSwithEdit">Edit enable:</label>
-							</div>
-						<input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="FlipSwithEdit" data-on-text="On" data-off-text="Off" data-wrapper-class="custom-size-flipswitch" onChange="ChangeEditState();">
-                        <a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-plus ui-btn-icon-notext ui-btn-b ui-mini">Add Customer</a>
-						</div>
-					</div>
-					<!-- ACTIVITIES CONTENT - TAB 2 -->
-					<div data-tab="2" id="TabActivities">
-
-					</div>
 				</div>				
-
 			</div>
 
 			<!-- divs de header, menu y footer-->
