@@ -188,6 +188,7 @@
 				arrayCustomers[9] = {ListId:'10',FullName:'Juli', openBalance:'1000000000000.00'};
 				arrayCustomers[10] = {ListId:'11',FullName:'Xime', openBalance:'10000000000000.00'};
 */			
+				console.log("receiveCustomers arrayCustomers=" + JSON.stringify(arrayCustomers));
 				listCustomers = arrayCustomers; // Copy local array to global array
 
 				// Build customers list with <ol> <li>
@@ -199,7 +200,7 @@
 					else {
 						$("#openB").css("color", "black");
 					} */
-					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>' + (type=='route')?'Total sales':'Balance' + '</p><span id="openB" class="ui-li-count">'+(type=='route')?arrayCustomers[i].salesofday:arrayCustomers[i].openBalance+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
+					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>' + ((type=='route')?'Total sales':'Balance') + '</p><span id="openB" class="ui-li-count">'+((type=='route')?arrayCustomers[i].salesofday:arrayCustomers[i].openBalance)+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
 					
 					}
 					htmlString1 += '</ol>';
