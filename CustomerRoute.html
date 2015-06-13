@@ -75,6 +75,7 @@
 				for(var i=0; i< arrayCustomers.length; i++) {
 					htmlString1 += '<li data-filtertext="' + arrayCustomers[i].FullName + '"><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '" ><h3>'+arrayCustomers[i].FullName+'</h3><p>Balance</p><span id="openB" class="ui-li-count">'+arrayCustomers[i].openBalance+'</span></a><a class="linkDetail" href="#CustomersDetails?index=' + i + '" id="link_' + i + '">Predet.</a></li>';
 					
+					logZoe("LI =" + JSON.stringify(arrayCustomers[i]));
 					}
 					htmlString1 += '</ol>';
 					logZoe("FIN htmlString1 ========== "+htmlString1));
