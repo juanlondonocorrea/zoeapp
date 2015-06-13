@@ -25,9 +25,20 @@
 				initThisPage(event);
 			});
 
+			var type="";
 			function initThisPage(event){
 				//receiveCustomers();
-				customerDAO.list(receiveCustomers, errReceiveCustomers);
+				type="";
+				if (event && event.currentTarget && event.currentTarget.URL){
+					type = event.currentTarget.URL.split("?type=")[1];
+				}
+
+				if (type=="route"){
+					customerDAO.listByRouteDay(6, receiveCustomers,errReceiveCustomers);
+				}else{
+					customerDAO.list(receiveCustomers, errReceiveCustomers);
+				}
+				
 			}
 
 			// BEGIN Functions on error case
